@@ -44,7 +44,7 @@ assets/js/main.js     menu, acordeão, animações e formulário
 assets/fonts/         Open Sans hospedada localmente (não depende do Google)
 assets/img/logo.svg           logotipo completo, azul (fundos claros)
 assets/img/logo-branco.svg    logotipo completo, off-white (fundos escuros)
-assets/img/logo-simbolo*.svg  só o símbolo, nas duas versões
+assets/img/logo-simbolo*.svg  só a letra "a", nas duas versões
 assets/img/favicon.svg        ícone da aba do navegador
 assets/img/*.svg              imagens dos projetos (espaços reservados)
 ```
@@ -101,34 +101,35 @@ Proporções usadas no layout (para cortar as imagens sem deformar):
 Salve as fotos em **JPG** (qualidade 80) ou **WebP** e mantenha cada arquivo
 abaixo de 300 KB — o site fica rápido e o Google gosta.
 
-### Trocar pelo logo oficial do estúdio
+### O logo
 
-O logotipo é um arquivo SVG de verdade, com o texto já convertido em curvas —
-não depende de fonte instalada e fica nítido em qualquer tela. São quatro
-arquivos, todos em `assets/img/`:
+O logotipo oficial do estúdio já está aplicado. São cinco arquivos dentro de
+`assets/img/`, todos em SVG (vetor, nítido em qualquer tela e em qualquer
+tamanho de impressão):
 
 | Arquivo | Onde aparece |
 |---|---|
-| `logo.svg` | cabeçalho sobre fundo claro (azul #182889) |
-| `logo-branco.svg` | cabeçalho sobre o hero e rodapé (off-white) |
-| `logo-simbolo.svg` | só o símbolo, versão azul — para usos avulsos |
-| `logo-simbolo-branco.svg` | só o símbolo, versão clara |
+| `logo.svg` | cabeçalho sobre fundo claro — azul #182889 |
+| `logo-branco.svg` | cabeçalho sobre o hero e rodapé — off-white |
+| `logo-simbolo.svg` | só o "a", versão azul — para avatar, carimbo, favicon |
+| `logo-simbolo-branco.svg` | só o "a", versão clara |
+| `favicon.svg` | o "a" em branco dentro do quadrado azul, para a aba do navegador |
 
-**Para usar o seu arquivo:** salve as duas versões do seu logo com os mesmos
-nomes (`logo.svg` e `logo-branco.svg`), sobrescrevendo os que estão na pasta.
-Pronto — não precisa mexer em nenhum HTML.
+O arquivo original tem proporção de **3 : 1** (489 × 163). O CSS fixa só a
+altura — 29px no cabeçalho, 30px no rodapé — e a largura se ajusta sozinha.
+Para mudar o tamanho, edite em `assets/css/style.css`:
 
-Duas recomendações para o seu SVG:
+```css
+.brand{ height:29px; }                 /* cabeçalho */
+.footer__brand .brand{ height:30px; }  /* rodapé */
+```
 
-- **Converta o texto em curvas** antes de exportar. Um SVG com texto vivo
-  procura a fonte no computador de quem visita e pode aparecer trocado.
-- **Mantenha a proporção parecida** (o atual é 5,5 : 1). O CSS fixa a altura
-  em 24px no cabeçalho e 22px no rodapé, e a largura se ajusta sozinha. Se o
-  seu logo for bem mais quadrado, aumente a altura em `assets/css/style.css`,
-  na regra `.brand{ height:24px }`.
+O símbolo e o favicon foram recortados do próprio logotipo (a letra "a"), então
+são exatamente as mesmas curvas — não há redesenho nem aproximação.
 
-O favicon é separado: troque `assets/img/favicon.svg` por um quadrado com o
-símbolo em negativo.
+Se um dia o logo mudar, basta sobrescrever `logo.svg` e `logo-branco.svg`
+mantendo os mesmos nomes: nenhum HTML precisa ser tocado. Só confira a
+proporção — se a nova versão for bem mais quadrada, ajuste a altura acima.
 
 ## 5. Como funciona o formulário de contato
 

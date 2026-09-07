@@ -141,13 +141,18 @@ section[id]{ scroll-margin-top:90px; }
 }
 .header--solid{ position:sticky; color:var(--ink); background:var(--paper); box-shadow:0 1px 0 var(--line); }
 
-.brand{ position:relative; display:block; height:24px; flex:none; }
+.brand{ position:relative; display:block; height:29px; flex:none; }
 .brand__logo{ height:100%; width:auto; transition:opacity .3s var(--ease); }
 .brand__logo--pos{ position:absolute; inset:0; opacity:0; }
 .header.is-stuck .brand__logo--neg,
-.header--solid  .brand__logo--neg{ opacity:0; }
+.header--solid  .brand__logo--neg,
+body.nav-open   .brand__logo--neg{ opacity:0; }
 .header.is-stuck .brand__logo--pos,
-.header--solid  .brand__logo--pos{ opacity:1; }
+.header--solid  .brand__logo--pos,
+body.nav-open   .brand__logo--pos{ opacity:1; }
+
+/* com o menu aberto o fundo é claro: marca e botão voltam ao escuro */
+body.nav-open .header{ color:var(--ink); background:transparent; box-shadow:none; }
 
 .nav{ display:flex; align-items:center; gap:clamp(16px, 2.2vw, 32px); }
 .nav a{ position:relative; font-size:14px; opacity:.8; transition:opacity .2s var(--ease); }
@@ -469,7 +474,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 /* ---------- 15. Rodapé ---------- */
 .footer{ background:var(--ink); color:var(--on-dark); border-top:1px solid var(--on-dark-line); padding-block:clamp(52px, 6vw, 80px) 28px; }
 .footer__brand{ grid-column:1 / 5; }
-.footer__brand .brand{ height:22px; }
+.footer__brand .brand{ height:30px; }
 .footer__brand p{ margin-top:20px; max-width:26ch; font-size:14px; line-height:1.7; color:var(--on-dark-45); }
 .footer__col{ grid-column:span 3; }
 .footer__col:nth-of-type(2){ grid-column:6 / 9; }
