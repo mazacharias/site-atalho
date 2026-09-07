@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <rect width="1600" height="900" fill="#182889"/>
+  
+  <path d="M0 900 L520 380 L900 760 L1280 380 L1600 700 V900 Z" fill="#ffffff" fill-opacity=".10"/>
+  <circle cx="1240" cy="300" r="150" fill="#ffffff" fill-opacity=".9"/>
+  <circle cx="1240" cy="300" r="70" fill="#182889"/>
+  <g stroke="#ffffff" stroke-opacity=".3"><path d="M200 0V900M600 0V900M1000 0V900M1400 0V900"/></g>
+  <text x="28" y="874" font-family="Open Sans, Helvetica, Arial, sans-serif" font-size="13" letter-spacing="1.6" fill="#ffffff" opacity=".75">CAPA — SUBSTITUIR IMAGEM</text>
+</svg>

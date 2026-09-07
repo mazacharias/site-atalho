@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Troque pelo seu domínio depois de publicar
+Sitemap: https://www.atalhostudio.com.br/sitemap.xml

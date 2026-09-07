@@ -1,0 +1,59 @@
+# =========================================================
+# ATALHO STUDIO — configuração de servidor (Apache / Hostinger)
+# Envie este arquivo junto com o site, dentro de public_html.
+# Se algo der errado na hospedagem, basta apagá-lo: o site
+# continua funcionando normalmente sem ele.
+# =========================================================
+
+# ---------- Página inicial ----------
+DirectoryIndex index.html
+
+# ---------- Compressão (páginas mais leves) ----------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ---------- Cache do navegador ----------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html            "access plus 1 hour"
+  ExpiresByType text/css             "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/svg+xml        "access plus 1 year"
+  ExpiresByType image/jpeg           "access plus 1 year"
+  ExpiresByType image/png            "access plus 1 year"
+  ExpiresByType image/webp           "access plus 1 year"
+  ExpiresByType font/woff2           "access plus 1 year"
+</IfModule>
+
+# ---------- Tipos de arquivo ----------
+<IfModule mod_mime.c>
+  AddType image/svg+xml .svg
+  AddType font/woff2    .woff2
+</IfModule>
+
+# ---------- URLs sem .html (ex.: /projeto-01) ----------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # força https (descomente depois de instalar o certificado SSL)
+  # RewriteCond %{HTTPS} off
+  # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # /projeto-01 abre projeto-01.html
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}\.html -f
+  RewriteRule ^(.*)$ $1.html [L]
+</IfModule>
+
+# ---------- Segurança básica ----------
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+Options -Indexes
+
+# ---------- Página de erro ----------
+ErrorDocument 404 /index.html

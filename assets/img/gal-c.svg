@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+  <rect width="1200" height="900" fill="#0d0e13"/>
+  
+  <path d="M0 900 L300 300 L600 900 Z" fill="#182889"/>
+  <path d="M600 900 L900 300 L1200 900 Z" fill="#182889" fill-opacity=".45"/>
+  <circle cx="600" cy="260" r="90" fill="none" stroke="#ffffff" stroke-width="2"/>
+  <text x="28" y="874" font-family="Open Sans, Helvetica, Arial, sans-serif" font-size="13" letter-spacing="1.6" fill="#ffffff" opacity=".75">IMAGEM — SUBSTITUIR</text>
+</svg>
