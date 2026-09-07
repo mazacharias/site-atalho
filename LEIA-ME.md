@@ -41,7 +41,7 @@ sitemap.xml           mapa do site para o Google
 assets/css/style.css  todo o visual do site
 assets/css/fonts.css  declaração da Open Sans
 assets/js/main.js     menu, acordeão, animações e formulário
-assets/fonts/         Open Sans hospedada localmente (não depende do Google)
+assets/fonts/         Open Sans + Reanimation, hospedadas no próprio site
 assets/img/logo.svg           logotipo completo, azul (fundos claros)
 assets/img/logo-branco.svg    logotipo completo, off-white (fundos escuros)
 assets/img/logo-simbolo*.svg  só a letra "a", nas duas versões
@@ -130,6 +130,49 @@ são exatamente as mesmas curvas — não há redesenho nem aproximação.
 Se um dia o logo mudar, basta sobrescrever `logo.svg` e `logo-branco.svg`
 mantendo os mesmos nomes: nenhum HTML precisa ser tocado. Só confira a
 proporção — se a nova versão for bem mais quadrada, ajuste a altura acima.
+
+### As fontes
+
+Duas famílias, ambas hospedadas no próprio site (nada é buscado no Google):
+
+| Fonte | Arquivo | Onde é usada |
+|---|---|---|
+| **Open Sans** | `assets/fonts/open-sans-var-latin*.woff2` | todo o site — títulos de seção, textos, menus, formulário |
+| **REANIMATION Sans Serif** | `assets/fonts/reanimation.woff2` | só o título do hero |
+
+A Reanimation veio do arquivo `.ttf` que você enviou. Recortei para latim +
+acentuação do português e converti para woff2: o arquivo caiu de 124 KB para
+**17 KB**, com a acentuação inteira preservada (á à â ã é ê í ó ô õ ú ü ç).
+
+**Para usá-la também nos títulos das seções**, abra `assets/css/style.css` e
+acrescente `.h2` à regra do hero (seção 7 do arquivo):
+
+```css
+.hero h1,
+.h2 {                                /* <- acrescente esta linha */
+  font-family: var(--display-font);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+```
+
+E acrescente o preload nas páginas de projeto, no `<head>`, junto do que já
+existe para a Open Sans:
+
+```html
+<link rel="preload" href="assets/fonts/reanimation.woff2" as="font" type="font/woff2" crossorigin>
+```
+
+**Não recomendo usá-la em textos corridos.** É uma condensada pesada, feita
+para tamanhos grandes; em parágrafo ela cansa a leitura e briga com o tom
+sóbrio do resto. O contraste entre ela (display) e a Open Sans (leitura) é o
+que faz o hero funcionar.
+
+**Sobre licença:** o arquivo traz copyright da Everglow Std e a permissão de
+embutir marcada como *Preview & Print*. Uso como webfont normalmente pede uma
+licença específica de web — vale confirmar com a fundição antes de o site ir
+ao ar. É uma questão de contrato, não técnica: o site funciona do jeito que
+está.
 
 ## 5. Como funciona o formulário de contato
 

@@ -27,6 +27,10 @@
   --on-dark-45:   rgba(242, 242, 238, .45);
   --on-dark-line: rgba(242, 242, 238, .15);
 
+  /* Reanimation entra no título do hero; acrescente .h2 à regra
+     `.hero h1` (seção 7) para estendê-la aos títulos de seção. */
+  --display-font: 'Reanimation', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+
   --shell:        1280px;
   --gut:          clamp(20px, 4.4vw, 56px);
   --colgap:       clamp(14px, 1.9vw, 28px);
@@ -227,9 +231,17 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
   font-size:11px; font-weight:600; letter-spacing:.17em; text-transform:uppercase; color:var(--on-dark-70);
 }
 .hero__kicker::before{ content:""; width:40px; height:1px; background:currentColor; opacity:.7; }
-.hero h1{ max-width:19ch; }
-.hero h1 em{ display:block; font-style:normal; color:rgba(242,242,238,.5); }
-.hero__lead{ margin-top:clamp(24px, 3vw, 36px); max-width:46ch; font-size:16.5px; line-height:1.72; color:var(--on-dark-70); }
+.hero h1{
+  max-width:22ch;
+  font-family:var(--display-font);
+  font-weight:400;                 /* a Reanimation já é pesada por desenho */
+  font-size:clamp(42px, 6.4vw, 92px);
+  line-height:1.0;
+  letter-spacing:0;                /* condensada: tracking negativo colaria */
+  text-wrap:balance;
+}
+.hero h1 em{ display:block; font-style:normal; color:rgba(242,242,238,.58); }
+.hero__lead{ margin-top:clamp(32px, 3.2vw, 40px); max-width:46ch; font-size:16.5px; line-height:1.72; color:var(--on-dark-70); }
 .hero__actions{ display:flex; flex-wrap:wrap; align-items:center; gap:16px 26px; margin-top:clamp(30px, 4vw, 44px); }
 
 .hero__index{ grid-column:10 / 13; }
