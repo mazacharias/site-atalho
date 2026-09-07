@@ -24,16 +24,12 @@
 </head>
 <body>
 
-<!-- ====================== HEADER ====================== -->
+<!-- ====================== CABEÇALHO ====================== -->
 <header class="header header--solid" id="header">
   <div class="shell header__bar">
     <a class="brand" href="index.html" aria-label="Atalho Studio — início">
-      <svg class="brand__mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-        <rect x="1.75" y="1.75" width="44.5" height="44.5" rx="6" stroke="currentColor" stroke-width="2.6"/>
-        <path d="M13 35 L35 13" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/>
-        <path d="M22 13 H35 V26" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/>
-      </svg>
-      <span class="brand__type">atalho<sup>&reg;</sup></span>
+      <img class="brand__logo brand__logo--neg" src="assets/img/logo-branco.svg" alt="Atalho Studio" width="444" height="81">
+      <img class="brand__logo brand__logo--pos" src="assets/img/logo.svg" alt="" aria-hidden="true" width="444" height="81">
     </a>
 
     <nav class="nav" aria-label="Navegação principal">
@@ -41,11 +37,11 @@
       <a href="index.html#servicos">Serviços</a>
       <a href="index.html#processo">Processo</a>
       <a href="index.html#projetos">Projetos</a>
-      <a href="index.html#faq">Dúvidas</a>
+      <a href="index.html#duvidas">Dúvidas</a>
     </nav>
 
     <div class="header__cta">
-      <a class="btn btn--light" href="index.html#contato">
+      <a class="btn btn--light btn--sm" href="index.html#contato">
         Iniciar projeto
         <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg>
       </a>
@@ -56,16 +52,16 @@
 
 <div class="drawer" id="drawer">
   <nav aria-label="Navegação mobile">
-    <a class="drawer__link" href="index.html#estudio">Estúdio</a>
-    <a class="drawer__link" href="index.html#servicos">Serviços</a>
-    <a class="drawer__link" href="index.html#processo">Processo</a>
-    <a class="drawer__link" href="index.html#projetos">Projetos</a>
-    <a class="drawer__link" href="index.html#faq">Dúvidas</a>
-    <a class="drawer__link" href="index.html#contato">Contato</a>
+    <a class="drawer__link" href="index.html#estudio"><i>01</i>Estúdio</a>
+    <a class="drawer__link" href="index.html#servicos"><i>02</i>Serviços</a>
+    <a class="drawer__link" href="index.html#processo"><i>03</i>Processo</a>
+    <a class="drawer__link" href="index.html#projetos"><i>04</i>Projetos</a>
+    <a class="drawer__link" href="index.html#duvidas"><i>05</i>Dúvidas</a>
+    <a class="drawer__link" href="index.html#contato"><i>06</i>Contato</a>
   </nav>
   <div class="drawer__foot">
-    <span class="small" style="color:var(--ink-40)">São Paulo · Brasil</span>
-    <a class="btn btn--solid" href="index.html#contato">Iniciar projeto
+    <span class="micro">São Paulo · Brasil</span>
+    <a class="btn btn--solid btn--sm" href="index.html#contato">Iniciar projeto
       <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg>
     </a>
   </div>
@@ -76,11 +72,11 @@
 <!-- ====================== ABERTURA ====================== -->
 <section class="p-hero s-paper">
   <div class="shell">
-    <p class="p-hero__crumb reveal"><a href="index.html#projetos">Projetos</a> <span>/</span> <span>03</span> <span>/</span> <span>Sistema</span></p>
-    <h1 class="display p-hero__title reveal">Norte Coletivo</h1>
+    <p class="crumb reveal"><a href="index.html#projetos">Projetos</a> <span>/</span> <span>03</span> <span>/</span> <span>Sistema</span></p>
+    <h1 class="display reveal">Norte Coletivo</h1>
     <p class="lead p-hero__sub reveal" data-d="1">Uma rede de eventos culturais com quarenta produtores independentes e nenhuma forma de parecer uma coisa só.</p>
 
-    <div class="meta reveal" data-d="2">
+    <div class="g12 meta reveal" data-d="2">
       <div><small>Cliente</small><p>Norte Coletivo</p></div>
       <div><small>Ano</small><p>2024</p></div>
       <div><small>Escopo</small><p>Sistema visual e campanha</p></div>
@@ -89,9 +85,9 @@
   </div>
 </section>
 
-<section class="section--tight s-paper" style="padding-top:0">
+<section class="s-paper" style="padding-bottom:clamp(72px, 9vw, 132px)">
   <div class="shell">
-    <!-- Troque por uma foto/render real do projeto -->
+    <!-- Troque por uma imagem real do projeto -->
     <img class="cover reveal" src="assets/img/cover-03.svg" alt="Norte Coletivo — imagem de capa do projeto" width="1600" height="900">
   </div>
 </section>
@@ -99,19 +95,16 @@
 <!-- ====================== DESAFIO ====================== -->
 <section class="section s-white">
   <div class="shell">
-    <div class="two-col">
-      <p class="eyebrow reveal">/ O desafio</p>
-      <div class="prose reveal" data-d="1">
+    <div class="g12 block">
+      <div class="block__lb reveal"><span class="micro">01 / O desafio</span></div>
+      <div class="block__tx prose reveal" data-d="1">
         <p>O Norte reúne produtores de sete cidades. Cada um divulgava seus eventos com o material que conseguia fazer, e o público não percebia que se tratava da mesma rede. Patrocinadores faziam a mesma pergunta em toda reunião: afinal, quantas pessoas vocês alcançam juntos?</p><p>A marca existia, mas era rígida demais para quarenta mãos diferentes — e, na prática, ninguém usava.</p>
       </div>
     </div>
 
-    <div class="two-col" style="margin-top:clamp(48px, 6vw, 84px)">
-      <span></span>
-      <div class="gallery reveal">
-        <img src="assets/img/gal-c.svg" alt="Norte Coletivo — estudo visual" loading="lazy" width="1200" height="900">
-        <img src="assets/img/gal-a.svg" alt="Norte Coletivo — aplicação da marca" loading="lazy" width="1200" height="900">
-      </div>
+    <div class="g12 gallery reveal">
+      <img src="assets/img/gal-c.svg" alt="Norte Coletivo — estudo visual" loading="lazy" width="1200" height="900">
+      <img src="assets/img/gal-a.svg" alt="Norte Coletivo — aplicação da marca" loading="lazy" width="1200" height="900">
     </div>
   </div>
 </section>
@@ -119,18 +112,15 @@
 <!-- ====================== SOLUÇÃO ====================== -->
 <section class="section s-paper">
   <div class="shell">
-    <div class="two-col">
-      <p class="eyebrow reveal">/ A solução</p>
-      <div class="prose reveal" data-d="1">
+    <div class="g12 block">
+      <div class="block__lb reveal"><span class="micro">02 / A solução</span></div>
+      <div class="block__tx prose reveal" data-d="1">
         <p>Em vez de um manual mais restritivo, desenhamos um sistema que assume a variedade. Definimos três elementos invariáveis — a marca, uma tipografia e uma faixa de assinatura — e liberamos cor, imagem e composição para cada produtor.</p><p>Tudo foi entregue como templates editáveis no Canva, a ferramenta que o grupo já usava, com formatos prontos para os canais de sempre. A regra é simples o bastante para ser lembrada sem consulta: se tem a faixa, é Norte.</p>
       </div>
     </div>
 
-    <div class="two-col" style="margin-top:clamp(48px, 6vw, 84px)">
-      <span></span>
-      <div class="gallery gallery--full reveal">
-        <img src="assets/img/cover-01.svg" alt="Norte Coletivo — sistema visual aplicado" loading="lazy" width="1600" height="900">
-      </div>
+    <div class="g12 gallery gallery--full reveal">
+      <img src="assets/img/cover-01.svg" alt="Norte Coletivo — sistema visual aplicado" loading="lazy" width="1600" height="900">
     </div>
   </div>
 </section>
@@ -138,15 +128,13 @@
 <!-- ====================== RESULTADOS ====================== -->
 <section class="section s-dark">
   <div class="shell">
-    <div class="head">
-      <div>
-        <p class="eyebrow reveal">/ Resultados</p>
-        <h2 class="h2 head__title reveal">O que mudou.</h2>
-      </div>
-      <p class="body reveal" data-d="1">Resultado da primeira temporada com o sistema em uso pelos produtores da rede.</p>
+    <div class="g12 sec-head">
+      <div class="sec-head__id reveal"><b>03</b><span class="micro">Resultados</span></div>
+      <div class="sec-head__t reveal" data-d="1"><h2 class="h2">O que mudou.</h2></div>
+      <div class="sec-head__x reveal" data-d="2"><p>Resultado da primeira temporada com o sistema em uso pelos produtores da rede.</p></div>
     </div>
 
-    <div class="results">
+    <div class="g12 results">
       <div class="reveal"><strong>40</strong><p>Produtores usando o mesmo sistema, sem passar pelo estúdio a cada peça.</p></div>
       <div class="reveal" data-d="1"><strong>3</strong><p>Elementos fixos — o resto é livre, e é isso que faz funcionar.</p></div>
       <div class="reveal" data-d="2"><strong>6 sem.</strong><p>Do primeiro encontro com a rede ao sistema rodando em sete cidades.</p></div>
@@ -157,11 +145,11 @@
 <!-- ====================== ENTREGA ====================== -->
 <section class="section s-white">
   <div class="shell">
-    <div class="two-col">
-      <p class="eyebrow reveal">/ Entrega</p>
-      <div class="reveal" data-d="1">
-        <p class="lead" style="max-width:40ch">Tudo o que foi para as mãos do cliente ao final das seis semanas.</p>
-        <div class="deliver" style="margin-top:clamp(32px, 4vw, 48px)">
+    <div class="g12 block">
+      <div class="block__lb reveal"><span class="micro">04 / Entrega</span></div>
+      <div class="block__full reveal" data-d="1">
+        <p class="lead" style="max-width:24ch">Tudo o que foi para as mãos do cliente ao final das seis semanas.</p>
+        <div class="g12 deliver" style="margin-top:clamp(36px, 4vw, 52px)">
           <div><span>SISTEMA</span><h4>Regras de marca</h4><p>Um documento de duas páginas com o que não pode mudar — e tudo o que pode.</p></div>
           <div><span>CAMPANHA</span><h4>Direção de arte</h4><p>Peças-piloto de três eventos, servindo de referência viva para a rede.</p></div>
           <div><span>KIT</span><h4>Templates editáveis</h4><p>Formatos de feed, stories, cartaz e ingresso, prontos no Canva.</p></div>
@@ -184,18 +172,16 @@
 
 <!-- ====================== CHAMADA DE CONTATO ====================== -->
 <section class="section s-brand">
-  <div class="shell">
-    <div class="head" style="margin-bottom:0">
-      <div>
-        <p class="eyebrow reveal">/ Contato</p>
-        <h2 class="h2 head__title reveal" style="max-width:14ch">Seu projeto pode ser o próximo.</h2>
-      </div>
-      <div class="reveal" data-d="1" style="align-self:end">
-        <p class="body" style="margin-bottom:24px">Conte em duas linhas o que você precisa. Respondemos em até um dia útil.</p>
-        <a class="btn btn--light" href="index.html#contato">Iniciar projeto
-          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg>
-        </a>
-      </div>
+  <div class="shell g12">
+    <div class="cta-band__t">
+      <p class="micro reveal">Contato</p>
+      <h2 class="h2 reveal" data-d="1" style="margin-top:20px; max-width:13ch">Seu projeto pode ser o próximo.</h2>
+    </div>
+    <div class="cta-band__x reveal" data-d="2">
+      <p class="body" style="margin-bottom:26px">Conte em duas linhas o que você precisa. Respondemos em até um dia útil.</p>
+      <a class="btn btn--light" href="index.html#contato">Iniciar projeto
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg>
+      </a>
     </div>
   </div>
 </section>
@@ -205,25 +191,43 @@
 <!-- ====================== RODAPÉ ====================== -->
 <footer class="footer">
   <div class="shell">
-    <div class="footer__top">
-      <a class="brand" href="index.html" aria-label="Atalho Studio — início">
-        <svg class="brand__mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-          <rect x="1.75" y="1.75" width="44.5" height="44.5" rx="6" stroke="currentColor" stroke-width="2.6"/>
-          <path d="M13 35 L35 13" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/>
-          <path d="M22 13 H35 V26" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/>
-        </svg>
-        <span class="brand__type">atalho<sup>&reg;</sup></span>
-      </a>
-      <nav class="footer__nav" aria-label="Rodapé">
-        <a href="index.html#estudio">Estúdio</a>
-        <a href="index.html#servicos">Serviços</a>
-        <a href="index.html#processo">Processo</a>
-        <a href="projeto-01.html">Meridiano Capital</a>
-        <a href="projeto-02.html">Verda</a>
-        <a href="projeto-03.html">Norte Coletivo</a>
-        <a href="index.html#contato">Contato</a>
-      </nav>
+    <div class="g12">
+      <div class="footer__brand">
+        <a class="brand" href="index.html" aria-label="Atalho Studio — início">
+          <img class="brand__logo" src="assets/img/logo-branco.svg" alt="Atalho Studio" width="444" height="81">
+        </a>
+        <p>Estúdio de design de marca e produto digital. São Paulo, Brasil.</p>
+      </div>
+
+      <div class="footer__col">
+        <h5>Navegação</h5>
+        <ul>
+          <li><a href="index.html#estudio">Estúdio</a></li>
+          <li><a href="index.html#servicos">Serviços</a></li>
+          <li><a href="index.html#processo">Processo</a></li>
+          <li><a href="index.html#duvidas">Dúvidas</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h5>Projetos</h5>
+        <ul>
+          <li><a href="projeto-01.html">Meridiano Capital</a></li>
+          <li><a href="projeto-02.html">Verda</a></li>
+          <li><a href="projeto-03.html">Norte Coletivo</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h5>Contato</h5>
+        <ul>
+          <li><a href="mailto:contato@atalhostudio.com.br">E-mail</a></li>
+          <li><a href="https://wa.me/5511999999999" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="https://instagram.com/atalho.studio" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
     </div>
+
     <div class="footer__bot">
       <span>&copy; <span id="ano">2026</span> Atalho Studio. Todos os direitos reservados.</span>
       <span>Feito com atalhos, não com pressa.</span>

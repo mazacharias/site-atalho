@@ -8,7 +8,7 @@
 <meta name="author" content="Atalho Studio">
 <meta name="theme-color" content="#182889">
 
-<!-- Open Graph / redes sociais — troque a URL quando o domínio estiver no ar -->
+<!-- Open Graph — troque a URL quando o domínio estiver no ar -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Atalho Studio">
 <meta property="og:title" content="Atalho Studio — Estúdio de design">
@@ -39,16 +39,12 @@
 </head>
 <body>
 
-<!-- ====================== HEADER ====================== -->
+<!-- ====================== CABEÇALHO ====================== -->
 <header class="header" id="header">
   <div class="shell header__bar">
     <a class="brand" href="./" aria-label="Atalho Studio — início">
-      <svg class="brand__mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-        <rect x="1.75" y="1.75" width="44.5" height="44.5" rx="6" stroke="currentColor" stroke-width="2.6"/>
-        <path d="M13 35 L35 13" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/>
-        <path d="M22 13 H35 V26" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/>
-      </svg>
-      <span class="brand__type">atalho<sup>®</sup></span>
+      <img class="brand__logo brand__logo--neg" src="assets/img/logo-branco.svg" alt="Atalho Studio" width="444" height="81">
+      <img class="brand__logo brand__logo--pos" src="assets/img/logo.svg" alt="" aria-hidden="true" width="444" height="81">
     </a>
 
     <nav class="nav" aria-label="Navegação principal">
@@ -56,11 +52,11 @@
       <a href="#servicos">Serviços</a>
       <a href="#processo">Processo</a>
       <a href="#projetos">Projetos</a>
-      <a href="#faq">Dúvidas</a>
+      <a href="#duvidas">Dúvidas</a>
     </nav>
 
     <div class="header__cta">
-      <a class="btn btn--light" href="#contato">
+      <a class="btn btn--light btn--sm" href="#contato">
         Iniciar projeto
         <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg>
       </a>
@@ -69,19 +65,18 @@
   </div>
 </header>
 
-<!-- Menu mobile -->
 <div class="drawer" id="drawer">
   <nav aria-label="Navegação mobile">
-    <a class="drawer__link" href="#estudio">Estúdio</a>
-    <a class="drawer__link" href="#servicos">Serviços</a>
-    <a class="drawer__link" href="#processo">Processo</a>
-    <a class="drawer__link" href="#projetos">Projetos</a>
-    <a class="drawer__link" href="#faq">Dúvidas</a>
-    <a class="drawer__link" href="#contato">Contato</a>
+    <a class="drawer__link" href="#estudio"><i>01</i>Estúdio</a>
+    <a class="drawer__link" href="#servicos"><i>02</i>Serviços</a>
+    <a class="drawer__link" href="#processo"><i>03</i>Processo</a>
+    <a class="drawer__link" href="#projetos"><i>04</i>Projetos</a>
+    <a class="drawer__link" href="#duvidas"><i>05</i>Dúvidas</a>
+    <a class="drawer__link" href="#contato"><i>06</i>Contato</a>
   </nav>
   <div class="drawer__foot">
-    <span class="small" style="color:var(--ink-40)">São Paulo · Brasil</span>
-    <a class="btn btn--solid" href="#contato">Iniciar projeto
+    <span class="micro">São Paulo · Brasil</span>
+    <a class="btn btn--solid btn--sm" href="#contato">Iniciar projeto
       <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg>
     </a>
   </div>
@@ -92,48 +87,87 @@
 <!-- ====================== HERO ====================== -->
 <section class="hero">
   <div class="hero__grid" aria-hidden="true"></div>
-  <div class="shell hero__inner">
+  <div class="rules hero__cols" aria-hidden="true">
+    <span style="left:8.33%"></span><span style="left:16.66%"></span><span style="left:25%"></span>
+    <span style="left:33.33%"></span><span style="left:41.66%"></span><span style="left:50%"></span>
+    <span style="left:58.33%"></span><span style="left:66.66%"></span><span style="left:75%"></span>
+    <span style="left:83.33%"></span><span style="left:91.66%"></span>
+  </div>
+  <div class="hero__glow" aria-hidden="true"></div>
 
-    <div class="hero__top">
-      <h1 class="display hero__title reveal">Encurtamos o caminho entre a ideia e a marca pronta.</h1>
-      <div class="hero__aside reveal" data-d="1">
-        <p>Somos um estúdio de design independente. Trabalhamos com poucos clientes por vez, em ciclos curtos e com entrega definida desde o primeiro dia — sem retrabalho, sem processo interminável.</p>
-        <a class="link-u" href="#processo">
-          Ver como trabalhamos
-          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg>
-        </a>
+  <div class="hero__inner">
+    <div class="shell">
+      <div class="g12 hero__row">
+        <div class="hero__main">
+          <p class="hero__kicker reveal">Estúdio de design · São Paulo</p>
+          <h1 class="display reveal" data-d="1">Encurtamos o caminho entre a ideia <em>e a marca pronta.</em></h1>
+          <p class="hero__lead reveal" data-d="2">Marca, produto digital e sistemas visuais para empresas que precisam
+            decidir rápido sem abrir mão do rigor. Poucos clientes por vez, ciclos curtos e entrega definida
+            desde o primeiro dia.</p>
+          <div class="hero__actions reveal" data-d="3">
+            <a class="btn btn--light" href="#contato">Iniciar projeto
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg>
+            </a>
+            <a class="link-u" href="#processo">Ver como trabalhamos
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero__index reveal" data-d="3">
+          <p class="micro">O que fazemos</p>
+          <ol>
+            <li><a href="#servicos"><i>01</i>Identidade de marca</a></li>
+            <li><a href="#servicos"><i>02</i>Design digital</a></li>
+            <li><a href="#servicos"><i>03</i>Sistemas visuais</a></li>
+          </ol>
+        </aside>
       </div>
     </div>
+  </div>
 
-    <span class="wordmark" aria-hidden="true">atalho<sup>®</sup></span>
-
-    <div class="hero__meta">
-      <span>Design de marca</span>
-      <span>Produto digital</span>
-      <span>Sistemas visuais</span>
-      <span>Est. 2021 · São Paulo</span>
+  <div class="hero__rail">
+    <div class="shell hero__rail-in">
+      <span class="dot">Agenda aberta para novos projetos</span>
+      <ul>
+        <li>40+ projetos entregues</li>
+        <li>Ciclos de 6 a 8 semanas</li>
+        <li>Est. 2021</li>
+      </ul>
+      <a class="hero__scroll" href="#estudio">Rolar
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v11M4 9l4 4 4-4" stroke="currentColor" stroke-width="1.6"/></svg>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ====================== ESTÚDIO ====================== -->
+<!-- ====================== 01 · ESTÚDIO ====================== -->
 <section class="section s-paper" id="estudio">
   <div class="shell">
-    <div class="statement">
-      <p class="eyebrow reveal">/ O estúdio</p>
-      <div class="statement__body">
-        <p class="lead reveal">Marca não é enfeite: é a forma mais rápida de explicar o que a sua empresa faz. O <span class="accent">Atalho</span> existe para tirar essa decisão do campo do achismo e transformá-la em um sistema — coerente, documentado e pronto para ser usado por qualquer pessoa do seu time.</p>
-        <div class="reveal" data-d="1" style="margin-top:32px; max-width:62ch">
-          <p class="body">Cada projeto começa por entender o problema real do negócio e termina com material aplicável: manual, arquivos abertos, templates e um time treinado para operar a marca sem depender do estúdio. Atendemos empresas em estágio de lançamento, reposicionamento ou expansão.</p>
-        </div>
-      </div>
+    <div class="g12 sec-head">
+      <div class="sec-head__id reveal"><b>01</b><span class="micro">Estúdio</span></div>
+      <div class="sec-head__t reveal" data-d="1"><h2 class="h2">Marca é a forma mais rápida de explicar o que a sua empresa faz.</h2></div>
+      <div class="sec-head__x reveal" data-d="2"><p>Existimos para tirar essa decisão do campo do achismo e transformá-la em um sistema — coerente, documentado e pronto para uso.</p></div>
     </div>
 
-    <div class="statement__foot reveal" data-d="2">
-      <div class="stats">
-        <div><span>40+</span><small>Projetos entregues</small></div>
-        <div><span>6&ndash;8</span><small>Semanas por ciclo</small></div>
-        <div><span>3</span><small>Clientes por vez</small></div>
+    <div class="g12">
+      <p class="lead about__lead reveal">Cada projeto começa por entender o problema real do negócio e termina com material
+        aplicável: manual, arquivos abertos, templates e um time treinado para operar a marca <span class="accent">sem depender do estúdio</span>.</p>
+    </div>
+
+    <div class="g12 about__cols">
+      <p class="body reveal" data-d="1">Atendemos empresas em três momentos: no lançamento, quando ainda não existe
+        linguagem definida; no reposicionamento, quando o que existe já não corresponde ao que a empresa virou; e na
+        expansão, quando o volume de material cresceu além do que uma pessoa consegue controlar sozinha.</p>
+      <p class="body reveal" data-d="2">Trabalhamos com poucos clientes por vez porque o método exige presença. O
+        cronograma é acordado antes de começar e não se move — se algo precisa mudar, ajustamos o escopo, nunca o
+        prazo combinado com você.</p>
+    </div>
+
+    <div class="factbar reveal" data-d="2">
+      <div class="facts">
+        <div><b>40+</b><span>Projetos entregues</span></div>
+        <div><b>6&ndash;8</b><span>Semanas por ciclo</span></div>
       </div>
       <a class="btn btn--ghost" href="#projetos">Ver projetos
         <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg>
@@ -142,22 +176,20 @@
   </div>
 </section>
 
-<!-- ====================== SERVIÇOS ====================== -->
+<!-- ====================== 02 · SERVIÇOS ====================== -->
 <section class="section s-dark" id="servicos">
   <div class="shell">
-    <div class="head">
-      <div>
-        <p class="eyebrow reveal">/ Serviços</p>
-        <h2 class="h2 head__title reveal">Três frentes, um sistema só.</h2>
-      </div>
-      <p class="body reveal" data-d="1">Podem ser contratadas juntas, como um projeto completo de marca, ou isoladamente — quando já existe uma base e falta consistência.</p>
+    <div class="g12 sec-head">
+      <div class="sec-head__id reveal"><b>02</b><span class="micro">Serviços</span></div>
+      <div class="sec-head__t reveal" data-d="1"><h2 class="h2">Três frentes, um sistema só.</h2></div>
+      <div class="sec-head__x reveal" data-d="2"><p>Podem ser contratadas juntas, como um projeto completo de marca, ou isoladamente — quando já existe uma base e falta consistência.</p></div>
     </div>
 
-    <div class="services">
-      <article class="service reveal">
-        <span class="service__n">01</span>
+    <div class="g12 cards">
+      <article class="card reveal">
+        <span class="card__n">01</span>
         <h3 class="h3">Identidade de marca</h3>
-        <p class="body">Do posicionamento ao manual. Construímos a base verbal e visual que sustenta tudo o que a marca publica.</p>
+        <p>Do posicionamento ao manual. A base verbal e visual que sustenta tudo o que a marca publica.</p>
         <ul>
           <li>Plataforma e territórios de marca</li>
           <li>Símbolo, logotipo e tipografia</li>
@@ -166,10 +198,10 @@
         </ul>
       </article>
 
-      <article class="service reveal" data-d="1">
-        <span class="service__n">02</span>
+      <article class="card reveal" data-d="1">
+        <span class="card__n">02</span>
         <h3 class="h3">Design digital</h3>
-        <p class="body">Sites e produtos que traduzem a marca em interface — legíveis, rápidos e fáceis de manter.</p>
+        <p>Sites e produtos que traduzem a marca em interface — legíveis, rápidos e fáceis de manter.</p>
         <ul>
           <li>Landing pages e sites institucionais</li>
           <li>UI de produto e design system</li>
@@ -178,10 +210,10 @@
         </ul>
       </article>
 
-      <article class="service reveal" data-d="2">
-        <span class="service__n">03</span>
+      <article class="card reveal" data-d="2">
+        <span class="card__n">03</span>
         <h3 class="h3">Sistemas visuais</h3>
-        <p class="body">Para quem já tem marca e precisa escalar: peças, campanhas e templates com padrão único.</p>
+        <p>Para quem já tem marca e precisa escalar: peças, campanhas e templates com padrão único.</p>
         <ul>
           <li>Kit de social e apresentações</li>
           <li>Direção de arte e campanha</li>
@@ -193,21 +225,19 @@
   </div>
 </section>
 
-<!-- ====================== PROCESSO / CRONOGRAMA ====================== -->
+<!-- ====================== 03 · PROCESSO ====================== -->
 <section class="section s-paper" id="processo">
   <div class="shell">
-    <div class="head">
-      <div>
-        <p class="eyebrow reveal">/ Processo</p>
-        <h2 class="h2 head__title reveal">Cronograma e entrega em 8 semanas.</h2>
-      </div>
-      <p class="body reveal" data-d="1">Um projeto completo de marca leva de 6 a 8 semanas. O diagrama abaixo mostra as quatro fases, o que acontece em cada uma e em que momento cada entrega chega até você.</p>
+    <div class="g12 sec-head">
+      <div class="sec-head__id reveal"><b>03</b><span class="micro">Processo</span></div>
+      <div class="sec-head__t reveal" data-d="1"><h2 class="h2">Cronograma e entrega em 8 semanas.</h2></div>
+      <div class="sec-head__x reveal" data-d="2"><p>Quatro fases, marcos de aprovação definidos e a data em que cada entrega chega até você. Nada começa sem que essa linha esteja acordada.</p></div>
     </div>
 
-    <!-- Diagrama de cronograma (Gantt) -->
-    <div class="gantt reveal" role="img" aria-label="Cronograma de 8 semanas dividido em quatro fases: Descoberta nas semanas 1 e 2, Direção nas semanas 3 e 4, Design nas semanas 4 a 7, e Entrega nas semanas 7 e 8.">
+    <!-- Diagrama de cronograma -->
+    <div class="gantt reveal" role="img" aria-label="Cronograma de 8 semanas em quatro fases: Descoberta nas semanas 1 e 2, Direção nas semanas 3 e 4, Design nas semanas 4 a 7, Entrega nas semanas 7 e 8, mais 30 dias de suporte após a entrega.">
       <div class="gantt__head" aria-hidden="true">
-        <span class="small" style="color:var(--ink-40)">Fase</span>
+        <span class="micro">Fase</span>
         <div class="gantt__scale">
           <span>S1</span><span>S2</span><span>S3</span><span>S4</span>
           <span>S5</span><span>S6</span><span>S7</span><span>S8</span>
@@ -215,32 +245,52 @@
       </div>
 
       <div class="gantt__row">
-        <div class="gantt__label"><strong><em>01</em>Descoberta</strong><span>Imersão, entrevistas, análise de mercado e diagnóstico.</span><b class="gantt__when">Semanas 1–2</b></div>
+        <div class="gantt__label">
+          <strong><em>01</em>Descoberta</strong>
+          <span>Imersão, entrevistas, análise de mercado e diagnóstico.</span>
+          <b class="gantt__when">Semanas 1–2</b>
+        </div>
         <div class="gantt__track"><span class="gantt__bar" style="--s:1; --n:2">Semanas 1&ndash;2</span></div>
       </div>
 
       <div class="gantt__row">
-        <div class="gantt__label"><strong><em>02</em>Direção</strong><span>Plataforma de marca, territórios criativos e escolha de rota.</span><b class="gantt__when">Semanas 3–4</b></div>
+        <div class="gantt__label">
+          <strong><em>02</em>Direção</strong>
+          <span>Plataforma de marca, territórios criativos e escolha de rota.</span>
+          <b class="gantt__when">Semanas 3–4</b>
+        </div>
         <div class="gantt__track"><span class="gantt__bar" style="--s:3; --n:2">Semanas 3&ndash;4</span></div>
       </div>
 
       <div class="gantt__row">
-        <div class="gantt__label"><strong><em>03</em>Design</strong><span>Construção do sistema, aplicações e rodadas de ajuste.</span><b class="gantt__when">Semanas 4–7</b></div>
+        <div class="gantt__label">
+          <strong><em>03</em>Design</strong>
+          <span>Construção do sistema, aplicações e rodadas de ajuste.</span>
+          <b class="gantt__when">Semanas 4–7</b>
+        </div>
         <div class="gantt__track"><span class="gantt__bar" style="--s:4; --n:4">Semanas 4&ndash;7</span></div>
       </div>
 
       <div class="gantt__row">
-        <div class="gantt__label"><strong><em>04</em>Entrega</strong><span>Manual, arquivos abertos, treinamento e suporte de aplicação.</span><b class="gantt__when">Semanas 7–8</b></div>
+        <div class="gantt__label">
+          <strong><em>04</em>Entrega</strong>
+          <span>Manual, arquivos abertos, treinamento e suporte de aplicação.</span>
+          <b class="gantt__when">Semanas 7–8</b>
+        </div>
         <div class="gantt__track"><span class="gantt__bar gantt__bar--soft" style="--s:7; --n:2">Semanas 7&ndash;8</span></div>
       </div>
 
       <div class="gantt__row">
-        <div class="gantt__label"><strong><em>+</em>Suporte pós-entrega</strong><span>30 dias de acompanhamento incluídos no contrato.</span><b class="gantt__when">+30 dias</b></div>
+        <div class="gantt__label">
+          <strong><em>+</em>Suporte pós-entrega</strong>
+          <span>30 dias de acompanhamento incluídos no contrato.</span>
+          <b class="gantt__when">+30 dias</b>
+        </div>
         <div class="gantt__track"><span class="gantt__bar gantt__bar--line" style="--s:8; --n:1">+30 dias</span></div>
       </div>
 
       <div class="gantt__row gantt__row--mile" aria-hidden="true">
-        <div class="gantt__label"><span class="small" style="color:var(--ink-40)">Marcos de entrega</span></div>
+        <span class="micro">Marcos de aprovação</span>
         <div class="gantt__miles">
           <div style="--s:2"><i></i><small>Diagnóstico</small></div>
           <div style="--s:4"><i></i><small>Rota aprovada</small></div>
@@ -250,149 +300,129 @@
       </div>
     </div>
 
-    <div class="gantt__note reveal">
+    <div class="legend reveal">
       <b>Fase ativa</b>
       <b class="is-soft">Empacotamento</b>
       <b class="is-line">Suporte</b>
       <b class="is-mile">Marco de aprovação</b>
     </div>
 
-    <!-- O que é entregue em cada fase -->
-    <div class="deliver">
-      <div class="reveal">
-        <span>FASE 01</span>
-        <h4>Relatório de diagnóstico</h4>
-        <p>Leitura do mercado, do público e dos concorrentes, com as decisões que o projeto precisa tomar.</p>
-      </div>
-      <div class="reveal" data-d="1">
-        <span>FASE 02</span>
-        <h4>Rotas criativas</h4>
-        <p>Duas direções completas com racional, referências e aplicação real — você escolhe uma.</p>
-      </div>
-      <div class="reveal" data-d="2">
-        <span>FASE 03</span>
-        <h4>Sistema de marca</h4>
-        <p>Símbolo, tipografia, cor, grid e as principais aplicações, com duas rodadas de ajuste incluídas.</p>
-      </div>
-      <div class="reveal" data-d="3">
-        <span>FASE 04</span>
-        <h4>Pacote final</h4>
-        <p>Manual em PDF, arquivos abertos e exportados, templates e sessão de treinamento com o time.</p>
-      </div>
+    <div class="g12 deliver">
+      <div class="reveal"><span>FASE 01</span><h4>Relatório de diagnóstico</h4><p>Leitura do mercado, do público e dos concorrentes, com as decisões que o projeto precisa tomar.</p></div>
+      <div class="reveal" data-d="1"><span>FASE 02</span><h4>Rotas criativas</h4><p>Duas direções completas com racional, referências e aplicação real — você escolhe uma.</p></div>
+      <div class="reveal" data-d="2"><span>FASE 03</span><h4>Sistema de marca</h4><p>Símbolo, tipografia, cor, grid e as principais aplicações, com duas rodadas de ajuste incluídas.</p></div>
+      <div class="reveal" data-d="3"><span>FASE 04</span><h4>Pacote final</h4><p>Manual em PDF, arquivos abertos e exportados, templates e sessão de treinamento com o time.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ====================== PROJETOS ====================== -->
+<!-- ====================== 04 · PROJETOS ====================== -->
 <section class="section s-white" id="projetos">
   <div class="shell">
-    <div class="head">
-      <div>
-        <p class="eyebrow reveal">/ Projetos</p>
-        <h2 class="h2 head__title reveal">Trabalhos selecionados.</h2>
-      </div>
-      <p class="body reveal" data-d="1">Três projetos que mostram como o método funciona na prática — do diagnóstico à marca em uso.</p>
+    <div class="g12 sec-head">
+      <div class="sec-head__id reveal"><b>04</b><span class="micro">Projetos</span></div>
+      <div class="sec-head__t reveal" data-d="1"><h2 class="h2">Trabalhos selecionados.</h2></div>
+      <div class="sec-head__x reveal" data-d="2"><p>Três projetos que mostram o método na prática — do diagnóstico à marca em uso.</p></div>
     </div>
 
-    <div class="projects">
+    <div class="g12 work">
       <!-- SLOT 01 -->
-      <a class="project reveal" href="projeto-01.html">
-        <div class="project__media">
-          <span class="project__tag">Identidade</span>
-          <img src="assets/img/project-01.svg" alt="Projeto 01 — Meridiano Capital" loading="lazy" width="960" height="1200">
+      <a class="work__item reveal" href="projeto-01.html">
+        <div class="work__media">
+          <span class="work__tag">Identidade</span>
+          <img src="assets/img/project-01.svg" alt="Meridiano Capital — identidade de marca" loading="lazy" width="960" height="1200">
         </div>
-        <div class="project__body">
-          <h3>Meridiano Capital</h3>
-          <p>Identidade e sistema visual para uma gestora de investimentos em reposicionamento.</p>
-        </div>
-        <div class="project__foot">
-          <span>2025 · Marca</span>
+        <div class="work__head"><h3>Meridiano Capital</h3><b>2025</b></div>
+        <p>Identidade e sistema visual para uma gestora de investimentos em reposicionamento.</p>
+        <span class="work__go">Ver projeto
           <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg>
-        </div>
+        </span>
       </a>
 
       <!-- SLOT 02 -->
-      <a class="project reveal" data-d="1" href="projeto-02.html">
-        <div class="project__media">
-          <span class="project__tag">Digital</span>
-          <img src="assets/img/project-02.svg" alt="Projeto 02 — Verda" loading="lazy" width="960" height="1200">
+      <a class="work__item work__item--offset reveal" data-d="1" href="projeto-02.html">
+        <div class="work__media">
+          <span class="work__tag">Digital</span>
+          <img src="assets/img/project-02.svg" alt="Verda — site e design system" loading="lazy" width="960" height="1200">
         </div>
-        <div class="project__body">
-          <h3>Verda</h3>
-          <p>Site e design system para uma plataforma de gestão agrícola em fase de escala.</p>
-        </div>
-        <div class="project__foot">
-          <span>2025 · Produto</span>
+        <div class="work__head"><h3>Verda</h3><b>2025</b></div>
+        <p>Site e design system para uma plataforma de gestão agrícola em fase de escala.</p>
+        <span class="work__go">Ver projeto
           <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg>
-        </div>
+        </span>
       </a>
 
       <!-- SLOT 03 -->
-      <a class="project reveal" data-d="2" href="projeto-03.html">
-        <div class="project__media">
-          <span class="project__tag">Sistema</span>
-          <img src="assets/img/project-03.svg" alt="Projeto 03 — Norte Coletivo" loading="lazy" width="960" height="1200">
+      <a class="work__item reveal" data-d="2" href="projeto-03.html">
+        <div class="work__media">
+          <span class="work__tag">Sistema</span>
+          <img src="assets/img/project-03.svg" alt="Norte Coletivo — sistema visual e campanha" loading="lazy" width="960" height="1200">
         </div>
-        <div class="project__body">
-          <h3>Norte Coletivo</h3>
-          <p>Sistema visual e kit de campanha para uma rede de eventos culturais.</p>
-        </div>
-        <div class="project__foot">
-          <span>2024 · Sistema</span>
+        <div class="work__head"><h3>Norte Coletivo</h3><b>2024</b></div>
+        <p>Sistema visual e kit de campanha para uma rede de eventos culturais.</p>
+        <span class="work__go">Ver projeto
           <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg>
-        </div>
+        </span>
       </a>
     </div>
   </div>
 </section>
 
-<!-- ====================== FAQ ====================== -->
-<section class="section s-paper" id="faq">
+<!-- ====================== 05 · DÚVIDAS ====================== -->
+<section class="section s-paper" id="duvidas">
   <div class="shell">
-    <div class="head" style="text-align:left">
-      <div>
-        <p class="eyebrow reveal">/ Dúvidas</p>
-        <h2 class="h2 head__title reveal">Antes de começar.</h2>
-      </div>
-      <p class="body reveal" data-d="1">As perguntas que aparecem em quase toda primeira conversa.</p>
+    <div class="g12 sec-head">
+      <div class="sec-head__id reveal"><b>05</b><span class="micro">Dúvidas</span></div>
+      <div class="sec-head__t reveal" data-d="1"><h2 class="h2">Antes de começar.</h2></div>
+      <div class="sec-head__x reveal" data-d="2"><p>As perguntas que aparecem em quase toda primeira conversa.</p></div>
     </div>
 
-    <div class="faq reveal">
-      <div class="faq__item">
-        <button class="faq__q" type="button" aria-expanded="false">Como funciona o orçamento?<i aria-hidden="true"></i></button>
-        <div class="faq__a"><p>Trabalhamos com preço fechado por projeto, definido depois de uma conversa de diagnóstico de 45 minutos. Você recebe uma proposta com escopo, cronograma e valor final — sem cobrança por hora e sem surpresa no meio do caminho.</p></div>
+    <div class="g12 faq-wrap">
+      <div class="faq-wrap__t reveal">
+        <p class="body" style="max-width:26ch">Ficou algo de fora? Escreva direto para nós — respondemos em até um dia útil.</p>
+        <a class="link-u" href="#contato" style="margin-top:22px">Falar com o estúdio
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg>
+        </a>
       </div>
-      <div class="faq__item">
-        <button class="faq__q" type="button" aria-expanded="false">Quantas rodadas de ajuste estão incluídas?<i aria-hidden="true"></i></button>
-        <div class="faq__a"><p>Duas rodadas por fase, o que cobre a grande maioria dos projetos. Ajustes além disso são combinados antes de serem executados, sempre com prazo e valor claros.</p></div>
-      </div>
-      <div class="faq__item">
-        <button class="faq__q" type="button" aria-expanded="false">Vocês entregam os arquivos abertos?<i aria-hidden="true"></i></button>
-        <div class="faq__a"><p>Sim. A entrega final inclui arquivos editáveis (Figma e vetores), exportações em todos os formatos de uso, o manual de marca em PDF e templates prontos para o seu time operar sem depender do estúdio.</p></div>
-      </div>
-      <div class="faq__item">
-        <button class="faq__q" type="button" aria-expanded="false">Dá para acelerar o cronograma?<i aria-hidden="true"></i></button>
-        <div class="faq__a"><p>Dá, em parte. Projetos com escopo reduzido podem ser entregues em 4 semanas. O que não encurtamos é a fase de descoberta: é ela que evita retrabalho depois. Se o prazo for curto, ajustamos o escopo, não o método.</p></div>
-      </div>
-      <div class="faq__item">
-        <button class="faq__q" type="button" aria-expanded="false">Vocês desenvolvem o site também?<i aria-hidden="true"></i></button>
-        <div class="faq__a"><p>Fazemos o design completo e acompanhamos o desenvolvimento. Para a implementação, trabalhamos com desenvolvedores parceiros de confiança ou com o time interno do cliente — em ambos os casos, o handoff e a revisão final são nossos.</p></div>
+
+      <div class="faq reveal" data-d="1">
+        <div class="faq__item">
+          <button class="faq__q" type="button" aria-expanded="false">Como funciona o orçamento?<i aria-hidden="true"></i></button>
+          <div class="faq__a"><p>Trabalhamos com preço fechado por projeto, definido depois de uma conversa de diagnóstico de 45 minutos. Você recebe uma proposta com escopo, cronograma e valor final — sem cobrança por hora e sem surpresa no meio do caminho.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q" type="button" aria-expanded="false">Quantas rodadas de ajuste estão incluídas?<i aria-hidden="true"></i></button>
+          <div class="faq__a"><p>Duas rodadas por fase, o que cobre a grande maioria dos projetos. Ajustes além disso são combinados antes de serem executados, sempre com prazo e valor claros.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q" type="button" aria-expanded="false">Vocês entregam os arquivos abertos?<i aria-hidden="true"></i></button>
+          <div class="faq__a"><p>Sim. A entrega final inclui arquivos editáveis (Figma e vetores), exportações em todos os formatos de uso, o manual de marca em PDF e templates prontos para o seu time operar sem depender do estúdio.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q" type="button" aria-expanded="false">Dá para acelerar o cronograma?<i aria-hidden="true"></i></button>
+          <div class="faq__a"><p>Dá, em parte. Projetos com escopo reduzido podem ser entregues em 4 semanas. O que não encurtamos é a fase de descoberta: é ela que evita retrabalho depois. Se o prazo for curto, ajustamos o escopo, não o método.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q" type="button" aria-expanded="false">Vocês desenvolvem o site também?<i aria-hidden="true"></i></button>
+          <div class="faq__a"><p>Fazemos o design completo e acompanhamos o desenvolvimento. Para a implementação, trabalhamos com desenvolvedores parceiros de confiança ou com o time interno do cliente — em ambos os casos, o handoff e a revisão final são nossos.</p></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ====================== CONTATO ====================== -->
+<!-- ====================== 06 · CONTATO ====================== -->
 <section class="section s-dark" id="contato">
   <div class="shell">
-    <div class="contact">
+    <div class="g12 sec-head">
+      <div class="sec-head__id reveal"><b>06</b><span class="micro">Contato</span></div>
+      <div class="sec-head__t reveal" data-d="1"><h2 class="h2">Vamos encurtar o seu caminho.</h2></div>
+      <div class="sec-head__x reveal" data-d="2"><p>Conte em duas linhas o que você precisa. Respondemos em até um dia útil com os próximos passos e um horário para conversar.</p></div>
+    </div>
 
-      <div>
-        <p class="eyebrow reveal">/ Contato</p>
-        <h2 class="h2 contact__title reveal" style="margin-top:20px">Vamos encurtar o seu caminho.</h2>
-        <p class="body reveal" data-d="1" style="margin-top:24px; max-width:44ch">Conte em duas linhas o que você precisa. Respondemos em até um dia útil com os próximos passos e um horário para conversar.</p>
-
-        <ul class="contact__list reveal" data-d="2">
+    <div class="g12">
+      <div class="contact__t">
+        <ul class="contact__list reveal">
           <!-- SUBSTITUA pelos seus dados reais -->
           <li><small>E-mail</small><a href="mailto:contato@atalhostudio.com.br">contato@atalhostudio.com.br</a></li>
           <li><small>WhatsApp</small><a href="https://wa.me/5511999999999" target="_blank" rel="noopener">+55 11 99999-9999</a></li>
@@ -405,55 +435,56 @@
         FORMULÁRIO
         Por padrão o botão abre o e-mail do visitante já preenchido (funciona em
         qualquer hospedagem estática, inclusive na Hostinger, sem configuração).
-        Para receber direto na caixa de entrada, veja as instruções no LEIA-ME.md.
+        Para receber direto na caixa de entrada, veja o LEIA-ME.md.
       -->
-      <form class="form reveal" data-d="1" id="form" data-to="contato@atalhostudio.com.br" novalidate>
-        <div class="form__row">
+      <div class="contact__form">
+        <form class="form reveal" data-d="1" id="form" data-to="contato@atalhostudio.com.br" novalidate>
+          <div class="form__row">
+            <div class="field">
+              <label for="f-nome">Nome</label>
+              <input id="f-nome" name="nome" type="text" placeholder="Seu nome" required>
+            </div>
+            <div class="field">
+              <label for="f-email">E-mail</label>
+              <input id="f-email" name="email" type="email" placeholder="voce@empresa.com" required>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="field field--select">
+              <label for="f-tipo">Tipo de projeto</label>
+              <select id="f-tipo" name="tipo">
+                <option>Identidade de marca</option>
+                <option>Design digital</option>
+                <option>Sistema visual</option>
+                <option>Ainda não sei</option>
+              </select>
+            </div>
+            <div class="field field--select">
+              <label for="f-prazo">Prazo desejado</label>
+              <select id="f-prazo" name="prazo">
+                <option>O quanto antes</option>
+                <option>Nos próximos 30 dias</option>
+                <option>Nos próximos 90 dias</option>
+                <option>Só planejando</option>
+              </select>
+            </div>
+          </div>
+
           <div class="field">
-            <label for="f-nome">Nome</label>
-            <input id="f-nome" name="nome" type="text" placeholder="Seu nome" required>
+            <label for="f-msg">Sobre o projeto</label>
+            <textarea id="f-msg" name="mensagem" rows="3" placeholder="Em duas linhas: o que a sua empresa faz e o que precisa resolver." required></textarea>
           </div>
-          <div class="field">
-            <label for="f-email">E-mail</label>
-            <input id="f-email" name="email" type="email" placeholder="voce@empresa.com" required>
+
+          <div class="form__foot">
+            <button class="btn btn--light" type="submit">
+              Enviar mensagem
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg>
+            </button>
+            <p id="form-status" role="status">Resposta em até 1 dia útil.</p>
           </div>
-        </div>
-
-        <div class="form__row">
-          <div class="field field--select">
-            <label for="f-tipo">Tipo de projeto</label>
-            <select id="f-tipo" name="tipo">
-              <option>Identidade de marca</option>
-              <option>Design digital</option>
-              <option>Sistema visual</option>
-              <option>Ainda não sei</option>
-            </select>
-          </div>
-          <div class="field field--select">
-            <label for="f-prazo">Prazo desejado</label>
-            <select id="f-prazo" name="prazo">
-              <option>O quanto antes</option>
-              <option>Nos próximos 30 dias</option>
-              <option>Nos próximos 90 dias</option>
-              <option>Só planejando</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="f-msg">Sobre o projeto</label>
-          <textarea id="f-msg" name="mensagem" rows="3" placeholder="Em duas linhas: o que a sua empresa faz e o que precisa resolver." required></textarea>
-        </div>
-
-        <div class="form__foot">
-          <button class="btn btn--light" type="submit">
-            Enviar mensagem
-            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg>
-          </button>
-          <p id="form-status" role="status">Resposta em até 1 dia útil.</p>
-        </div>
-      </form>
-
+        </form>
+      </div>
     </div>
   </div>
 </section>
@@ -463,25 +494,43 @@
 <!-- ====================== RODAPÉ ====================== -->
 <footer class="footer">
   <div class="shell">
-    <div class="footer__top">
-      <a class="brand" href="./" aria-label="Atalho Studio — início">
-        <svg class="brand__mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-          <rect x="1.75" y="1.75" width="44.5" height="44.5" rx="6" stroke="currentColor" stroke-width="2.6"/>
-          <path d="M13 35 L35 13" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/>
-          <path d="M22 13 H35 V26" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/>
-        </svg>
-        <span class="brand__type">atalho<sup>®</sup></span>
-      </a>
-      <nav class="footer__nav" aria-label="Rodapé">
-        <a href="#estudio">Estúdio</a>
-        <a href="#servicos">Serviços</a>
-        <a href="#processo">Processo</a>
-        <a href="projeto-01.html">Meridiano Capital</a>
-        <a href="projeto-02.html">Verda</a>
-        <a href="projeto-03.html">Norte Coletivo</a>
-        <a href="#contato">Contato</a>
-      </nav>
+    <div class="g12">
+      <div class="footer__brand">
+        <a class="brand" href="./" aria-label="Atalho Studio — início">
+          <img class="brand__logo" src="assets/img/logo-branco.svg" alt="Atalho Studio" width="444" height="81">
+        </a>
+        <p>Estúdio de design de marca e produto digital. São Paulo, Brasil.</p>
+      </div>
+
+      <div class="footer__col">
+        <h5>Navegação</h5>
+        <ul>
+          <li><a href="#estudio">Estúdio</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#processo">Processo</a></li>
+          <li><a href="#duvidas">Dúvidas</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h5>Projetos</h5>
+        <ul>
+          <li><a href="projeto-01.html">Meridiano Capital</a></li>
+          <li><a href="projeto-02.html">Verda</a></li>
+          <li><a href="projeto-03.html">Norte Coletivo</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h5>Contato</h5>
+        <ul>
+          <li><a href="mailto:contato@atalhostudio.com.br">E-mail</a></li>
+          <li><a href="https://wa.me/5511999999999" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="https://instagram.com/atalho.studio" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
     </div>
+
     <div class="footer__bot">
       <span>&copy; <span id="ano">2026</span> Atalho Studio. Todos os direitos reservados.</span>
       <span>Feito com atalhos, não com pressa.</span>

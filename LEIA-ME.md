@@ -42,7 +42,11 @@ assets/css/style.css  todo o visual do site
 assets/css/fonts.css  declaração da Open Sans
 assets/js/main.js     menu, acordeão, animações e formulário
 assets/fonts/         Open Sans hospedada localmente (não depende do Google)
-assets/img/           logo, favicon e imagens
+assets/img/logo.svg           logotipo completo, azul (fundos claros)
+assets/img/logo-branco.svg    logotipo completo, off-white (fundos escuros)
+assets/img/logo-simbolo*.svg  só o símbolo, nas duas versões
+assets/img/favicon.svg        ícone da aba do navegador
+assets/img/*.svg              imagens dos projetos (espaços reservados)
 ```
 
 ---
@@ -58,8 +62,8 @@ qualquer editor (VS Code, Bloco de Notas, ou o próprio editor da Hostinger).
 - WhatsApp: troque `5511999999999` pelo seu número com DDI e DDD;
 - Instagram: troque `atalho.studio`.
 
-**Números do estúdio** — a seção "O estúdio" tem `40+`, `6–8` e `3`.
-Ajuste para a sua realidade.
+**Números do estúdio** — a seção "Estúdio" tem `40+` e `6–8`, e a faixa
+inferior do hero repete essas informações. Ajuste para a sua realidade.
 
 **Domínio** — em `robots.txt` e `sitemap.xml`, troque
 `https://www.atalhostudio.com.br` pelo seu endereço real.
@@ -97,24 +101,34 @@ Proporções usadas no layout (para cortar as imagens sem deformar):
 Salve as fotos em **JPG** (qualidade 80) ou **WebP** e mantenha cada arquivo
 abaixo de 300 KB — o site fica rápido e o Google gosta.
 
-### Colocar o logo oficial
+### Trocar pelo logo oficial do estúdio
 
-Hoje o logo é montado com texto (`atalho®`) mais um símbolo em SVG, o que deixa
-tudo nítido em qualquer tela. Quando quiser usar o arquivo original do estúdio:
+O logotipo é um arquivo SVG de verdade, com o texto já convertido em curvas —
+não depende de fonte instalada e fica nítido em qualquer tela. São quatro
+arquivos, todos em `assets/img/`:
 
-1. Salve o logo como `assets/img/logo.svg`.
-2. Em cada `.html`, substitua todo o bloco `<a class="brand">…</a>` por:
+| Arquivo | Onde aparece |
+|---|---|
+| `logo.svg` | cabeçalho sobre fundo claro (azul #182889) |
+| `logo-branco.svg` | cabeçalho sobre o hero e rodapé (off-white) |
+| `logo-simbolo.svg` | só o símbolo, versão azul — para usos avulsos |
+| `logo-simbolo-branco.svg` | só o símbolo, versão clara |
 
-```html
-<a class="brand" href="index.html" aria-label="Atalho Studio — início">
-  <img src="assets/img/logo.svg" alt="Atalho Studio" style="height:26px;width:auto">
-</a>
-```
+**Para usar o seu arquivo:** salve as duas versões do seu logo com os mesmos
+nomes (`logo.svg` e `logo-branco.svg`), sobrescrevendo os que estão na pasta.
+Pronto — não precisa mexer em nenhum HTML.
 
-Faça isso no cabeçalho e no rodapé das 4 páginas. Para o favicon, troque também
-o arquivo `assets/img/favicon.svg`.
+Duas recomendações para o seu SVG:
 
----
+- **Converta o texto em curvas** antes de exportar. Um SVG com texto vivo
+  procura a fonte no computador de quem visita e pode aparecer trocado.
+- **Mantenha a proporção parecida** (o atual é 5,5 : 1). O CSS fixa a altura
+  em 24px no cabeçalho e 22px no rodapé, e a largura se ajusta sozinha. Se o
+  seu logo for bem mais quadrado, aumente a altura em `assets/css/style.css`,
+  na regra `.brand{ height:24px }`.
+
+O favicon é separado: troque `assets/img/favicon.svg` por um quadrado com o
+símbolo em negativo.
 
 ## 5. Como funciona o formulário de contato
 
@@ -173,7 +187,24 @@ Tudo o que define a aparência está no topo de `assets/css/style.css`, no bloco
 --shell:  1240px;   /* largura máxima do conteúdo */
 ```
 
-O cronograma da seção "Processo" é montado com duas variáveis por barra, dentro
+### O grid do hero
+
+O fundo quadriculado do hero é feito só com CSS, em `assets/css/style.css`:
+
+```css
+.hero__grid{
+  background-size: clamp(56px, 6.2vw, 92px) ...;  /* tamanho do quadrado */
+  opacity: .085;                                  /* intensidade da malha */
+}
+.hero__cols span{ opacity: .07; }                 /* linhas das 12 colunas */
+```
+
+Aumente a `opacity` para deixar a grade mais presente, ou diminua para quase
+sumir. O `background-size` controla o tamanho de cada quadrado.
+
+### O cronograma
+
+O diagrama da seção "Processo" é montado com duas variáveis por barra, dentro
 do `index.html`:
 
 ```html

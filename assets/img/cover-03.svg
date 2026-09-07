@@ -1,10 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
-  <rect width="1600" height="900" fill="#0d0e13"/>
-  
-  <g fill="none" stroke="#182889" stroke-width="2">
-    <path d="M100 800 L500 100 L900 800 Z"/><path d="M700 800 L1100 100 L1500 800 Z"/>
+  <rect width="1600" height="900" fill="#0c0d12"/>
+
+  <g stroke="#ffffff" stroke-opacity=".12" stroke-width="1.5">
+    <path d="M200 0V900M400 0V900M600 0V900M800 0V900M1000 0V900M1200 0V900M1400 0V900"/>
   </g>
-  <path d="M500 100 L900 800 H100 Z" fill="#182889" fill-opacity=".22"/>
-  <circle cx="800" cy="450" r="60" fill="#ffffff"/>
-  <text x="28" y="874" font-family="Open Sans, Helvetica, Arial, sans-serif" font-size="13" letter-spacing="1.6" fill="#ffffff" opacity=".75">CAPA — SUBSTITUIR IMAGEM</text>
+  <path d="M200 700 L800 200 L1400 700" fill="none" stroke="#182889" stroke-width="2"/>
+  <path d="M200 700 H1400" stroke="#ffffff" stroke-opacity=".55" stroke-width="1.5"/>
+  <circle cx="800" cy="200" r="16" fill="#ffffff"/>
+  <g opacity=".5" fill="#ffffff" font-family="Open Sans, Helvetica, Arial, sans-serif" font-size="21.6" letter-spacing="2.56">
+    <text x="56" y="868">CAPA · SUBSTITUIR IMAGEM</text>
+  </g>
 </svg>

@@ -1,11 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1200" width="960" height="1200">
-  <rect width="960" height="1200" fill="#0d0e13"/>
-  
-  <g fill="none" stroke="#182889" stroke-width="2">
-    <circle cx="480" cy="530" r="90"/><circle cx="480" cy="530" r="150"/>
-    <circle cx="480" cy="530" r="210"/><circle cx="480" cy="530" r="270"/>
+  <rect width="960" height="1200" fill="#0c0d12"/>
+
+  <g fill="none" stroke="#182889" stroke-width="1.5" stroke-opacity=".85">
+    <circle cx="480" cy="600" r="120"/><circle cx="480" cy="600" r="200"/>
+    <circle cx="480" cy="600" r="280"/><circle cx="480" cy="600" r="360"/>
   </g>
-  <rect x="420" y="200" width="120" height="660" fill="#0d0e13"/>
-  <rect x="466" y="200" width="28" height="660" fill="#182889"/>
-  <text x="28" y="1174" font-family="Open Sans, Helvetica, Arial, sans-serif" font-size="13" letter-spacing="1.6" fill="#ffffff" opacity=".75">PROJETO 03 — SUBSTITUIR IMAGEM</text>
+  <path d="M480 240 V960" stroke="#ffffff" stroke-width="2" stroke-opacity=".9"/>
+  <circle cx="480" cy="600" r="18" fill="#ffffff"/>
+  <g opacity=".5" fill="#ffffff" font-family="Open Sans, Helvetica, Arial, sans-serif" font-size="13.0" letter-spacing="1.54">
+    <text x="34" y="1158">PROJETO 03 · SUBSTITUIR IMAGEM</text>
+  </g>
 </svg>
