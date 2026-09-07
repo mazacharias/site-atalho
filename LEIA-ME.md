@@ -42,10 +42,7 @@ assets/css/style.css  todo o visual do site
 assets/css/fonts.css  declaração da Open Sans
 assets/js/main.js     menu, acordeão, animações e formulário
 assets/fonts/         Open Sans hospedada no próprio site
-assets/video/reel.mp4 vídeo de exemplo da seção Reel (troque pelo seu)
-assets/video/reel.webm  o mesmo vídeo em WebM, para navegadores que preferem
 assets/img/favicon.svg  ícone da aba do navegador
-assets/img/reel-poster.svg  capa que aparece antes de dar play
 assets/img/logo*.svg    a marca que você enviou, guardada mas fora de uso
 assets/img/*.svg        imagens dos projetos (espaços reservados)
 ```
@@ -175,52 +172,47 @@ caminho, é só pedir que eu escrevo o arquivo.
 
 ---
 
-## 6. A seção de vídeo (Reel)
+## 6. O diagrama animado (seção Sistema)
 
-O vídeo que veio no pacote é um **exemplo**, feito nas cores da marca só para a
-seção não chegar vazia. O player não baixa nada até alguém clicar em "Assistir":
-antes disso só existe a imagem de capa.
+A seção "Como um projeto anda" é um SVG desenhado à mão, animado só com CSS —
+não é vídeo, não é GIF, não carrega biblioteca nenhuma. Pesa cerca de 10 KB e
+fica nítido em qualquer tela.
 
-### Trocar pelo seu arquivo
+São duas versões do mesmo diagrama, dentro do `index.html`: `.fluxo--h`
+(horizontal, no desktop) e `.fluxo--v` (vertical, abaixo de 860px). O CSS
+mostra uma e esconde a outra.
 
-1. Exporte o vídeo em **MP4 (H.264)**, largura 1920 px, e salve como
-   `assets/video/reel.mp4`, sobrescrevendo o que está lá.
-2. Exporte também uma capa (o quadro que aparece antes do play) e salve como
-   `assets/img/reel-poster.jpg`.
-3. Em `index.html`, ajuste a linha do `<figure>`:
+### Como o tempo funciona
 
-```html
-<figure class="video reveal"
-        data-src="assets/video/reel.mp4"
-        data-poster="assets/img/reel-poster.jpg">
-  <img class="video__poster" src="assets/img/reel-poster.jpg" alt="Prévia do reel do Atalho Studio" width="1600" height="900">
+Um ciclo de 20 segundos dividido em 5 etapas de 4 segundos. Cada etapa carrega
+`style="--i:0"` até `--i:4`, e todo o resto sai daí:
+
+```css
+.et{ animation-delay: calc(var(--i) * 4s); }
 ```
 
-   Se não tiver a versão WebM, apague o atributo `data-src-webm`.
+Fora da sua vez, a etapa continua legível, só que rebaixada — o diagrama nunca
+fica pela metade. Para acelerar ou desacelerar, troque os `20s` e os `4s` na
+seção 10b do `style.css`, mantendo a proporção de 1 para 5.
 
-Mantenha o MP4 abaixo de 10 MB para o site não ficar pesado. Se o seu vídeo for
-maior, use o YouTube ou o Vimeo (abaixo).
+### Como mudar os textos
 
-### Usar YouTube ou Vimeo
+Estão dentro do SVG, como `<text>` comum — procure por "Contato",
+"Conversa assíncrona" e assim por diante no `index.html`. Como SVG não quebra
+linha sozinho, cada linha da descrição é um `<text>` separado: se o seu texto
+for mais longo, acrescente outro `<text>` copiando o `y` do anterior e somando
+19.
 
-Em vez de hospedar o arquivo, aponte para o ID do vídeo — o player só carrega
-quando alguém clica, então a página continua leve:
+### Como mudar as etapas
 
-```html
-<!-- YouTube: o ID é o que vem depois de v= na URL -->
-<figure class="video reveal" data-youtube="SEU_ID_AQUI">
+Se o processo do estúdio mudar, o caminho mais curto é reescrever os textos
+das cinco etapas existentes. Para mudar a quantidade, é mais trabalho: além do
+SVG, é preciso ajustar o `4s` do CSS (ciclo de 20s dividido pelo número de
+etapas).
 
-<!-- Vimeo: o ID é o número no fim da URL -->
-<figure class="video reveal" data-vimeo="123456789">
-```
-
-Nos dois casos, apague os atributos `data-src` e `data-src-webm` e troque a
-imagem de capa dentro do `<figure>`.
-
-### Mudar o texto do botão e a legenda
-
-O rótulo ("Assistir ao reel · 1 min") está no próprio `<button>`, e a linha
-abaixo do vídeo está no bloco `<div class="video-meta">`. É texto comum.
+Quem preferir voltar a ter um vídeo de verdade nessa seção: é só trocar o
+`<div class="fluxo-wrap">` por um `<video controls poster="...">` apontando
+para o arquivo, e apagar a seção 10b do CSS.
 
 ## 7. Como adicionar um quarto projeto
 
