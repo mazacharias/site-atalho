@@ -42,6 +42,9 @@ assets/css/style.css  todo o visual do site
 assets/css/fonts.css  declaração da Open Sans
 assets/js/main.js     menu, acordeão, animações e formulário
 assets/fonts/         Open Sans hospedada no próprio site
+assets/video/sistema.mp4   vídeo da seção Sistema (H.264, 461 KB)
+assets/video/sistema.webm  o mesmo vídeo em WebM, para quem suporta
+assets/img/sistema-poster.jpg  quadro que aparece antes do play
 assets/img/favicon.svg  ícone da aba do navegador
 assets/img/logo*.svg    a marca que você enviou, guardada mas fora de uso
 assets/img/*.svg        imagens dos projetos (espaços reservados)
@@ -172,47 +175,50 @@ caminho, é só pedir que eu escrevo o arquivo.
 
 ---
 
-## 6. O diagrama animado (seção Sistema)
+## 6. O vídeo (seção Sistema)
 
-A seção "Como um projeto anda" é um SVG desenhado à mão, animado só com CSS —
-não é vídeo, não é GIF, não carrega biblioteca nenhuma. Pesa cerca de 10 KB e
-fica nítido em qualquer tela.
+A seção "Como um projeto anda" traz um filme de 31 segundos que explica o
+sistema do estúdio em cinco atos: contato, conversa assíncrona, briefing,
+cronograma e entregas.
 
-São duas versões do mesmo diagrama, dentro do `index.html`: `.fluxo--h`
-(horizontal, no desktop) e `.fluxo--v` (vertical, abaixo de 860px). O CSS
-mostra uma e esconde a outra.
+O player não baixa nada até alguém clicar em "Assistir": antes disso existe só
+a imagem de capa (38 KB). O vídeo vai em dois formatos e o navegador escolhe —
+WebM para quem suporta, MP4 para todo o resto.
 
-### Como o tempo funciona
+### Trocar pelo seu vídeo
 
-Um ciclo de 20 segundos dividido em 5 etapas de 4 segundos. Cada etapa carrega
-`style="--i:0"` até `--i:4`, e todo o resto sai daí:
+1. Exporte em **MP4 (H.264)**, 1600 × 900 ou 1920 × 1080, e salve como
+   `assets/video/sistema.mp4`, sobrescrevendo o atual.
+2. Exporte um quadro de capa e salve como `assets/img/sistema-poster.jpg`.
+3. Se não tiver a versão WebM, apague o atributo `data-src-webm` da linha do
+   `<figure class="video">` no `index.html`.
 
-```css
-.et{ animation-delay: calc(var(--i) * 4s); }
+Mantenha o MP4 abaixo de 10 MB. Se o seu filme for maior, use YouTube ou Vimeo.
+
+### Usar YouTube ou Vimeo
+
+O player só carrega o embed depois do clique, então a página continua leve:
+
+```html
+<!-- YouTube: o ID é o que vem depois de v= na URL -->
+<figure class="video reveal" data-youtube="SEU_ID_AQUI">
+
+<!-- Vimeo: o ID é o número no fim da URL -->
+<figure class="video reveal" data-vimeo="123456789">
 ```
 
-Fora da sua vez, a etapa continua legível, só que rebaixada — o diagrama nunca
-fica pela metade. Para acelerar ou desacelerar, troque os `20s` e os `4s` na
-seção 10b do `style.css`, mantendo a proporção de 1 para 5.
+Nos dois casos, apague `data-src` e `data-src-webm`, e troque a imagem de capa
+dentro do `<figure>`.
 
-### Como mudar os textos
+### Como o vídeo atual foi feito
 
-Estão dentro do SVG, como `<text>` comum — procure por "Contato",
-"Conversa assíncrona" e assim por diante no `index.html`. Como SVG não quebra
-linha sozinho, cada linha da descrição é um `<text>` separado: se o seu texto
-for mais longo, acrescente outro `<text>` copiando o `y` do anterior e somando
-19.
+Não é filmagem nem software de motion: é uma animação em SVG desenhada por
+código, renderizada quadro a quadro e codificada em vídeo. O arquivo-fonte da
+animação não vai junto do site — se você quiser mudar o filme, o caminho normal
+é exportar um novo de onde preferir e sobrescrever os arquivos acima.
 
-### Como mudar as etapas
-
-Se o processo do estúdio mudar, o caminho mais curto é reescrever os textos
-das cinco etapas existentes. Para mudar a quantidade, é mais trabalho: além do
-SVG, é preciso ajustar o `4s` do CSS (ciclo de 20s dividido pelo número de
-etapas).
-
-Quem preferir voltar a ter um vídeo de verdade nessa seção: é só trocar o
-`<div class="fluxo-wrap">` por um `<video controls poster="...">` apontando
-para o arquivo, e apagar a seção 10b do CSS.
+O texto do botão ("Assistir · 31s") está no próprio `<button>`, e a linha
+abaixo do vídeo está no bloco `<div class="video-meta">`. É texto comum.
 
 ## 7. Como adicionar um quarto projeto
 
@@ -238,6 +244,13 @@ Tudo o que define a aparência está no topo de `assets/css/style.css`, no bloco
 --paper:  #f4f4f0;  /* off-white de fundo */
 --shell:  1240px;   /* largura máxima do conteúdo */
 ```
+
+### A barra de navegação
+
+A navegação é sempre branca. Para isso a barra fica escura em todos os estados:
+transparente sobre o hero, e com fundo escuro translúcido quando a página rola
+(`.header.is-stuck`) ou nas páginas de projeto (`.header--solid`). O menu mobile
+segue a mesma regra — fundo escuro, texto claro.
 
 ### O fundo do hero
 

@@ -134,7 +134,67 @@
     });
   }
 
-  /* ---------- 6. Ano do rodapé ---------- */
+  /* ---------- 6. Vídeo ----------
+     O pôster só dá lugar ao player quando alguém clica: nada de vídeo é
+     baixado antes disso. Funciona com arquivo local (data-src / data-src-webm)
+     ou com YouTube/Vimeo (data-youtube / data-vimeo). Veja o LEIA-ME.md.   */
+  document.querySelectorAll('.video').forEach(function (fig) {
+    var btn = fig.querySelector('.video__btn');
+    if (!btn) return;
+
+    var titulo = (fig.querySelector('.video__poster') || {}).alt || 'Vídeo';
+    btn.setAttribute('aria-label', 'Reproduzir: ' + titulo);
+
+    btn.addEventListener('click', function () {
+      var yt = fig.getAttribute('data-youtube');
+      var vm = fig.getAttribute('data-vimeo');
+      var src = fig.getAttribute('data-src');
+      var midia;
+
+      if (yt || vm) {
+        midia = document.createElement('iframe');
+        midia.src = yt
+          ? 'https://www.youtube-nocookie.com/embed/' + yt + '?autoplay=1&rel=0&modestbranding=1'
+          : 'https://player.vimeo.com/video/' + vm + '?autoplay=1&title=0&byline=0';
+        midia.allow = 'autoplay; fullscreen; picture-in-picture';
+        midia.setAttribute('allowfullscreen', '');
+        midia.title = titulo;
+      } else if (src) {
+        midia = document.createElement('video');
+        midia.controls = true;
+        midia.playsInline = true;
+        midia.preload = 'auto';
+        midia.setAttribute('playsinline', '');
+        if (fig.getAttribute('data-poster')) midia.poster = fig.getAttribute('data-poster');
+
+        var webm = fig.getAttribute('data-src-webm');
+        if (webm) {
+          var s1 = document.createElement('source');
+          s1.src = webm; s1.type = 'video/webm';
+          midia.appendChild(s1);
+        }
+        var s2 = document.createElement('source');
+        s2.src = src; s2.type = 'video/mp4';
+        midia.appendChild(s2);
+      } else {
+        return;
+      }
+
+      fig.classList.add('is-playing');
+      fig.appendChild(midia);
+
+      // se o navegador recusar o autoplay com som, toca sem som em vez de
+      // deixar o visitante olhando para um quadro parado
+      if (midia.play) {
+        var tentativa = midia.play();
+        if (tentativa && tentativa.catch) {
+          tentativa.catch(function () { midia.muted = true; midia.play().catch(function () {}); });
+        }
+      }
+    });
+  });
+
+  /* ---------- 7. Ano do rodapé ---------- */
   var ano = document.getElementById('ano');
   if (ano) ano.textContent = new Date().getFullYear();
 })();
