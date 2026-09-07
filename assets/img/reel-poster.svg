@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <rect width="1600" height="900" fill="#182889"/>
+  <g stroke="#ffffff" stroke-opacity=".14" stroke-width="1.5">
+    <path d="M320 0V900M640 0V900M960 0V900M1280 0V900"/><path d="M0 300H1600M0 600H1600"/>
+  </g>
+  <rect x="0" y="0" width="320" height="300" fill="#ffffff" fill-opacity=".9"/>
+  <circle cx="1440" cy="150" r="86" fill="none" stroke="#ffffff" stroke-width="2" stroke-opacity=".7"/>
+  <path d="M1280 750 L1440 600 L1600 750" fill="none" stroke="#ffffff" stroke-width="2" stroke-opacity=".55"/>
+  <rect x="0" y="750" width="180" height="150" fill="#ffffff" fill-opacity=".28"/>
+  <text x="56" y="854" font-family="Open Sans, Helvetica, Arial, sans-serif" font-size="20" letter-spacing="2.6" fill="#ffffff" opacity=".55">REEL DO ESTÚDIO · SUBSTITUIR VÍDEO</text>
+</svg>

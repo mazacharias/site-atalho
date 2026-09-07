@@ -41,12 +41,13 @@ sitemap.xml           mapa do site para o Google
 assets/css/style.css  todo o visual do site
 assets/css/fonts.css  declaração da Open Sans
 assets/js/main.js     menu, acordeão, animações e formulário
-assets/fonts/         Open Sans + Reanimation, hospedadas no próprio site
-assets/img/logo.svg           logotipo completo, azul (fundos claros)
-assets/img/logo-branco.svg    logotipo completo, off-white (fundos escuros)
-assets/img/logo-simbolo*.svg  só a letra "a", nas duas versões
-assets/img/favicon.svg        ícone da aba do navegador
-assets/img/*.svg              imagens dos projetos (espaços reservados)
+assets/fonts/         Open Sans hospedada no próprio site
+assets/video/reel.mp4 vídeo de exemplo da seção Reel (troque pelo seu)
+assets/video/reel.webm  o mesmo vídeo em WebM, para navegadores que preferem
+assets/img/favicon.svg  ícone da aba do navegador
+assets/img/reel-poster.svg  capa que aparece antes de dar play
+assets/img/logo*.svg    a marca que você enviou, guardada mas fora de uso
+assets/img/*.svg        imagens dos projetos (espaços reservados)
 ```
 
 ---
@@ -103,76 +104,44 @@ abaixo de 300 KB — o site fica rápido e o Google gosta.
 
 ### O logo
 
-O logotipo oficial do estúdio já está aplicado. São cinco arquivos dentro de
-`assets/img/`, todos em SVG (vetor, nítido em qualquer tela e em qualquer
-tamanho de impressão):
+A marca no cabeçalho e no rodapé é **a palavra "atalho" escrita em Open Sans**,
+como texto — não é imagem. Isso deixa tudo nítido em qualquer tela, sem
+download nenhum, e a cor acompanha automaticamente o fundo (clara sobre o hero,
+azul sobre fundo claro).
 
-| Arquivo | Onde aparece |
-|---|---|
-| `logo.svg` | cabeçalho sobre fundo claro — azul #182889 |
-| `logo-branco.svg` | cabeçalho sobre o hero e rodapé — off-white |
-| `logo-simbolo.svg` | só o "a", versão azul — para avatar, carimbo, favicon |
-| `logo-simbolo-branco.svg` | só o "a", versão clara |
-| `favicon.svg` | o "a" em branco dentro do quadrado azul, para a aba do navegador |
-
-O arquivo original tem proporção de **3 : 1** (489 × 163). O CSS fixa só a
-altura — 29px no cabeçalho, 30px no rodapé — e a largura se ajusta sozinha.
-Para mudar o tamanho, edite em `assets/css/style.css`:
+Para mudar tamanho ou peso, edite `assets/css/style.css`:
 
 ```css
-.brand{ height:29px; }                 /* cabeçalho */
-.footer__brand .brand{ height:30px; }  /* rodapé */
-```
-
-O símbolo e o favicon foram recortados do próprio logotipo (a letra "a"), então
-são exatamente as mesmas curvas — não há redesenho nem aproximação.
-
-Se um dia o logo mudar, basta sobrescrever `logo.svg` e `logo-branco.svg`
-mantendo os mesmos nomes: nenhum HTML precisa ser tocado. Só confira a
-proporção — se a nova versão for bem mais quadrada, ajuste a altura acima.
-
-### As fontes
-
-Duas famílias, ambas hospedadas no próprio site (nada é buscado no Google):
-
-| Fonte | Arquivo | Onde é usada |
-|---|---|---|
-| **Open Sans** | `assets/fonts/open-sans-var-latin*.woff2` | todo o site — títulos de seção, textos, menus, formulário |
-| **REANIMATION Sans Serif** | `assets/fonts/reanimation.woff2` | só o título do hero |
-
-A Reanimation veio do arquivo `.ttf` que você enviou. Recortei para latim +
-acentuação do português e converti para woff2: o arquivo caiu de 124 KB para
-**17 KB**, com a acentuação inteira preservada (á à â ã é ê í ó ô õ ú ü ç).
-
-**Para usá-la também nos títulos das seções**, abra `assets/css/style.css` e
-acrescente `.h2` à regra do hero (seção 7 do arquivo):
-
-```css
-.hero h1,
-.h2 {                                /* <- acrescente esta linha */
-  font-family: var(--display-font);
-  font-weight: 400;
-  letter-spacing: 0;
+.brand{
+  font-size: 21px;          /* tamanho */
+  font-weight: 600;         /* 300, 400, 600 ou 700 */
+  letter-spacing: -.035em;  /* mais negativo = letras mais juntas */
 }
 ```
 
-E acrescente o preload nas páginas de projeto, no `<head>`, junto do que já
-existe para a Open Sans:
+O arquivo de marca que você enviou continua guardado em
+`assets/img/logo.svg` e `assets/img/logo-branco.svg`. Se quiser voltar a usá-lo,
+troque no HTML das 4 páginas o texto por uma imagem:
 
 ```html
-<link rel="preload" href="assets/fonts/reanimation.woff2" as="font" type="font/woff2" crossorigin>
+<!-- de -->
+<a class="brand" href="./">atalho</a>
+<!-- para -->
+<a class="brand" href="./" aria-label="Atalho Studio — início">
+  <img src="assets/img/logo.svg" alt="Atalho Studio" style="height:29px;width:auto">
+</a>
 ```
 
-**Não recomendo usá-la em textos corridos.** É uma condensada pesada, feita
-para tamanhos grandes; em parágrafo ela cansa a leitura e briga com o tom
-sóbrio do resto. O contraste entre ela (display) e a Open Sans (leitura) é o
-que faz o hero funcionar.
+(No hero e no rodapé, use `logo-branco.svg`.)
 
-**Sobre licença:** o arquivo traz copyright da Everglow Std e a permissão de
-embutir marcada como *Preview & Print*. Uso como webfont normalmente pede uma
-licença específica de web — vale confirmar com a fundição antes de o site ir
-ao ar. É uma questão de contrato, não técnica: o site funciona do jeito que
-está.
+O favicon é a letra "a" da Open Sans em branco sobre o quadrado azul, em
+`assets/img/favicon.svg`.
+
+### A fonte
+
+O site inteiro usa **Open Sans**, hospedada no próprio servidor
+(`assets/fonts/`) — nada é buscado no Google. É um único arquivo variável, com
+os pesos de 300 a 700 e a acentuação do português inteira, em 88 KB.
 
 ## 5. Como funciona o formulário de contato
 
@@ -206,7 +175,54 @@ caminho, é só pedir que eu escrevo o arquivo.
 
 ---
 
-## 6. Como adicionar um quarto projeto
+## 6. A seção de vídeo (Reel)
+
+O vídeo que veio no pacote é um **exemplo**, feito nas cores da marca só para a
+seção não chegar vazia. O player não baixa nada até alguém clicar em "Assistir":
+antes disso só existe a imagem de capa.
+
+### Trocar pelo seu arquivo
+
+1. Exporte o vídeo em **MP4 (H.264)**, largura 1920 px, e salve como
+   `assets/video/reel.mp4`, sobrescrevendo o que está lá.
+2. Exporte também uma capa (o quadro que aparece antes do play) e salve como
+   `assets/img/reel-poster.jpg`.
+3. Em `index.html`, ajuste a linha do `<figure>`:
+
+```html
+<figure class="video reveal"
+        data-src="assets/video/reel.mp4"
+        data-poster="assets/img/reel-poster.jpg">
+  <img class="video__poster" src="assets/img/reel-poster.jpg" alt="Prévia do reel do Atalho Studio" width="1600" height="900">
+```
+
+   Se não tiver a versão WebM, apague o atributo `data-src-webm`.
+
+Mantenha o MP4 abaixo de 10 MB para o site não ficar pesado. Se o seu vídeo for
+maior, use o YouTube ou o Vimeo (abaixo).
+
+### Usar YouTube ou Vimeo
+
+Em vez de hospedar o arquivo, aponte para o ID do vídeo — o player só carrega
+quando alguém clica, então a página continua leve:
+
+```html
+<!-- YouTube: o ID é o que vem depois de v= na URL -->
+<figure class="video reveal" data-youtube="SEU_ID_AQUI">
+
+<!-- Vimeo: o ID é o número no fim da URL -->
+<figure class="video reveal" data-vimeo="123456789">
+```
+
+Nos dois casos, apague os atributos `data-src` e `data-src-webm` e troque a
+imagem de capa dentro do `<figure>`.
+
+### Mudar o texto do botão e a legenda
+
+O rótulo ("Assistir ao reel · 1 min") está no próprio `<button>`, e a linha
+abaixo do vídeo está no bloco `<div class="video-meta">`. É texto comum.
+
+## 7. Como adicionar um quarto projeto
 
 1. Duplique `projeto-03.html` e renomeie para `projeto-04.html`.
 2. Edite o conteúdo: título, textos, números e imagens.
@@ -219,7 +235,7 @@ linhas sozinho, sem precisar mexer no CSS.
 
 ---
 
-## 7. Onde mexer no visual
+## 8. Onde mexer no visual
 
 Tudo o que define a aparência está no topo de `assets/css/style.css`, no bloco
 `:root`. Trocar uma variável ali muda o site inteiro:
@@ -231,20 +247,19 @@ Tudo o que define a aparência está no topo de `assets/css/style.css`, no bloco
 --shell:  1240px;   /* largura máxima do conteúdo */
 ```
 
-### O grid do hero
+### O fundo do hero
 
-O fundo quadriculado do hero é feito só com CSS, em `assets/css/style.css`:
+A malha de pontos do hero é feita só com CSS, em `assets/css/style.css`:
 
 ```css
-.hero__grid{
-  background-size: clamp(56px, 6.2vw, 92px) ...;  /* tamanho do quadrado */
-  opacity: .085;                                  /* intensidade da malha */
+.hero__dots{
+  background-size: clamp(20px, 2.1vw, 28px) ...;  /* distância entre os pontos */
+  opacity: .08;                                   /* intensidade */
 }
-.hero__cols span{ opacity: .07; }                 /* linhas das 12 colunas */
 ```
 
-Aumente a `opacity` para deixar a grade mais presente, ou diminua para quase
-sumir. O `background-size` controla o tamanho de cada quadrado.
+Aumente a `opacity` para deixar os pontos mais presentes, ou diminua para quase
+sumir. O `background-size` controla o espaçamento da malha.
 
 ### O cronograma
 

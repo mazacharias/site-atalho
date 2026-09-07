@@ -22,7 +22,6 @@
 
 <!-- Open Sans hospedada no próprio site: sem depender do Google Fonts -->
 <link rel="preload" href="assets/fonts/open-sans-var-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/reanimation.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/style.css">
 
@@ -43,13 +42,11 @@
 <!-- ====================== CABEÇALHO ====================== -->
 <header class="header" id="header">
   <div class="shell header__bar">
-    <a class="brand" href="./" aria-label="Atalho Studio — início">
-      <img class="brand__logo brand__logo--neg" src="assets/img/logo-branco.svg" alt="Atalho Studio" width="489" height="163">
-      <img class="brand__logo brand__logo--pos" src="assets/img/logo.svg" alt="" aria-hidden="true" width="489" height="163">
-    </a>
+    <a class="brand" href="./">atalho</a>
 
     <nav class="nav" aria-label="Navegação principal">
       <a href="#estudio">Estúdio</a>
+      <a href="#reel">Reel</a>
       <a href="#servicos">Serviços</a>
       <a href="#processo">Processo</a>
       <a href="#projetos">Projetos</a>
@@ -69,11 +66,12 @@
 <div class="drawer" id="drawer">
   <nav aria-label="Navegação mobile">
     <a class="drawer__link" href="#estudio"><i>01</i>Estúdio</a>
-    <a class="drawer__link" href="#servicos"><i>02</i>Serviços</a>
-    <a class="drawer__link" href="#processo"><i>03</i>Processo</a>
-    <a class="drawer__link" href="#projetos"><i>04</i>Projetos</a>
-    <a class="drawer__link" href="#duvidas"><i>05</i>Dúvidas</a>
-    <a class="drawer__link" href="#contato"><i>06</i>Contato</a>
+    <a class="drawer__link" href="#reel"><i>02</i>Reel</a>
+    <a class="drawer__link" href="#servicos"><i>03</i>Serviços</a>
+    <a class="drawer__link" href="#processo"><i>04</i>Processo</a>
+    <a class="drawer__link" href="#projetos"><i>05</i>Projetos</a>
+    <a class="drawer__link" href="#duvidas"><i>06</i>Dúvidas</a>
+    <a class="drawer__link" href="#contato"><i>07</i>Contato</a>
   </nav>
   <div class="drawer__foot">
     <span class="micro">São Paulo · Brasil</span>
@@ -87,35 +85,20 @@
 
 <!-- ====================== HERO ====================== -->
 <section class="hero">
-  <div class="hero__grid" aria-hidden="true"></div>
-  <div class="rules hero__cols" aria-hidden="true">
-    <span style="left:8.33%"></span><span style="left:16.66%"></span><span style="left:25%"></span>
-    <span style="left:33.33%"></span><span style="left:41.66%"></span><span style="left:50%"></span>
-    <span style="left:58.33%"></span><span style="left:66.66%"></span><span style="left:75%"></span>
-    <span style="left:83.33%"></span><span style="left:91.66%"></span>
-  </div>
+  <div class="hero__dots" aria-hidden="true"></div>
   <div class="hero__glow" aria-hidden="true"></div>
 
   <div class="hero__inner">
     <div class="shell">
       <div class="g12 hero__row">
         <div class="hero__main">
-          <p class="hero__kicker reveal">Estúdio de design · São Paulo</p>
-          <h1 class="display reveal" data-d="1">Encurtamos o caminho entre a ideia <em>e a marca pronta.</em></h1>
-          <p class="hero__lead reveal" data-d="2">Marca, produto digital e sistemas visuais para empresas que precisam
+          <h1 class="display reveal">Encurtamos o caminho entre a ideia <em>e a marca pronta.</em></h1>
+          <p class="hero__lead reveal" data-d="1">Marca, produto digital e sistemas visuais para empresas que precisam
             decidir rápido sem abrir mão do rigor. Poucos clientes por vez, ciclos curtos e entrega definida
             desde o primeiro dia.</p>
-          <div class="hero__actions reveal" data-d="3">
-            <a class="btn btn--light" href="#contato">Iniciar projeto
-              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg>
-            </a>
-            <a class="link-u" href="#processo">Ver como trabalhamos
-              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg>
-            </a>
-          </div>
         </div>
 
-        <aside class="hero__index reveal" data-d="3">
+        <aside class="hero__index reveal" data-d="2">
           <p class="micro">O que fazemos</p>
           <ol>
             <li><a href="#servicos"><i>01</i>Identidade de marca</a></li>
@@ -124,20 +107,6 @@
           </ol>
         </aside>
       </div>
-    </div>
-  </div>
-
-  <div class="hero__rail">
-    <div class="shell hero__rail-in">
-      <span class="dot">Agenda aberta para novos projetos</span>
-      <ul>
-        <li>40+ projetos entregues</li>
-        <li>Ciclos de 6 a 8 semanas</li>
-        <li>Est. 2021</li>
-      </ul>
-      <a class="hero__scroll" href="#estudio">Rolar
-        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v11M4 9l4 4 4-4" stroke="currentColor" stroke-width="1.6"/></svg>
-      </a>
     </div>
   </div>
 </section>
@@ -177,11 +146,40 @@
   </div>
 </section>
 
-<!-- ====================== 02 · SERVIÇOS ====================== -->
+<!-- ====================== 02 · REEL ====================== -->
+<section class="section s-dark" id="reel">
+  <div class="shell">
+    <div class="g12 sec-head">
+      <div class="sec-head__id reveal"><b>02</b><span class="micro">Reel</span></div>
+      <div class="sec-head__t reveal" data-d="1"><h2 class="h2">O estúdio em um minuto.</h2></div>
+      <div class="sec-head__x reveal" data-d="2"><p>Um recorte dos últimos projetos: como a marca sai do diagnóstico e chega às mãos de quem vai usar todo dia.</p></div>
+    </div>
+
+    <!--
+      VÍDEO
+      O arquivo em assets/video/reel.mp4 é um exemplo — troque pelo seu.
+      Para usar YouTube ou Vimeo, veja as instruções no LEIA-ME.md.
+    -->
+    <figure class="video reveal" data-src="assets/video/reel.mp4" data-src-webm="assets/video/reel.webm" data-poster="assets/img/reel-poster.svg">
+      <img class="video__poster" src="assets/img/reel-poster.svg" alt="Prévia do reel do Atalho Studio" width="1600" height="900">
+      <button class="video__btn" type="button">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l10-5.5-10-5.5Z"/></svg>
+        Assistir ao reel <b>1 min</b>
+      </button>
+    </figure>
+
+    <div class="video-meta reveal">
+      <span>Reel 2026 · seleção de projetos</span>
+      <span>Direção e edição: Atalho Studio</span>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== 03 · SERVIÇOS ====================== -->
 <section class="section s-dark" id="servicos">
   <div class="shell">
     <div class="g12 sec-head">
-      <div class="sec-head__id reveal"><b>02</b><span class="micro">Serviços</span></div>
+      <div class="sec-head__id reveal"><b>03</b><span class="micro">Serviços</span></div>
       <div class="sec-head__t reveal" data-d="1"><h2 class="h2">Três frentes, um sistema só.</h2></div>
       <div class="sec-head__x reveal" data-d="2"><p>Podem ser contratadas juntas, como um projeto completo de marca, ou isoladamente — quando já existe uma base e falta consistência.</p></div>
     </div>
@@ -226,11 +224,11 @@
   </div>
 </section>
 
-<!-- ====================== 03 · PROCESSO ====================== -->
+<!-- ====================== 04 · PROCESSO ====================== -->
 <section class="section s-paper" id="processo">
   <div class="shell">
     <div class="g12 sec-head">
-      <div class="sec-head__id reveal"><b>03</b><span class="micro">Processo</span></div>
+      <div class="sec-head__id reveal"><b>04</b><span class="micro">Processo</span></div>
       <div class="sec-head__t reveal" data-d="1"><h2 class="h2">Cronograma e entrega em 8 semanas.</h2></div>
       <div class="sec-head__x reveal" data-d="2"><p>Quatro fases, marcos de aprovação definidos e a data em que cada entrega chega até você. Nada começa sem que essa linha esteja acordada.</p></div>
     </div>
@@ -317,11 +315,11 @@
   </div>
 </section>
 
-<!-- ====================== 04 · PROJETOS ====================== -->
+<!-- ====================== 05 · PROJETOS ====================== -->
 <section class="section s-white" id="projetos">
   <div class="shell">
     <div class="g12 sec-head">
-      <div class="sec-head__id reveal"><b>04</b><span class="micro">Projetos</span></div>
+      <div class="sec-head__id reveal"><b>05</b><span class="micro">Projetos</span></div>
       <div class="sec-head__t reveal" data-d="1"><h2 class="h2">Trabalhos selecionados.</h2></div>
       <div class="sec-head__x reveal" data-d="2"><p>Três projetos que mostram o método na prática — do diagnóstico à marca em uso.</p></div>
     </div>
@@ -369,11 +367,11 @@
   </div>
 </section>
 
-<!-- ====================== 05 · DÚVIDAS ====================== -->
+<!-- ====================== 06 · DÚVIDAS ====================== -->
 <section class="section s-paper" id="duvidas">
   <div class="shell">
     <div class="g12 sec-head">
-      <div class="sec-head__id reveal"><b>05</b><span class="micro">Dúvidas</span></div>
+      <div class="sec-head__id reveal"><b>06</b><span class="micro">Dúvidas</span></div>
       <div class="sec-head__t reveal" data-d="1"><h2 class="h2">Antes de começar.</h2></div>
       <div class="sec-head__x reveal" data-d="2"><p>As perguntas que aparecem em quase toda primeira conversa.</p></div>
     </div>
@@ -412,11 +410,11 @@
   </div>
 </section>
 
-<!-- ====================== 06 · CONTATO ====================== -->
+<!-- ====================== 07 · CONTATO ====================== -->
 <section class="section s-dark" id="contato">
   <div class="shell">
     <div class="g12 sec-head">
-      <div class="sec-head__id reveal"><b>06</b><span class="micro">Contato</span></div>
+      <div class="sec-head__id reveal"><b>07</b><span class="micro">Contato</span></div>
       <div class="sec-head__t reveal" data-d="1"><h2 class="h2">Vamos encurtar o seu caminho.</h2></div>
       <div class="sec-head__x reveal" data-d="2"><p>Conte em duas linhas o que você precisa. Respondemos em até um dia útil com os próximos passos e um horário para conversar.</p></div>
     </div>
@@ -497,9 +495,7 @@
   <div class="shell">
     <div class="g12">
       <div class="footer__brand">
-        <a class="brand" href="./" aria-label="Atalho Studio — início">
-          <img class="brand__logo" src="assets/img/logo-branco.svg" alt="Atalho Studio" width="489" height="163">
-        </a>
+        <a class="brand" href="./">atalho</a>
         <p>Estúdio de design de marca e produto digital. São Paulo, Brasil.</p>
       </div>
 
@@ -507,6 +503,7 @@
         <h5>Navegação</h5>
         <ul>
           <li><a href="#estudio">Estúdio</a></li>
+          <li><a href="#reel">Reel</a></li>
           <li><a href="#servicos">Serviços</a></li>
           <li><a href="#processo">Processo</a></li>
           <li><a href="#duvidas">Dúvidas</a></li>
