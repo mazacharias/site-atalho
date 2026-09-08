@@ -194,197 +194,82 @@
     });
   });
 
-  /* ---------- 7. Nuvem de pontos ----------
-     Um único conjunto de pontos, indexado por uma malha (u,v), que se remodela
-     entre quatro formas: estrela, esfera, montanha e onda. Cada forma é uma
-     função (u,v) -> posição no espaço + peso do ponto; a transição interpola
-     as duas formas vizinhas, com atraso por ponto para o enxame não chegar
-     todo junto. Os pontos são pixels quadrados, agrupados em seis níveis de
-     brilho e desenhados em lote, com dithering Bayer entre os níveis.       */
+  /* ---------- 7. Campo de pixels ----------
+     Uma grade fixa de células quadradas, sem perspectiva: todo pixel tem o
+     mesmo tamanho e a mesma cor. Cada forma é um campo — uma função que, para
+     um ponto da tela, devolve um valor de 0 a 1. Quem transforma esse valor
+     em preto e branco é o dithering (matriz Bayer 8x8): quanto maior o valor,
+     mais chance a célula tem de acender. É o mesmo desenho da estrela e do
+     pássaro, agora com quatro formas que se sucedem.
+
+     A transição é a interpolação entre dois campos, com um atraso por célula:
+     em vez de um corte, uma forma se desmancha em pixels enquanto a outra se
+     escreve por cima.                                                       */
   var tela = document.getElementById('padrao');
   if (tela && tela.getContext) {
     var ctx = tela.getContext('2d');
-    var COR = [159, 176, 238];          /* o mesmo azul-claro do resto do hero */
-    var PARADO = 3.2, TRANS = 2.1;      /* segundos parado em cada forma / de transição */
-    var ESPALHA = 0.5;                  /* quanto os pontos se atrasam entre si */
-    var FOV = 3.2;                      /* distância da câmera, em unidades de mundo */
-    var FOLGA = 1.30;                   /* quanto o lençol passa da largura do quadro */
-    var SOBRA_CIMA = 0.14, SOBRA_BAIXO = 0.34;  /* e das pontas, em alturas de quadro */
+    var COR = '#9fb0ee';
+    var PARADO = 3.4, TRANS = 1.9;   /* segundos parado em cada forma / de transição */
+    var ESPALHA = 0.55;              /* quanto as células se atrasam entre si */
 
-    var larg = 0, alt = 0, dpr = 1, cols = 0, linhas = 0, N = 0;
-    var formas = [], atrasos = null;
-
-    /* ruído de valor, para o relevo da montanha */
-    var hash2 = function (x, y) {
-      var n = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
-      return n - Math.floor(n);
-    };
-    var ruido = function (x, y) {
-      var xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi;
-      var u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
-      var a = hash2(xi, yi), b = hash2(xi + 1, yi);
-      var c = hash2(xi, yi + 1), d = hash2(xi + 1, yi + 1);
-      return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
-    };
-    var fbm = function (x, y) {
-      return ruido(x, y) * 0.54 + ruido(x * 2.1 + 5.2, y * 2.1 + 1.3) * 0.29
-           + ruido(x * 4.3 + 9.1, y * 4.3 + 7.7) * 0.17;
-    };
-
-    /* Seis níveis de brilho, do azul do hero até quase branco. Os pontos são
-       agrupados por nível e desenhados em lote: um fillStyle por nível, e não
-       um por ponto. A escadinha entre os níveis é quebrada pela matriz de
-       dithering, a mesma Bayer 8x8 das versões anteriores do hero.          */
-    var NIVEIS = 6, paleta = [], niveis = [];
     var BAYER = [
       [0,32,8,40,2,34,10,42],[48,16,56,24,50,18,58,26],
       [12,44,4,36,14,46,6,38],[60,28,52,20,62,30,54,22],
       [3,35,11,43,1,33,9,41],[51,19,59,27,49,17,57,25],
       [15,47,7,39,13,45,5,37],[63,31,55,23,61,29,53,21]
     ];
-    var fazerPaleta = function () {
-      paleta = [];
-      for (var k = 0; k < NIVEIS; k++) {
-        var f = k / (NIVEIS - 1);
-        var r = Math.round(COR[0] + (255 - COR[0]) * f * 0.62);
-        var g = Math.round(COR[1] + (255 - COR[1]) * f * 0.62);
-        var b = Math.round(COR[2] + (255 - COR[2]) * f * 0.62);
-        paleta.push('rgba(' + r + ',' + g + ',' + b + ','
-          + Math.min(1, (k + 1.15) / NIVEIS).toFixed(3) + ')');
-      }
+
+    var larg = 0, alt = 0, dpr = 1, PASSO = 14, LADO = 9;
+    var cols = 0, linhas = 0, meia = 1, mx = 0, my = 0, atrasos = null;
+
+    /* ---- as quatro formas, cada uma um campo (x, y, t) -> 0..1 ---- */
+
+    /* Estrela: superelipse de expoente 0,6. Abaixo de 1 os lados ficam
+       côncavos, e é daí que nascem as quatro pontas. Gira no próprio plano */
+    var estrela = function (x, y, t) {
+      var a = t * 0.17, c = Math.cos(a), s = Math.sin(a), R = 1.15;
+      var u = (x * c + y * s) / R, w = (-x * s + y * c) / R;
+      var d = Math.pow(Math.abs(u), 0.6) + Math.pow(Math.abs(w), 0.6);
+      return (1 - d) / 0.20;
     };
 
-    var DEFS = [
-      /* Estrela — halftone: a malha é uma folha de células quadradas e só
-         acendem os pontos dentro da superelipse |x|^0.6 + |y|^0.6 <= 1. Torcer
-         a malha para dentro da forma amontoaria pontos nas diagonais */
-      { tipo: 'livre', plano: 1, giro: 1, ganho: 0.86,
-        cam: { pitch: 0.05, escala: 0.47, sobe: 0.00 },
-        vao: function (c) { return 2.24 * c.prop; },
-        p: function (u, v, o, c) {
-          var altura = 2.24, largura = altura * c.prop;
-          var x = (u * 2 - 1) * largura / 2, y = (v * 2 - 1) * altura / 2;
-          var d = Math.pow(Math.abs(x / 1.06), 0.6) + Math.pow(Math.abs(y / 1.06), 0.6);
-          var peso = Math.min(1, Math.max(0, (1 - d) / 0.22));
-          o[0] = x; o[1] = y; o[2] = (1 - Math.min(1, d)) * 0.26 * peso; o[3] = peso;
-        } },
-      /* Esfera — o acos espalha as latitudes por área igual, senão a malha
-         engrossa no equador */
-      { tipo: 'livre', plano: 0, giro: 1, ganho: 0.28, vao: 5.5,
-        cam: { pitch: 0.08, escala: 0.50, sobe: 0.00 },
-        p: function (u, v, o) {
-          var th = u * Math.PI * 2, ph = Math.acos(1 - 2 * (v * 0.996 + 0.002));
-          var sp = Math.sin(ph);
-          o[0] = 0.96 * sp * Math.cos(th); o[1] = 0.96 * Math.cos(ph);
-          o[2] = 0.96 * sp * Math.sin(th); o[3] = 1;
-        } },
-      /* Montanha — um pico central, texturizado pelo ruído. Numa malha regular
-         na tela os pontos não se acumulam na silhueta, então a crista não
-         acende sozinha: quem acende é a inclinação do terreno, medida aqui por
-         diferença finita e guardada no peso do ponto */
-      { tipo: 'lencol', plano: 0, giro: 0.30, ganho: 1,
-        /* câmera baixa: assim a linha do horizonte entra no quadro e o pico
-           sobe contra o céu escuro, em vez de virar uma cúpula vista de cima */
-        cam: { pitch: 0.20, escala: 0.62, sobe: 0.02 },
-        relevo: function (x, z) {
-          /* o pico fica um pouco adiante do centro: assim sobra chão na frente
-             dele, e a montanha é vista de longe em vez de colada na câmera */
-          var dz = z + 1.0, r2 = x * x + dz * dz;
-          return 0.85 * Math.exp(-2.2 * r2) * (0.70 + 0.52 * fbm(x * 0.95 + 3.4, z * 0.95 + 2.2))
-               + 0.10 * fbm(x * 1.9 + 11, z * 1.9 + 6) - 0.06;
-        },
-        campo: function (x, z, o) {
-          var e = 0.07, h = this.relevo(x, z);
-          var gx = this.relevo(x + e, z) - this.relevo(x - e, z);
-          var gz = this.relevo(x, z + e) - this.relevo(x, z - e);
-          var incl = Math.sqrt(gx * gx + gz * gz) / (2 * e);
-          o[0] = h;
-          o[1] = 1;                                     /* tamanho do pixel */
-          o[2] = 0.72 + 0.28 * Math.min(1, incl * 0.9);  /* brilho: acende a crista */
-        } },
-      /* Onda — o mesmo chão, agora só com senos cruzados, e estes andam com o
-         tempo: é o único movimento próprio de uma forma */
-      { tipo: 'lencol', plano: 0, giro: 0.30, ganho: 1,
-        cam: { pitch: 0.50, escala: 0.62, sobe: -0.04 },
-        campo: function (x, z, o) { o[0] = 0; o[1] = 1; o[2] = 1; },
-        altura: function (x, z, t) {
-          return 0.26 * Math.sin(x * 1.5 + z * 0.7 + t * 0.75)
-               + 0.11 * Math.sin(z * 2.1 - t * 0.55);
-        } }
-    ];
-
-    /* Onde o raio que passa por um ponto da tela encontra o plano do chão.
-       É isto que faz o lençol cobrir o quadro inteiro por construção — se a
-       malha fosse um retângulo no mundo, a borda dela entraria no
-       enquadramento e abriria uma fenda preta atravessando a arte.          */
-    var noChao = function (a, b, cp, sp, o) {
-      var den = b * cp - sp * FOV;
-      if (den > -1e-3) return false;            /* acima da linha do horizonte */
-      var z = b * FOV / den;
-      var pers = FOV / (FOV - z * cp);
-      if (pers < 0.04) return false;
-      o[0] = a / pers; o[1] = z;
-      return true;
+    /* Esfera: um disco sombreado. A profundidade aqui é desenho, não câmera —
+       o valor cai do lado iluminado para o escuro e o dither faz o resto */
+    var esfera = function (x, y, t) {
+      var R = 0.90, r = Math.sqrt(x * x + y * y) / R;
+      if (r >= 1) return 0;
+      var z = Math.sqrt(1 - r * r);
+      var a = t * 0.33, lx = Math.cos(a) * 0.62, ly = 0.42, lz = 0.66;
+      var luz = (x / R) * lx + (y / R) * ly + z * lz;
+      /* o piso mantém o lado escuro salpicado, e é ele que preserva o
+         contorno redondo — sem piso o disco perde a borda no lado de sombra */
+      return 0.48 + 0.72 * Math.max(0, luz);
     };
 
-    var montar = function () {
-      var alvo = Math.min(5200, Math.max(1700, Math.round(larg * alt / 220)));
-      var prop = Math.max(0.6, Math.min(1.9, larg / Math.max(1, alt)));
-      cols = Math.max(24, Math.round(Math.sqrt(alvo * prop)));
-      linhas = Math.max(18, Math.round(alvo / cols));
-      N = cols * linhas;
+    /* Montanha: uma silhueta. Cheia na crista, rareando para a base */
+    var perfil = function (x) {
+      return 1.10 * Math.exp(-3.2 * (x - 0.04) * (x - 0.04))
+           + 0.44 * Math.exp(-3.0 * (x + 0.74) * (x + 0.74))
+           + 0.38 * Math.exp(-3.4 * (x - 0.82) * (x - 0.82))
+           + 0.05 * Math.sin(x * 9.1) + 0.032 * Math.sin(x * 17.3 + 1.2);
+    };
+    var montanha = function (x, y, t) {
+      var topo = -0.86 + perfil(x) * (1 + 0.035 * Math.sin(t * 0.5));
+      if (y > topo) return 0;
+      return Math.max(0.16, 1 - (topo - y) / 0.78);
+    };
 
-      var meio = Math.min(larg, alt);
-      formas = [];
-      var o = [0, 0, 0, 1], ch = [0, 0], cp2 = [0, 1, 1], cfg = { prop: cols / linhas };
+    /* Onda: faixas que atravessam o quadro e escorrem com o tempo */
+    var onda = function (x, y, t) {
+      var f = y * 8.2 + 1.15 * Math.sin(x * 2.0 + t * 0.6) + t * 0.7;
+      return 0.40 + 0.75 * Math.sin(f);
+    };
 
-      for (var f = 0; f < DEFS.length; f++) {
-        var D = DEFS[f], pos = new Float32Array(N * 3);
-        var peso = new Float32Array(N), lum = new Float32Array(N);
-        var xz = null, lado = 0, fixo = 1;
+    var CAMPOS = [estrela, esfera, montanha, onda];
 
-        if (D.tipo === 'lencol') {
-          var cp = Math.cos(D.cam.pitch), sp = Math.sin(D.cam.pitch);
-          var escala = meio * D.cam.escala;
-          var cxs = larg / 2, cys = alt / 2 + meio * D.cam.sobe;
-          xz = new Float32Array(N * 2);
-          for (var i = 0; i < N; i++) {
-            /* a malha é regular na tela, com folga nas laterais e nas pontas */
-            var sx = cxs + ((i % cols) / (cols - 1) - 0.5) * larg * FOLGA;
-            /* a folga em cima e embaixo é grande de propósito: o relevo desloca
-               o ponto na vertical, e perto da câmera esse deslocamento passa de
-               200 px. Sem essa sobra, abre um vazio na beirada do quadro */
-            var sy = -alt * SOBRA_CIMA
-                   + (Math.floor(i / cols) / (linhas - 1)) * alt * (1 + SOBRA_CIMA + SOBRA_BAIXO);
-            var a = (sx - cxs) / escala, b = (cys - sy) / escala;
-            var ok = noChao(a, b, cp, sp, ch);
-            var x = ok ? ch[0] : a * 7, z = ok ? ch[1] : -7;
-            D.campo.call(D, x, z, cp2);
-            xz[i * 2] = x; xz[i * 2 + 1] = z;
-            pos[i * 3] = x; pos[i * 3 + 1] = cp2[0]; pos[i * 3 + 2] = z;
-            peso[i] = ok ? cp2[1] : 0; lum[i] = cp2[2];
-          }
-          /* na tela o espaçamento já é uniforme, então o lado quase não depende
-             da profundidade — só o bastante para o perto pesar mais que o longe */
-          lado = larg * FOLGA / cols * 0.44;
-          fixo = 0.30;
-        } else {
-          var vao = typeof D.vao === 'function' ? D.vao(cfg) : D.vao;
-          for (var j = 0; j < N; j++) {
-            D.p((j % cols) / cols, (Math.floor(j / cols) + 0.5) / linhas, o, cfg);
-            pos[j * 3] = o[0]; pos[j * 3 + 1] = o[1]; pos[j * 3 + 2] = o[2];
-            peso[j] = o[3]; lum[j] = 1;
-          }
-          lado = meio * D.cam.escala * (vao / cols) * 0.62;
-        }
-
-        formas.push({ pos: pos, peso: peso, lum: lum, xz: xz, altura: D.altura || null,
-                      cam: D.cam, plano: D.plano, giro: D.giro,
-                      lado: lado * D.ganho, dep: fixo });
-      }
-
-      atrasos = new Float32Array(N);
-      for (var k = 0; k < N; k++) atrasos[k] = hash2(k * 0.731, k * 0.219);
+    var hash2 = function (a, b) {
+      var n = Math.sin(a * 127.1 + b * 311.7) * 43758.5453;
+      return n - Math.floor(n);
     };
 
     var medir = function () {
@@ -393,115 +278,62 @@
       if (!larg || !alt) return;
       tela.width = Math.round(larg * dpr); tela.height = Math.round(alt * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      montar();
-      if (!paleta.length) fazerPaleta();
-      niveis = [];
-      for (var k = 0; k < NIVEIS; k++) niveis.push({ v: new Float32Array(N * 3), n: 0 });
+
+      PASSO = Math.max(9, Math.min(15, Math.round(Math.min(larg, alt) / 40)));
+      LADO = Math.max(3, Math.round(PASSO * 0.62));   /* sobra preto entre um pixel e outro */
+      cols = Math.ceil(larg / PASSO); linhas = Math.ceil(alt / PASSO);
+      /* sobra dividida nas duas pontas, para a grade ficar centrada */
+      mx = (larg - cols * PASSO) / 2; my = (alt - linhas * PASSO) / 2;
+      meia = Math.min(larg, alt) / 2;
+
+      atrasos = new Float32Array(cols * linhas);
+      for (var i = 0; i < atrasos.length; i++) atrasos[i] = hash2(i * 0.731, i * 0.219);
     };
 
-    var suave = function (x) {
-      return x <= 0 ? 0 : x >= 1 ? 1 : x * x * x * (x * (x * 6 - 15) + 10);
+    var suave = function (v) {
+      return v <= 0 ? 0 : v >= 1 ? 1 : v * v * v * (v * (v * 6 - 15) + 10);
     };
 
     var desenhar = function (t) {
-      if (!N) return;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (!cols) return;
       ctx.clearRect(0, 0, larg, alt);
-      ctx.globalCompositeOperation = 'lighter';
+      ctx.fillStyle = COR;
 
-      var ciclo = PARADO + TRANS, n = formas.length, volta = ciclo * n;
+      var ciclo = PARADO + TRANS, n = CAMPOS.length, volta = ciclo * n;
       var fase = ((t % volta) + volta) % volta;
       var ia = Math.floor(fase / ciclo), local = fase - ia * ciclo;
-      var A = formas[ia], B = formas[(ia + 1) % n];
-      var m = local <= PARADO ? 0 : (local - PARADO) / TRANS, me = suave(m);
+      var A = CAMPOS[ia], B = CAMPOS[(ia + 1) % n];
+      var m = local <= PARADO ? 0 : (local - PARADO) / TRANS;
 
-      /* a câmera também interpola: cada forma tem o seu enquadramento */
-      var pitch = A.cam.pitch + (B.cam.pitch - A.cam.pitch) * me;
-      var esc = A.cam.escala + (B.cam.escala - A.cam.escala) * me;
-      var sobe = A.cam.sobe + (B.cam.sobe - A.cam.sobe) * me;
-      var chato = A.plano + (B.plano - A.plano) * me;
-      var quantoGira = A.giro + (B.giro - A.giro) * me;
+      for (var j = 0; j < linhas; j++) {
+        var py = my + j * PASSO;
+        var y = (alt / 2 - (py + PASSO / 2)) / meia;
+        for (var i = 0; i < cols; i++) {
+          var px = mx + i * PASSO;
+          var x = (px + PASSO / 2 - larg / 2) / meia;
 
-      /* no meio da transição os pontos se amontoam e a soma de luz estoura;
-         esta queda de brilho segura o clarão e ainda ajuda a leitura */
-      var fatorLuz = 1 - 0.38 * Math.sin(Math.PI * m);
+          var v = A(x, y, t);
+          if (m > 0) {
+            var k = suave(m * (1 + ESPALHA) - atrasos[j * cols + i] * ESPALHA);
+            if (k > 0) v += (B(x, y, t) - v) * k;
+          }
+          if (v <= 0) continue;
+          if (v > 1) v = 1;
 
-      /* o lençol é desenhado a partir da tela, então gira pouco: um giro largo
-         traria a borda dele para dentro do quadro */
-      var yaw = Math.sin(t * 0.19) * 0.26 * quantoGira;
-      var roll = t * 0.16 * chato;      /* giro no próprio plano, só nas formas chatas */
-      var cy = Math.cos(yaw), sy = Math.sin(yaw);
-      var cp = Math.cos(pitch), sp = Math.sin(pitch);
-      var cr = Math.cos(roll), sr = Math.sin(roll);
-
-      var meio = Math.min(larg, alt), escala = meio * esc;
-      var cxs = larg / 2, cys = alt / 2 + meio * sobe;
-
-      for (var q = 0; q < NIVEIS; q++) niveis[q].n = 0;
-
-      var pa = A.pos, pb = B.pos, wa = A.peso, wb = B.peso, la2 = A.lum, lb2 = B.lum;
-      for (var i = 0; i < N; i++) {
-        var k = m === 0 ? 0 : suave(m * (1 + ESPALHA) - atrasos[i] * ESPALHA);
-        var j = i * 3, i2 = i * 2;
-        /* a onda tem movimento próprio: a altura dela é recalculada a cada quadro */
-        var ya = A.altura ? A.altura(A.xz[i2], A.xz[i2 + 1], t) : pa[j + 1];
-        var yb = B.altura ? B.altura(B.xz[i2], B.xz[i2 + 1], t) : pb[j + 1];
-
-        var x = pa[j] + (pb[j] - pa[j]) * k;
-        var y = ya + (yb - ya) * k;
-        var z = pa[j + 2] + (pb[j + 2] - pa[j + 2]) * k;
-        var peso = wa[i] + (wb[i] - wa[i]) * k;
-        var lum = la2[i] + (lb2[i] - la2[i]) * k;
-        if (peso < 0.02) continue;
-
-        var x1 = x * cr - y * sr, y1 = x * sr + y * cr;      /* giro no plano */
-        var x2 = x1 * cy + z * sy, z2 = -x1 * sy + z * cy;   /* giro no eixo vertical */
-        var y3 = y1 * cp - z2 * sp, z3 = y1 * sp + z2 * cp;  /* inclinação da câmera */
-
-        var pers = FOV / (FOV - z3);
-        if (pers < 0.02) continue;
-        var sx = cxs + x2 * escala * pers, sy2 = cys - y3 * escala * pers;
-        if (sx < -14 || sx > larg + 14 || sy2 < -14 || sy2 > alt + 14) continue;
-
-        /* no lençol o lado quase não varia, porque a malha já é regular na tela */
-        var la = A.lado * (1 - A.dep + A.dep * pers);
-        var lb = B.lado * (1 - B.dep + B.dep * pers);
-        var lado = (la + (lb - la) * k) * peso;
-        if (lado < 0.7) continue;
-        if (lado > 13) lado = 13;
-        var px = sx - lado / 2 | 0, py = sy2 - lado / 2 | 0;
-
-        var prof = Math.min(1, Math.max(0, (pers - 0.30) / 1.2));
-        var luz = (0.42 + 0.58 * prof) * peso * lum * fatorLuz;
-        /* o dithering desmancha a escadinha entre os seis níveis */
-        var nivel = luz * NIVEIS + (BAYER[(py >> 1) & 7][(px >> 1) & 7] / 64 - 0.5) | 0;
-        if (nivel < 0) continue;
-        if (nivel > NIVEIS - 1) nivel = NIVEIS - 1;
-
-        var alvo = niveis[nivel], w = alvo.n * 3;
-        alvo.v[w] = px; alvo.v[w + 1] = py; alvo.v[w + 2] = Math.round(lado) || 1;
-        alvo.n++;
-      }
-
-      /* um fillStyle por nível, e os pontos daquele nível de uma vez */
-      for (var q2 = 0; q2 < NIVEIS; q2++) {
-        var nv = niveis[q2];
-        if (!nv.n) continue;
-        ctx.fillStyle = paleta[q2];
-        var vv = nv.v;
-        for (var e = 0, ate = nv.n * 3; e < ate; e += 3) {
-          ctx.fillRect(vv[e], vv[e + 1], vv[e + 2], vv[e + 2]);
+          /* o dithering troca o degradê por uma decisão por célula */
+          if (v > 0.30 + (BAYER[j & 7][i & 7] / 64) * 0.58) {
+            ctx.fillRect(Math.round(px), Math.round(py), LADO, LADO);
+          }
         }
       }
-      ctx.globalCompositeOperation = 'source-over';
     };
 
     var parado = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var visivel = true, inicio = 0, ultimo = 0;
     var quadro = function (agora) {
       if (!inicio) inicio = agora;
-      /* 30 quadros por segundo: acima disso o custo dobra sem ganho visível */
-      if (visivel && agora - ultimo > 33) { ultimo = agora; desenhar((agora - inicio) / 1000); }
+      /* 20 quadros por segundo: o passo visível combina com a estética de pixel */
+      if (visivel && agora - ultimo > 50) { ultimo = agora; desenhar((agora - inicio) / 1000); }
       requestAnimationFrame(quadro);
     };
     medir();

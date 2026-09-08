@@ -264,81 +264,85 @@ Para mudar a cor da barra, edite `.header` em `assets/css/style.css`:
 
 ### O hero
 
-Painel escuro dividido em dois: texto à esquerda, uma nuvem de pixels à direita.
-Não é imagem nem vídeo — é gerada em `<canvas>` a cada quadro, na seção 7 do
+Painel escuro dividido em dois: texto à esquerda, um campo de pixels à direita.
+Não é imagem nem vídeo — é desenhado em `<canvas>` a cada quadro, na seção 7 do
 `assets/js/main.js`.
 
-São sempre **os mesmos pontos**, que se remodelam em quatro formas, em ciclo:
+O desenho é chapado de propósito: **uma grade fixa de células quadradas, todas
+do mesmo tamanho e da mesma cor**, sem perspectiva e sem sombra. Quem cria o
+tom é o dithering.
+
+Quatro formas se sucedem em ciclo:
 
 | | forma | o que é |
 |---|---|---|
-| 1 | estrela | a marca: silhueta de quatro pontas em halftone |
-| 2 | esfera | malha de pixels sobre a superfície |
-| 3 | montanha | um pico contra o céu, com a linha do horizonte no quadro |
-| 4 | onda | um lençol ondulado, em fuga, que anda com o tempo |
+| 1 | estrela | a marca: superelipse de quatro pontas, girando |
+| 2 | esfera | um disco com luz de um lado só |
+| 3 | montanha | uma silhueta, cheia na crista e rareando para a base |
+| 4 | onda | faixas que atravessam o quadro e escorrem |
 
-Cada ponto tem um índice numa malha `(u, v)`, e cada forma é uma função
-`(u, v) → posição no espaço + tamanho + brilho do ponto`. A transição é só
-interpolar as duas formas vizinhas — com um atraso diferente por ponto, para o
-enxame não chegar todo junto. A câmera também interpola: cada forma guarda a
-sua própria inclinação e o seu próprio zoom, então o enquadramento acompanha a
-mudança.
+#### Como funciona
 
-Para mudar o ritmo, ajuste no topo da seção 7:
+Cada forma é um **campo**: uma função que recebe um ponto da tela e o tempo, e
+devolve um valor de 0 a 1.
 
 ```js
-var PARADO = 3.2, TRANS = 2.1;   // segundos parado em cada forma / de transição
+var estrela = function (x, y, t) {
+  var a = t * 0.17, c = Math.cos(a), s = Math.sin(a), R = 1.15;
+  var u = (x * c + y * s) / R, w = (-x * s + y * c) / R;
+  var d = Math.pow(Math.abs(u), 0.6) + Math.pow(Math.abs(w), 0.6);
+  return (1 - d) / 0.20;
+};
+```
+
+Quem transforma esse valor em preto e branco é o **dithering**, com a matriz
+Bayer 8×8 — a mesma das versões anteriores do hero. Quanto maior o valor, mais
+chance a célula tem de acender:
+
+```js
+if (v > 0.30 + (BAYER[j & 7][i & 7] / 64) * 0.58) {
+  ctx.fillRect(px, py, LADO, LADO);
+}
+```
+
+Sem dithering, um degradê viraria uma borda dura; com ele, vira uma
+transição esfarelada em pixels.
+
+A troca entre duas formas é a interpolação entre os dois campos, com um atraso
+diferente por célula. Por isso uma forma se desmancha em pixels enquanto a
+outra se escreve por cima, em vez de haver um corte.
+
+#### O que dá para ajustar
+
+```js
+var PARADO = 3.4, TRANS = 1.9;   // segundos parado em cada forma / de transição
+var COR = '#9fb0ee';             // cor dos pixels
 ```
 
 Com quatro formas, o ciclo inteiro dá 21 segundos.
 
-#### Por que os lençóis são gerados a partir da tela
-
-Montanha e onda são um chão visto em perspectiva. Se esse chão fosse um
-retângulo no mundo, a borda dele entraria no enquadramento e abriria **uma
-fenda preta atravessando a arte** — foi o que aconteceu na primeira versão.
-
-A malha então não é feita no mundo, e sim na tela: para cada célula de uma
-grade que cobre o quadro (com folga), um raio é lançado e o ponto nasce onde
-esse raio encontra o plano do chão. Assim o lençol cobre o enquadramento por
-construção, e de quebra o espaçamento entre os pixels fica igual em toda a
-tela.
-
-A folga precisa ser generosa, principalmente embaixo: o relevo desloca o ponto
-na vertical, e perto da câmera esse deslocamento passa de 200 px.
+O tamanho do pixel vem do tamanho do painel, em `medir()`:
 
 ```js
-var FOLGA = 1.30;                            // nas laterais
-var SOBRA_CIMA = 0.14, SOBRA_BAIXO = 0.34;   // em alturas de quadro
+PASSO = Math.max(9, Math.min(15, Math.round(Math.min(larg, alt) / 40)));
+LADO  = Math.max(3, Math.round(PASSO * 0.62));
 ```
 
-Como a malha é regular na tela, os pontos não se acumulam na silhueta e a
-crista da montanha não acende sozinha. Quem acende é a **inclinação do
-terreno**, medida por diferença finita e guardada no brilho do ponto.
+`PASSO` é a distância de um pixel ao outro e `LADO` é o quadrado desenhado — a
+diferença entre os dois é o preto que sobra entre eles.
 
-#### Os pixels
+Na superelipse da estrela, o expoente `0.6` é o que faz as pontas: acima de 1 a
+forma é um retângulo arredondado, em 1 é um losango, e **abaixo de 1 os lados
+ficam côncavos**. O `0.20` é a espessura da borda esfarelada: mais que isso e a
+estrela encolhe, porque o dither come as pontas.
 
-Cada ponto é um quadrado de lado inteiro, encaixado na grade de pixels da tela.
-O brilho é quantizado em seis níveis, do azul do hero até quase branco, e os
-pontos são desenhados em lote — **um `fillStyle` por nível**, e não um por
-ponto. A escadinha entre os níveis é quebrada por dithering com a matriz
-Bayer 8×8, a mesma das versões anteriores do hero.
-
-O desenho usa soma de luz (`globalCompositeOperation = 'lighter'`): onde os
-pixels se acumulam a luz soma e estoura em branco. De quebra, dispensa ordenar
-os pontos por profundidade. No meio da transição essa soma vira um clarão, e é
-por isso que existe o `fatorLuz`, que derruba o brilho justamente ali.
-
-A nuvem sangra até as bordas do hero — para cima, para baixo e para a direita
+O campo sangra até as bordas do hero — para cima, para baixo e para a direita
 até a beirada da tela — por margens negativas em `.painel__arte`, casadas com o
 respiro do hero via as variáveis `--pt` e `--pb`. Se mudar o respiro, as margens
 acompanham sozinhas.
 
-O desenho roda a 30 quadros por segundo e para sozinho quando o hero sai da
+O desenho roda a 20 quadros por segundo e para sozinho quando o hero sai da
 tela. Com `prefers-reduced-motion` ligado, desenha só a estrela, parada.
-
-Para trocar a cor, mude a linha `var COR = [159, 176, 238];` — são os valores
-R, G e B do azul-claro do hero.
 
 ### O espaçamento entre as dobras
 
