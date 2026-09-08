@@ -282,7 +282,7 @@ Três formas se sucedem em ciclo:
 | | forma | o que é |
 |---|---|---|
 | 1 | estrela | a marca: superelipse de quatro pontas, girando |
-| 2 | setas | duas setas para a direita, com uma luz que as atravessa |
+| 2 | setas | duas setas grossas para a direita, com uma luz que as atravessa |
 | 3 | redemoinho | braços em espiral saindo do centro |
 
 #### Como funciona
@@ -320,10 +320,14 @@ outra se escreve por cima, em vez de haver um corte.
 
 ```js
 var PARADO = 3.4, TRANS = 1.9;   // segundos parado em cada forma / de transição
-var COR = '#9fb0ee';             // cor dos pixels
+var COR = '#d9e0fa';             // cor dos pixels
 ```
 
 Com três formas, o ciclo inteiro dá 16 segundos.
+
+A cor dos pixels é clara de propósito: o fundo do hero é o azul da marca
+(`--brand`, o mesmo do botão da barra de navegação), e sobre ele um tom médio
+perde contraste e o desenho some.
 
 Trocar uma forma é trocar uma função e o nome dela na lista:
 
@@ -331,10 +335,15 @@ Trocar uma forma é trocar uma função e o nome dela na lista:
 var CAMPOS = [estrela, setas, redemoinho];
 ```
 
-Duas contas valem atenção nas setas: cada uma ocupa 0,72 na horizontal, então
-o passo entre as duas tem de ser maior que isso — senão elas se cruzam. E a
-luz que as varre não pode descer demais, ou apaga metade da seta abaixo do
-piso do dither.
+Nas setas, três números mandam:
+
+```js
+var ALTURA = 0.62, GROSSURA = 0.30, PASSO_SETA = 0.68;
+```
+
+A folga entre as duas é `PASSO_SETA - 2 × GROSSURA`. Engrossar sem afastar
+funde as duas numa mancha só. E a luz que varre as setas não pode descer
+demais, ou apaga metade delas abaixo do piso do dither.
 
 O tamanho do pixel vem do tamanho do painel, em `medir()`:
 

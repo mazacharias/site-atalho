@@ -177,7 +177,8 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 /* ---------- 7. Hero ---------- */
 .hero{
   position:relative; overflow:hidden;
-  background:var(--ink); color:var(--on-dark);
+  /* o azul da marca, o mesmo do CTA da barra de navegação */
+  background:var(--brand); color:var(--on-dark);
   --pt:clamp(44px, 6vh, 84px);
   --pb:clamp(48px, 6.5vh, 92px);
   padding:var(--pt) 0 var(--pb);

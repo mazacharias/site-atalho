@@ -208,7 +208,7 @@
   var tela = document.getElementById('padrao');
   if (tela && tela.getContext) {
     var ctx = tela.getContext('2d');
-    var COR = '#9fb0ee';
+    var COR = '#d9e0fa';   /* claro o bastante para segurar contraste sobre o azul da marca */
     var PARADO = 3.4, TRANS = 1.9;   /* segundos parado em cada forma / de transição */
     var ESPALHA = 0.55;              /* quanto as células se atrasam entre si */
 
@@ -237,16 +237,18 @@
        deitado: a aresta dianteira fica em x = ponta - |y|, e o que acende é
        a distância até ela. Uma onda de brilho atravessa as duas da esquerda
        para a direita — é ela que dá o sentido de avanço */
+    var ALTURA = 0.62, GROSSURA = 0.30, PASSO_SETA = 0.68;
     var umaSeta = function (x, y, ponta) {
-      if (Math.abs(y) > 0.72) return 0;
+      if (Math.abs(y) > ALTURA) return 0;
       var d = Math.abs(x - (ponta - Math.abs(y)));
-      return (0.17 - d) / 0.10;
+      return (GROSSURA - d) / 0.13;
     };
     var setas = function (x, y, t) {
       var anda = Math.sin(t * 0.8) * 0.045;
-      /* as duas não podem se cruzar: cada uma ocupa 0,72 na horizontal, então
-         o passo entre elas tem de ser maior que isso */
-      var v = Math.max(umaSeta(x, y, 0.80 + anda), umaSeta(x, y, 0.02 + anda));
+      /* as duas faixas correm paralelas, com uma folga constante de
+         PASSO_SETA - 2 x GROSSURA entre elas. Encostar esse passo na grossura
+         faz as setas se fundirem numa mancha só */
+      var v = Math.max(umaSeta(x, y, 0.65 + anda), umaSeta(x, y, 0.65 - PASSO_SETA + anda));
       if (v <= 0) return 0;
       return v * (0.80 + 0.32 * Math.sin(x * 2.4 - t * 2.1));
     };
