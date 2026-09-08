@@ -247,16 +247,19 @@ Tudo o que define a aparência está no topo de `assets/css/style.css`, no bloco
 
 ### A barra de navegação
 
-A barra é branca em todos os estados — sobre o hero, com a página rolada e nas
-páginas de projeto. Os links são escuros, sem esmaecer, e o retorno ao passar o
-mouse é um sublinhado. O botão "Iniciar projeto" fica azul dentro da barra,
-para ter contraste sobre o branco. O menu mobile segue a mesma lógica: fundo
-branco, texto escuro.
+A barra é um elemento separado do hero: fica no fluxo da página, acima dele, na
+mesma cor das dobras claras (`--paper`), com um filete embaixo para se ler como
+elemento próprio mesmo quando o fundo abaixo tem a mesma cor. Ao rolar ela gruda
+no topo, encolhe um pouco e ganha uma sombra rasa.
+
+Os links são escuros, sem esmaecer, e o retorno ao passar o mouse é um
+sublinhado. O botão "Iniciar projeto" fica azul dentro da barra, para ter
+contraste. O menu mobile usa a mesma superfície.
 
 Para mudar a cor da barra, edite `.header` em `assets/css/style.css`:
 
 ```css
-.header{ background:#fff; color:var(--ink); }
+.header{ background:var(--paper); color:var(--ink); }
 ```
 
 ### O fundo do hero
