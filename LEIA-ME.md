@@ -63,7 +63,7 @@ qualquer editor (VS Code, Bloco de Notas, ou o próprio editor da Hostinger).
 - WhatsApp: troque `5511999999999` pelo seu número com DDI e DDD;
 - Instagram: troque `atalho.studio`.
 
-**Números do estúdio** — a seção "Estúdio" tem `40+` e `6–8`. Ajuste para a
+**Números do estúdio** — a seção "Estúdio" tem `15+` e `6–8`. Ajuste para a
 sua realidade.
 
 **O hero** — tudo centrado, na ordem: o selo (`.selo`), o título (`<h1>`), a
