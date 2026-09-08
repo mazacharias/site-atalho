@@ -264,7 +264,7 @@ Para mudar a cor da barra, edite `.header` em `assets/css/style.css`:
 
 ### O hero
 
-Painel escuro dividido em dois: texto à esquerda, uma nuvem de pontos à direita.
+Painel escuro dividido em dois: texto à esquerda, uma nuvem de pixels à direita.
 Não é imagem nem vídeo — é gerada em `<canvas>` a cada quadro, na seção 7 do
 `assets/js/main.js`.
 
@@ -273,19 +273,16 @@ São sempre **os mesmos pontos**, que se remodelam em quatro formas, em ciclo:
 | | forma | o que é |
 |---|---|---|
 | 1 | estrela | a marca: silhueta de quatro pontas em halftone |
-| 2 | esfera | malha de pontos sobre a superfície |
-| 3 | montanha | um pico com relevo de ruído |
-| 4 | onda | um lençol ondulado, em fuga |
+| 2 | esfera | malha de pixels sobre a superfície |
+| 3 | montanha | um pico contra o céu, com a linha do horizonte no quadro |
+| 4 | onda | um lençol ondulado, em fuga, que anda com o tempo |
 
 Cada ponto tem um índice numa malha `(u, v)`, e cada forma é uma função
-`(u, v) → posição no espaço + peso do ponto`. A transição é só interpolar as
-duas formas vizinhas — com um atraso diferente por ponto, para o enxame não
-chegar todo junto. A câmera também interpola: cada forma guarda a sua própria
-inclinação e o seu próprio zoom, então o enquadramento acompanha a mudança.
-
-```js
-{ plano: 0, cam: { pitch: 0.34, escala: 0.62, sobe: -0.06 }, ganho: 1, … }
-```
+`(u, v) → posição no espaço + tamanho + brilho do ponto`. A transição é só
+interpolar as duas formas vizinhas — com um atraso diferente por ponto, para o
+enxame não chegar todo junto. A câmera também interpola: cada forma guarda a
+sua própria inclinação e o seu próprio zoom, então o enquadramento acompanha a
+mudança.
 
 Para mudar o ritmo, ajuste no topo da seção 7:
 
@@ -295,16 +292,42 @@ var PARADO = 3.2, TRANS = 2.1;   // segundos parado em cada forma / de transiç�
 
 Com quatro formas, o ciclo inteiro dá 21 segundos.
 
-Três decisões seguram o resultado:
+#### Por que os lençóis são gerados a partir da tela
 
-- **soma de luz** (`globalCompositeOperation = 'lighter'`): onde os pontos se
-  acumulam a luz soma e estoura em branco — é daí que vem o brilho. De quebra,
-  dispensa ordenar os pontos por profundidade
-- **halftone na estrela**: a malha fica cartesiana e só acendem os pontos
-  dentro da forma. Torcer a malha para caber na estrela amontoaria pontos nas
-  diagonais e abriria um X no miolo
-- **queda de brilho no meio da transição** (`fatorLuz`), senão o momento em que
-  os pontos se amontoam vira um clarão branco
+Montanha e onda são um chão visto em perspectiva. Se esse chão fosse um
+retângulo no mundo, a borda dele entraria no enquadramento e abriria **uma
+fenda preta atravessando a arte** — foi o que aconteceu na primeira versão.
+
+A malha então não é feita no mundo, e sim na tela: para cada célula de uma
+grade que cobre o quadro (com folga), um raio é lançado e o ponto nasce onde
+esse raio encontra o plano do chão. Assim o lençol cobre o enquadramento por
+construção, e de quebra o espaçamento entre os pixels fica igual em toda a
+tela.
+
+A folga precisa ser generosa, principalmente embaixo: o relevo desloca o ponto
+na vertical, e perto da câmera esse deslocamento passa de 200 px.
+
+```js
+var FOLGA = 1.30;                            // nas laterais
+var SOBRA_CIMA = 0.14, SOBRA_BAIXO = 0.34;   // em alturas de quadro
+```
+
+Como a malha é regular na tela, os pontos não se acumulam na silhueta e a
+crista da montanha não acende sozinha. Quem acende é a **inclinação do
+terreno**, medida por diferença finita e guardada no brilho do ponto.
+
+#### Os pixels
+
+Cada ponto é um quadrado de lado inteiro, encaixado na grade de pixels da tela.
+O brilho é quantizado em seis níveis, do azul do hero até quase branco, e os
+pontos são desenhados em lote — **um `fillStyle` por nível**, e não um por
+ponto. A escadinha entre os níveis é quebrada por dithering com a matriz
+Bayer 8×8, a mesma das versões anteriores do hero.
+
+O desenho usa soma de luz (`globalCompositeOperation = 'lighter'`): onde os
+pixels se acumulam a luz soma e estoura em branco. De quebra, dispensa ordenar
+os pontos por profundidade. No meio da transição essa soma vira um clarão, e é
+por isso que existe o `fatorLuz`, que derruba o brilho justamente ali.
 
 A nuvem sangra até as bordas do hero — para cima, para baixo e para a direita
 até a beirada da tela — por margens negativas em `.painel__arte`, casadas com o
@@ -314,8 +337,8 @@ acompanham sozinhas.
 O desenho roda a 30 quadros por segundo e para sozinho quando o hero sai da
 tela. Com `prefers-reduced-motion` ligado, desenha só a estrela, parada.
 
-Para trocar a cor dos pontos, mude a linha `var COR = [159, 176, 238];` — são os
-valores R, G e B do azul-claro do hero.
+Para trocar a cor, mude a linha `var COR = [159, 176, 238];` — são os valores
+R, G e B do azul-claro do hero.
 
 ### O espaçamento entre as dobras
 
