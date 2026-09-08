@@ -276,29 +276,47 @@ dois botões. O fundo é o azul da marca (`--brand`, o mesmo do botão da barra 
 navegação) com uma **grade de linhas finas** por cima.
 
 A grade não é imagem nem canvas: são dois gradientes de uma listra só — um na
-vertical, outro na horizontal — repetidos pelo `background-size`.
+vertical, outro na horizontal — repetidos pelo `background-size`. Três números
+controlam tudo:
 
 ```css
 .hero{
   --celula: clamp(74px, 7.6vw, 128px);   /* tamanho do quadrado */
-  --grade:  rgba(242, 242, 238, .062);   /* cor da linha */
+  --grade:  rgba(242, 242, 238, .05);    /* força da linha */
+}
+.hero::before{
+  --aceso:  rgba(242, 242, 238, .017);   /* quadrados preenchidos */
 }
 ```
 
-`--celula` é o tamanho do quadrado e `--grade` é a força da linha. Subir muito
-essa opacidade transforma a textura em wireframe; ela precisa ficar no limite
-de "quase não se vê".
+As duas opacidades precisam ficar no limite de "quase não se vê". Subir a da
+linha transforma a textura em wireframe; subir a dos quadrados faz eles
+virarem manchas.
 
-A grade vive em `.hero::before`, e não no `.hero`, por causa da máscara:
+**Os quadrados acesos** são seis camadas `no-repeat` de uma célula cada,
+posicionadas a partir do centro:
 
 ```css
-mask-image: radial-gradient(115% 105% at 50% 44%, #000 45%, transparent 100%);
+background-position: … , calc(50% - 5 * var(--celula)) calc(50% - 3 * var(--celula)), … ;
 ```
 
-É ela que dissolve a grade nas bordas. Sem máscara a textura corre de ponta a
-ponta e o hero parece um wireframe em vez de uma superfície com luz. E ela
-precisa estar no pseudo-elemento porque, aplicada no `.hero`, apagaria também
-o texto.
+Como a grade também parte do centro, cada quadrado cai exatamente dentro de
+uma célula em qualquer largura de tela. Para mudar onde eles ficam, troque os
+pares de números; para ter mais ou menos, acrescente ou remova uma camada em
+`background-image`, `background-repeat` e `background-position` ao mesmo tempo
+— as três listas precisam ter o mesmo número de itens.
+
+**A máscara** apaga a grade no meio, onde fica o texto, e a devolve em direção
+às bordas:
+
+```css
+mask-image: radial-gradient(ellipse 62% 58% at 50% 50%,
+            transparent 30%, rgba(0,0,0,.40) 68%, #000 100%);
+```
+
+Sem ela a textura corre de ponta a ponta e briga com o título. Ela precisa
+estar no pseudo-elemento porque, aplicada no `.hero`, apagaria também o
+texto.
 
 > Versões anteriores tinham aqui um campo de pixels animado, desenhado em
 > `<canvas>`. Ele saiu, e com ele saiu a seção 7 do `assets/js/main.js` — o
