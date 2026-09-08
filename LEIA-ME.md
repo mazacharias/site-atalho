@@ -42,7 +42,7 @@ assets/css/style.css  todo o visual do site
 assets/css/fonts.css  declaração da Open Sans
 assets/js/main.js     menu, acordeão, animações e formulário
 assets/fonts/         Open Sans hospedada no próprio site
-assets/video/sistema.mp4   vídeo da seção Sistema (H.264, 461 KB)
+assets/video/sistema.mp4   vídeo da seção Sistema (H.264, 229 KB)
 assets/video/sistema.webm  o mesmo vídeo em WebM, para quem suporta
 assets/img/sistema-poster.jpg  quadro que aparece antes do play
 assets/img/favicon.svg  ícone da aba do navegador
@@ -177,12 +177,12 @@ caminho, é só pedir que eu escrevo o arquivo.
 
 ## 6. O vídeo (seção Sistema)
 
-A seção "Como um projeto anda" traz um filme de 31 segundos que explica o
+A seção "Como um projeto anda" traz um filme de 20 segundos que explica o
 sistema do estúdio em cinco atos: contato, conversa assíncrona, briefing,
 cronograma e entregas.
 
 O player não baixa nada até alguém clicar em "Assistir": antes disso existe só
-a imagem de capa (38 KB). O vídeo vai em dois formatos e o navegador escolhe —
+a imagem de capa (30 KB). O vídeo vai em dois formatos e o navegador escolhe —
 WebM para quem suporta, MP4 para todo o resto.
 
 ### Trocar pelo seu vídeo
@@ -217,7 +217,7 @@ código, renderizada quadro a quadro e codificada em vídeo. O arquivo-fonte da
 animação não vai junto do site — se você quiser mudar o filme, o caminho normal
 é exportar um novo de onde preferir e sobrescrever os arquivos acima.
 
-O texto do botão ("Assistir · 31s") está no próprio `<button>`, e a linha
+O texto do botão ("Assistir · 20s") está no próprio `<button>`, e a linha
 abaixo do vídeo está no bloco `<div class="video-meta">`. É texto comum.
 
 ## 7. Como adicionar um quarto projeto
