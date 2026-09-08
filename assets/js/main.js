@@ -266,10 +266,7 @@
           v = Math.min(1, Math.max(0, (v - 0.395) / 0.215));
           v = v * v * (3 - 2 * v);
 
-          // a mancha nasce da borda esquerda em vez de aparecer cortada
-          v *= Math.min(1, (px / larg) / 0.18 + 0.26);
-
-          var limiar = 0.46 + (BAYER[j & 7][i & 7] / 64 - 0.5) * 0.48;
+          var limiar = 0.44 + (BAYER[j & 7][i & 7] / 64 - 0.5) * 0.46;
           if (v > limiar) ctx.fillRect(Math.round(px), Math.round(py), LADO, LADO);
         }
       }

@@ -285,6 +285,11 @@ v = Math.min(1, Math.max(0, (v - 0.395) / 0.215));             // contraste
 ctx.fillStyle = '#9fb0ee';                                     // cor
 ```
 
+O campo sangra até as bordas do hero — para cima, para baixo e para a direita
+até a beirada da tela — por margens negativas em `.painel__arte`, casadas com o
+respiro do hero via as variáveis `--pt` e `--pb`. Se mudar o respiro, as margens
+acompanham sozinhas.
+
 Os `4.2` e `9.4` são as frequências: baixas demais e o painel inteiro entra
 dentro de uma mancha só, fazendo a densidade pular de cheio para vazio. O
 desenho roda a 20 quadros por segundo — o passo visível combina com a estética
