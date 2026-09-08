@@ -42,7 +42,7 @@ assets/css/style.css  todo o visual do site
 assets/css/fonts.css  declaração da DM Sans
 assets/js/main.js     menu, acordeão, revelação ao rolar e formulário
 assets/fonts/         DM Sans hospedada no próprio site
-assets/video/sistema.mp4   vídeo da seção Sistema (H.264, 108 KB)
+assets/video/sistema.mp4   vídeo da seção Sistema (H.264, 103 KB)
 assets/video/sistema.webm  o mesmo vídeo em WebM, para quem suporta
 assets/img/sistema-poster.jpg  quadro que aparece antes do play
 assets/img/favicon.svg  ícone da aba do navegador
@@ -200,10 +200,11 @@ caminho, é só pedir que eu escrevo o arquivo.
 
 A seção "Como um projeto anda" traz um filme de 20 segundos que explica o
 sistema do estúdio em cinco atos: contato, conversa assíncrona, briefing,
-cronograma e entregas.
+cronograma e entregas. É tipografado em DM Sans, como o site, e termina no
+último ato, sem cartela de marca no fim.
 
 O player não baixa nada até alguém clicar em "Assistir": antes disso existe só
-a imagem de capa (19 KB). O vídeo vai em dois formatos e o navegador escolhe —
+a imagem de capa (35 KB). O vídeo vai em dois formatos e o navegador escolhe —
 WebM para quem suporta, MP4 para todo o resto.
 
 ### Trocar pelo seu vídeo
