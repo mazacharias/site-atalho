@@ -63,8 +63,12 @@ qualquer editor (VS Code, Bloco de Notas, ou o próprio editor da Hostinger).
 - WhatsApp: troque `5511999999999` pelo seu número com DDI e DDD;
 - Instagram: troque `atalho.studio`.
 
-**Números do estúdio** — a seção "Estúdio" tem `40+` e `6–8`, e a faixa
-inferior do hero repete essas informações. Ajuste para a sua realidade.
+**Números do estúdio** — a seção "Estúdio" tem `40+` e `6–8`. Ajuste para a
+sua realidade.
+
+**A frase do hero** — o `<h1>` do `index.html` é a única linha de texto do
+hero, junto dos dois botões. Trocar por uma frase mais longa é seguro: ela
+quebra sozinha em até 17 caracteres por linha (`max-width:17ch` em `.hero h1`).
 
 **Domínio** — em `robots.txt` e `sitemap.xml`, troque
 `https://www.atalhostudio.com.br` pelo seu endereço real.
