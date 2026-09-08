@@ -264,26 +264,32 @@ Para mudar a cor da barra, edite `.header` em `assets/css/style.css`:
 
 ### O hero
 
-Painel escuro dividido em dois: texto à esquerda, um pássaro de pixels batendo
-asas à direita. O desenho não é imagem nem sprite — é gerado em `<canvas>` a
-cada quadro, na seção 7 do `assets/js/main.js`.
+Painel escuro dividido em dois: texto à esquerda, um campo de pixels em
+movimento à direita. O desenho não é imagem nem vídeo — é gerado em `<canvas>`
+a cada quadro, na seção 7 do `assets/js/main.js`.
 
-A silhueta é um campo matemático: elipses para corpo, cabeça, bico, cauda e
-asas, amostradas numa grade. Cada asa é uma corrente de elipses ao longo de um
-arco, afinando para a ponta — uma elipse só daria um bastão. Cada célula da
-grade acende quando o campo passa de um limiar, e esse limiar carrega uma
-matriz de dithering (Bayer 8×8): é ela que esfarela a borda em pixels em vez
-de deixar um contorno liso.
+Cada célula da grade acende conforme um ruído de valor em três dimensões: duas
+do plano e uma do tempo. Como a terceira dimensão é o tempo, o padrão não
+desliza como uma textura arrastada — ele se transforma no lugar. Duas coisas
+seguram o resultado:
+
+- **contraste**, que empurra o ruído para 0 ou 1. Sem ele tudo fica no meio da
+  escala e o resultado é chuvisco em vez de manchas
+- **dithering** (matriz Bayer 8×8) no limiar, que esfarela a borda das manchas
+  em pixels em vez de deixar um contorno liso
 
 ```js
-ctx.fillStyle = '#9fb0ee';                        // cor dos quadrados
-desenhar(((agora - inicio) / 1000) * 0.52);       // 0.52 ≈ meia batida por segundo
-var bat = Math.sin(t * Math.PI * 2);              // -1 asas em cima, +1 embaixo
+var v = ruido(x * 4.2 - t * 0.17, y * 4.2, t * 0.26) * 0.78    // manchas
+      + ruido(x * 9.4 + t * 0.11, y * 9.4, t * 0.22) * 0.22;   // granulação
+v = Math.min(1, Math.max(0, (v - 0.395) / 0.215));             // contraste
+ctx.fillStyle = '#9fb0ee';                                     // cor
 ```
 
-A malha e a escala se adaptam ao tamanho do painel, para o desenho não rarear
-no celular nem cortar as pontas das asas. Com `prefers-reduced-motion` ligado,
-o pássaro é desenhado uma vez e fica parado.
+Os `4.2` e `9.4` são as frequências: baixas demais e o painel inteiro entra
+dentro de uma mancha só, fazendo a densidade pular de cheio para vazio. O
+desenho roda a 20 quadros por segundo — o passo visível combina com a estética
+de pixel e evita recalcular o ruído 60 vezes por segundo à toa. Com
+`prefers-reduced-motion` ligado, o campo é desenhado uma vez e fica parado.
 
 ### O espaçamento entre as dobras
 

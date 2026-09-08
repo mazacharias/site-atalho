@@ -194,13 +194,14 @@
     });
   });
 
-  /* ---------- 7. Pássaro de pixels ----------
-     O bicho não é sprite: a silhueta é um campo matemático — elipses para
-     corpo, cabeça, cauda e asas — amostrado numa grade. Cada célula acende
-     quando o campo passa de um limiar, e o limiar carrega uma matriz de
-     dithering (Bayer 8x8): é ela que esfarela a borda em pixels em vez de
-     deixar um contorno liso.                                              */
-  var tela = document.getElementById('passaro');
+  /* ---------- 7. Campo de ruído ----------
+     Uma grade onde cada célula acende conforme um ruído de valor em três
+     dimensões: duas do plano e uma do tempo. Como a terceira dimensão é o
+     tempo, o padrão não desliza como uma textura arrastada — ele se
+     transforma no lugar, que é o que dá a sensação de campo vivo.
+     O limiar carrega uma matriz de dithering (Bayer 8x8): é ela que
+     esfarela a borda das manchas em pixels em vez de deixar contorno liso. */
+  var tela = document.getElementById('padrao');
   if (tela && tela.getContext) {
     var ctx = tela.getContext('2d');
     var BAYER = [
@@ -209,45 +210,25 @@
       [3,35,11,43,1,33,9,41],[51,19,59,27,49,17,57,25],
       [15,47,7,39,13,45,5,37],[63,31,55,23,61,29,53,21]
     ];
-    var PASSO = 16, LADO = 11, larg = 0, alt = 0, escala = 1, dpr = 1;
+    var PASSO = 16, LADO = 11, larg = 0, alt = 0, dpr = 1;
 
-    /* elipse com borda macia: 1 no miolo, some ao longe */
-    var elipse = function (x, y, cx, cy, rx, ry, giro) {
-      var dx = x - cx, dy = y - cy;
-      var c = Math.cos(giro), s = Math.sin(giro);
-      var u = (dx * c + dy * s) / rx, w = (-dx * s + dy * c) / ry;
-      var d = Math.sqrt(u * u + w * w);
-      return 1 - Math.min(1, Math.max(0, (d - 0.80) / 0.40));
+    var suave = function (a) { return a * a * (3 - 2 * a); };
+    var picote = function (i, j, k) {
+      var s = Math.sin(i * 127.1 + j * 311.7 + k * 74.7) * 43758.5453;
+      return s - Math.floor(s);
     };
-
-    /* asa: uma sequência de elipses ao longo de um arco, afinando para a ponta.
-       Uma elipse só daria um bastão; a corrente é o que dá a curva da asa.   */
-    var asa = function (x, y, lado, bat) {
-      var v = 0;
-      for (var k = 0; k <= 8; k++) {
-        var u = k / 8;                                   // 0 no ombro, 1 na ponta
-        var px = lado * (0.05 + u * 0.62);
-        var py = -0.04
-               + bat * Math.pow(u, 1.30) * 0.40          // sobe e desce
-               + Math.pow(u, 2.2) * 0.07;                // leve queda da ponta
-        var r = 0.082 * (1 - u * 0.80);                  // afina
-        v = Math.max(v, elipse(x, y, px, py, r * 1.45, r, lado * bat * 0.5));
-      }
-      return v;
-    };
-
-    var campo = function (x, y, t) {
-      var bat = Math.sin(t * Math.PI * 2);
-      y -= bat * 0.030;                                  // o corpo sobe na batida
-      var v = 0;
-      v = Math.max(v, asa(x, y, -1, bat));               // asa esquerda
-      v = Math.max(v, asa(x, y,  1, bat));               // asa direita
-      v = Math.max(v, elipse(x, y, 0, 0.03, 0.062, 0.175, 0));      // corpo
-      v = Math.max(v, elipse(x, y, 0, -0.155, 0.052, 0.050, 0));    // cabeça
-      v = Math.max(v, elipse(x, y, 0, -0.215, 0.020, 0.026, 0));    // bico
-      v = Math.max(v, elipse(x, y, -0.045, 0.255, 0.030, 0.075, 0.30));  // cauda
-      v = Math.max(v, elipse(x, y,  0.045, 0.255, 0.030, 0.075, -0.30));
-      return v;
+    /* ruído de valor com interpolação trilinear */
+    var ruido = function (x, y, z) {
+      var xi = Math.floor(x), yi = Math.floor(y), zi = Math.floor(z);
+      var u = suave(x - xi), v = suave(y - yi), w = suave(z - zi);
+      var a00 = picote(xi, yi, zi),         a10 = picote(xi + 1, yi, zi);
+      var a01 = picote(xi, yi + 1, zi),     a11 = picote(xi + 1, yi + 1, zi);
+      var b00 = picote(xi, yi, zi + 1),     b10 = picote(xi + 1, yi, zi + 1);
+      var b01 = picote(xi, yi + 1, zi + 1), b11 = picote(xi + 1, yi + 1, zi + 1);
+      var x0 = a00 + (a10 - a00) * u, x1 = a01 + (a11 - a01) * u;
+      var x2 = b00 + (b10 - b00) * u, x3 = b01 + (b11 - b01) * u;
+      var y0 = x0 + (x1 - x0) * v, y1 = x2 + (x3 - x2) * v;
+      return y0 + (y1 - y0) * w;
     };
 
     var medir = function () {
@@ -256,48 +237,61 @@
       tela.width = Math.round(larg * dpr);
       tela.height = Math.round(alt * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      PASSO = Math.max(10, Math.min(17, Math.round(Math.min(larg, alt) / 26)));
+      PASSO = Math.max(11, Math.min(18, Math.round(Math.min(larg, alt) / 24)));
       LADO = PASSO - 5;
-      // a envergadura vai de -0,67 a 0,67 e a altura de -0,47 a 0,34:
-      // a escala sai daí, para as pontas das asas nunca saírem do quadro
-      escala = Math.min(larg * 0.70, alt * 1.12);
     };
 
     var desenhar = function (t) {
       ctx.clearRect(0, 0, larg, alt);
       ctx.fillStyle = '#9fb0ee';
-      var cx = larg / 2, cy = alt / 2;
       var cols = Math.ceil(larg / PASSO), linhas = Math.ceil(alt / PASSO);
+      var base = Math.min(larg, alt);
       var mx = (larg - cols * PASSO) / 2, my = (alt - linhas * PASSO) / 2;
 
       for (var j = 0; j < linhas; j++) {
         for (var i = 0; i < cols; i++) {
           var px = mx + i * PASSO, py = my + j * PASSO;
-          var x = (px + PASSO / 2 - cx) / escala;
-          var y = (py + PASSO / 2 - cy) / escala;
-          var v = campo(x, y, t);
-          if (v <= 0) continue;
-          var limiar = 0.42 + (BAYER[j & 7][i & 7] / 64 - 0.5) * 0.58;
+          var x = (px + PASSO / 2) / base, y = (py + PASSO / 2) / base;
+
+          // duas oitavas: a larga dá as manchas, a fina quebra o contorno
+          // a frequência precisa caber várias manchas no painel: baixa demais e
+          // o quadro inteiro entra dentro de uma só, fazendo a densidade pular
+          // de cheio para vazio a cada poucos segundos
+          var v = ruido(x * 4.2 - t * 0.17, y * 4.2, t * 0.26) * 0.78
+                + ruido(x * 9.4 + t * 0.11, y * 9.4, t * 0.22) * 0.22;
+
+          // contraste: sem isso o ruído fica todo no meio da escala e o
+          // resultado é chuvisco. Assim ele passa quase todo o tempo em 0 ou 1,
+          // e só a faixa de transição vira borda serrilhada
+          v = Math.min(1, Math.max(0, (v - 0.395) / 0.215));
+          v = v * v * (3 - 2 * v);
+
+          // a mancha nasce da borda esquerda em vez de aparecer cortada
+          v *= Math.min(1, (px / larg) / 0.18 + 0.26);
+
+          var limiar = 0.46 + (BAYER[j & 7][i & 7] / 64 - 0.5) * 0.48;
           if (v > limiar) ctx.fillRect(Math.round(px), Math.round(py), LADO, LADO);
         }
       }
     };
 
     var parado = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var inicio = 0;
+    var inicio = 0, ultimo = 0;
     var quadro = function (agora) {
       if (!inicio) inicio = agora;
-      desenhar(((agora - inicio) / 1000) * 0.52);          // ~0,5 batida por segundo
+      // 20 quadros por segundo: o passo visível combina com a estética de pixel
+      // e evita recalcular o ruído 60 vezes por segundo à toa
+      if (agora - ultimo > 50) { ultimo = agora; desenhar((agora - inicio) / 1000); }
       requestAnimationFrame(quadro);
     };
 
     medir();
-    if (parado) desenhar(0.62); else requestAnimationFrame(quadro);
+    if (parado) desenhar(3.5); else requestAnimationFrame(quadro);
 
     var remedir;
     window.addEventListener('resize', function () {
       clearTimeout(remedir);
-      remedir = setTimeout(function () { medir(); if (parado) desenhar(0.25); }, 140);
+      remedir = setTimeout(function () { medir(); if (parado) desenhar(3.5); }, 140);
     });
   }
 
