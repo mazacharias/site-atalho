@@ -7,7 +7,7 @@
   </g>
   <path d="M480 240 V960" stroke="#ffffff" stroke-width="2" stroke-opacity=".9"/>
   <circle cx="480" cy="600" r="18" fill="#ffffff"/>
-  <g opacity=".5" fill="#ffffff" font-family="Open Sans, Helvetica, Arial, sans-serif" font-size="13.0" letter-spacing="1.54">
+  <g opacity=".5" fill="#ffffff" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="13.0" letter-spacing="1.54">
     <text x="34" y="1158">PROJETO 03 · SUBSTITUIR IMAGEM</text>
   </g>
 </svg>

@@ -39,9 +39,9 @@ robots.txt            instruções para buscadores
 sitemap.xml           mapa do site para o Google
 
 assets/css/style.css  todo o visual do site
-assets/css/fonts.css  declaração da Open Sans
+assets/css/fonts.css  declaração da DM Sans
 assets/js/main.js     menu, acordeão, revelação ao rolar e formulário
-assets/fonts/         Open Sans hospedada no próprio site
+assets/fonts/         DM Sans hospedada no próprio site
 assets/video/sistema.mp4   vídeo da seção Sistema (H.264, 108 KB)
 assets/video/sistema.webm  o mesmo vídeo em WebM, para quem suporta
 assets/img/sistema-poster.jpg  quadro que aparece antes do play
@@ -111,7 +111,7 @@ abaixo de 300 KB — o site fica rápido e o Google gosta.
 
 ### O logo
 
-A marca no cabeçalho e no rodapé é **a palavra "atalho" escrita em Open Sans**,
+A marca no cabeçalho e no rodapé é **a palavra "atalho" escrita em DM Sans**,
 como texto — não é imagem. Isso deixa tudo nítido em qualquer tela, sem
 download nenhum, e a cor acompanha automaticamente o fundo (clara sobre o hero,
 azul sobre fundo claro).
@@ -141,14 +141,28 @@ troque no HTML das 4 páginas o texto por uma imagem:
 
 (No hero e no rodapé, use `logo-branco.svg`.)
 
-O favicon é a letra "a" da Open Sans em branco sobre o quadrado azul, em
-`assets/img/favicon.svg`.
+O favicon é a letra "a" da DM Sans em branco sobre o quadrado azul, em
+`assets/img/favicon.svg`. Não é texto: é o contorno da letra convertido em
+vetor, para não depender de a fonte estar instalada em quem abre o arquivo.
 
 ### A fonte
 
-O site inteiro usa **Open Sans**, hospedada no próprio servidor
+O site inteiro usa **DM Sans**, hospedada no próprio servidor
 (`assets/fonts/`) — nada é buscado no Google. É um único arquivo variável, com
-os pesos de 300 a 700 e a acentuação do português inteira, em 88 KB.
+os pesos de 300 a 700, o eixo óptico e a acentuação do português inteira, em
+93 KB.
+
+> **Sobre a Google Sans:** ela não pode ser usada aqui. É a tipografia
+> proprietária do Google, não está no Google Fonts e a licença restringe o uso
+> a produtos do próprio Google — não existe forma legítima de hospedá-la num
+> site de terceiros. A DM Sans é a alternativa livre (SIL Open Font License)
+> mais próxima dela: mesma família geométrica, mesmo ar de "a" e "g" de um
+> andar só.
+
+Trocar de fonte mexe em mais coisa do que o `font-family`: o tracking negativo
+dos tamanhos de display no `style.css` está calibrado para o desenho estreito
+da DM Sans. Numa grotesca mais larga, como a Open Sans, esses valores precisam
+ficar mais negativos; numa mais estreita, menos.
 
 ## 5. Como funciona o formulário de contato
 

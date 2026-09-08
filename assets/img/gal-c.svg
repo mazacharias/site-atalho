@@ -4,7 +4,7 @@
   <g stroke="#ffffff" stroke-opacity=".12" stroke-width="1.5"><path d="M300 0V900M600 0V900M900 0V900"/></g>
   <path d="M300 650 L600 250 L900 650" fill="none" stroke="#182889" stroke-width="2"/>
   <path d="M300 650 H900" stroke="#ffffff" stroke-opacity=".5" stroke-width="1.5"/>
-  <g opacity=".5" fill="#ffffff" font-family="Open Sans, Helvetica, Arial, sans-serif" font-size="16.2" letter-spacing="1.92">
+  <g opacity=".5" fill="#ffffff" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="16.2" letter-spacing="1.92">
     <text x="42" y="868">IMAGEM · SUBSTITUIR</text>
   </g>
 </svg>

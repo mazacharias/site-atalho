@@ -7,7 +7,7 @@
   <rect x="400" y="150" width="400" height="600" fill="#182889"/>
   <path d="M800 450 H1200" stroke="#182889" stroke-width="2"/>
   <circle cx="1200" cy="450" r="120" fill="none" stroke="#182889" stroke-width="2"/>
-  <g opacity=".5" fill="#182889" font-family="Open Sans, Helvetica, Arial, sans-serif" font-size="21.6" letter-spacing="2.56">
+  <g opacity=".5" fill="#182889" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="21.6" letter-spacing="2.56">
     <text x="56" y="868">CAPA · SUBSTITUIR IMAGEM</text>
   </g>
 </svg>

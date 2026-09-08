@@ -8,7 +8,7 @@
   <rect x="200" y="300" width="600" height="300" fill="#ffffff" fill-opacity=".95"/>
   <circle cx="1100" cy="450" r="150" fill="none" stroke="#ffffff" stroke-width="2"/>
   <circle cx="1100" cy="450" r="50" fill="#ffffff"/>
-  <g opacity=".5" fill="#ffffff" font-family="Open Sans, Helvetica, Arial, sans-serif" font-size="21.6" letter-spacing="2.56">
+  <g opacity=".5" fill="#ffffff" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="21.6" letter-spacing="2.56">
     <text x="56" y="868">CAPA · SUBSTITUIR IMAGEM</text>
   </g>
 </svg>

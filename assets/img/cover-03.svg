@@ -7,7 +7,7 @@
   <path d="M200 700 L800 200 L1400 700" fill="none" stroke="#182889" stroke-width="2"/>
   <path d="M200 700 H1400" stroke="#ffffff" stroke-opacity=".55" stroke-width="1.5"/>
   <circle cx="800" cy="200" r="16" fill="#ffffff"/>
-  <g opacity=".5" fill="#ffffff" font-family="Open Sans, Helvetica, Arial, sans-serif" font-size="21.6" letter-spacing="2.56">
+  <g opacity=".5" fill="#ffffff" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="21.6" letter-spacing="2.56">
     <text x="56" y="868">CAPA · SUBSTITUIR IMAGEM</text>
   </g>
 </svg>
