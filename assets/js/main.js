@@ -194,13 +194,13 @@
     });
   });
 
-  /* ---------- 7. Campo de ruído ----------
-     Uma grade onde cada célula acende conforme um ruído de valor em três
-     dimensões: duas do plano e uma do tempo. Como a terceira dimensão é o
-     tempo, o padrão não desliza como uma textura arrastada — ele se
-     transforma no lugar, que é o que dá a sensação de campo vivo.
-     O limiar carrega uma matriz de dithering (Bayer 8x8): é ela que
-     esfarela a borda das manchas em pixels em vez de deixar contorno liso. */
+  /* ---------- 7. Estrela de quatro pontas ----------
+     A silhueta é uma superelipse de expoente 1/2: |u|^½ + |w|^½ = 1. Com
+     expoente abaixo de 1 os lados ficam côncavos, que é o que dá as pontas
+     afiadas. O par (u,w) gira com o tempo, e o valor do campo cai do centro
+     para as pontas — assim o miolo sai cheio e as extremidades se desfazem.
+     O limiar carrega uma matriz de dithering (Bayer 8x8): é ela que esfarela
+     essa transição em pixels em vez de deixar um degradê liso.             */
   var tela = document.getElementById('padrao');
   if (tela && tela.getContext) {
     var ctx = tela.getContext('2d');
@@ -212,61 +212,46 @@
     ];
     var PASSO = 16, LADO = 11, larg = 0, alt = 0, dpr = 1;
 
-    var suave = function (a) { return a * a * (3 - 2 * a); };
-    var picote = function (i, j, k) {
-      var s = Math.sin(i * 127.1 + j * 311.7 + k * 74.7) * 43758.5453;
-      return s - Math.floor(s);
-    };
-    /* ruído de valor com interpolação trilinear */
-    var ruido = function (x, y, z) {
-      var xi = Math.floor(x), yi = Math.floor(y), zi = Math.floor(z);
-      var u = suave(x - xi), v = suave(y - yi), w = suave(z - zi);
-      var a00 = picote(xi, yi, zi),         a10 = picote(xi + 1, yi, zi);
-      var a01 = picote(xi, yi + 1, zi),     a11 = picote(xi + 1, yi + 1, zi);
-      var b00 = picote(xi, yi, zi + 1),     b10 = picote(xi + 1, yi, zi + 1);
-      var b01 = picote(xi, yi + 1, zi + 1), b11 = picote(xi + 1, yi + 1, zi + 1);
-      var x0 = a00 + (a10 - a00) * u, x1 = a01 + (a11 - a01) * u;
-      var x2 = b00 + (b10 - b00) * u, x3 = b01 + (b11 - b01) * u;
-      var y0 = x0 + (x1 - x0) * v, y1 = x2 + (x3 - x2) * v;
-      return y0 + (y1 - y0) * w;
-    };
-
     var medir = function () {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       larg = tela.clientWidth; alt = tela.clientHeight;
       tela.width = Math.round(larg * dpr);
       tela.height = Math.round(alt * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      PASSO = Math.max(11, Math.min(18, Math.round(Math.min(larg, alt) / 24)));
+      PASSO = Math.max(11, Math.min(18, Math.round(Math.min(larg, alt) / 26)));
       LADO = PASSO - 5;
     };
 
     var desenhar = function (t) {
       ctx.clearRect(0, 0, larg, alt);
       ctx.fillStyle = '#9fb0ee';
+
+      var cx = larg / 2, cy = alt / 2;
+      var giro = t * 0.17;                                  // um quarto de volta a cada ~9s
+      var raio = Math.min(larg, alt) * 0.66 * (1 + Math.sin(t * 0.5) * 0.05);
+      var c = Math.cos(giro), s = Math.sin(giro);
+
       var cols = Math.ceil(larg / PASSO), linhas = Math.ceil(alt / PASSO);
-      var base = Math.min(larg, alt);
       var mx = (larg - cols * PASSO) / 2, my = (alt - linhas * PASSO) / 2;
 
       for (var j = 0; j < linhas; j++) {
         for (var i = 0; i < cols; i++) {
           var px = mx + i * PASSO, py = my + j * PASSO;
-          var x = (px + PASSO / 2) / base, y = (py + PASSO / 2) / base;
+          var dx = px + PASSO / 2 - cx, dy = py + PASSO / 2 - cy;
 
-          // duas oitavas: a larga dá as manchas, a fina quebra o contorno
-          // a frequência precisa caber várias manchas no painel: baixa demais e
-          // o quadro inteiro entra dentro de uma só, fazendo a densidade pular
-          // de cheio para vazio a cada poucos segundos
-          var v = ruido(x * 4.2 - t * 0.17, y * 4.2, t * 0.26) * 0.78
-                + ruido(x * 9.4 + t * 0.11, y * 9.4, t * 0.22) * 0.22;
+          var u = (dx * c + dy * s) / raio;
+          var w = (-dx * s + dy * c) / raio;
+          // expoente 0,60: abaixo de 1 os lados ficam côncavos e nascem as pontas.
+          // Em 0,5 a estrela sai magra demais; acima de 0,7 vira um losango
+          var d = Math.pow(Math.abs(u), 0.60) + Math.pow(Math.abs(w), 0.60);
 
-          // contraste: sem isso o ruído fica todo no meio da escala e o
-          // resultado é chuvisco. Assim ele passa quase todo o tempo em 0 ou 1,
-          // e só a faixa de transição vira borda serrilhada
-          v = Math.min(1, Math.max(0, (v - 0.395) / 0.215));
-          v = v * v * (3 - 2 * v);
+          // d cresce rápido perto do centro, então a faixa de dissolução é
+          // estreita: mais larga que isso e o miolo cheio some
+          var v = (1 - d) / 0.34;
+          if (v <= 0) continue;
+          if (v > 1) v = 1;
 
-          var limiar = 0.44 + (BAYER[j & 7][i & 7] / 64 - 0.5) * 0.46;
+          var limiar = 0.30 + (BAYER[j & 7][i & 7] / 64) * 0.58;
           if (v > limiar) ctx.fillRect(Math.round(px), Math.round(py), LADO, LADO);
         }
       }
@@ -277,18 +262,17 @@
     var quadro = function (agora) {
       if (!inicio) inicio = agora;
       // 20 quadros por segundo: o passo visível combina com a estética de pixel
-      // e evita recalcular o ruído 60 vezes por segundo à toa
       if (agora - ultimo > 50) { ultimo = agora; desenhar((agora - inicio) / 1000); }
       requestAnimationFrame(quadro);
     };
 
     medir();
-    if (parado) desenhar(3.5); else requestAnimationFrame(quadro);
+    if (parado) desenhar(2.4); else requestAnimationFrame(quadro);
 
     var remedir;
     window.addEventListener('resize', function () {
       clearTimeout(remedir);
-      remedir = setTimeout(function () { medir(); if (parado) desenhar(3.5); }, 140);
+      remedir = setTimeout(function () { medir(); if (parado) desenhar(2.4); }, 140);
     });
   }
 
