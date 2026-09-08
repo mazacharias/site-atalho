@@ -40,7 +40,7 @@ sitemap.xml           mapa do site para o Google
 
 assets/css/style.css  todo o visual do site
 assets/css/fonts.css  declaração da Open Sans
-assets/js/main.js     menu, acordeão, animações e formulário
+assets/js/main.js     menu, acordeão, revelação ao rolar e formulário
 assets/fonts/         Open Sans hospedada no próprio site
 assets/video/sistema.mp4   vídeo da seção Sistema (H.264, 108 KB)
 assets/video/sistema.webm  o mesmo vídeo em WebM, para quem suporta
@@ -271,116 +271,41 @@ Para mudar a cor da barra, edite `.header` em `assets/css/style.css`:
 
 ### O hero
 
-Painel escuro dividido em dois: texto à esquerda, um campo de pixels à direita.
-Não é imagem nem vídeo — é desenhado em `<canvas>` a cada quadro, na seção 7 do
-`assets/js/main.js`.
+Uma dobra centrada, na ordem: o selo (`.selo`), o título, a linha de apoio e os
+dois botões. O fundo é o azul da marca (`--brand`, o mesmo do botão da barra de
+navegação) com uma **grade de linhas finas** por cima.
 
-O desenho é chapado de propósito: **uma grade fixa de células quadradas, todas
-do mesmo tamanho e da mesma cor**, sem perspectiva e sem sombra. Quem cria o
-tom é o dithering.
+A grade não é imagem nem canvas: são dois gradientes de uma listra só — um na
+vertical, outro na horizontal — repetidos pelo `background-size`.
 
-Três formas se sucedem em ciclo:
-
-| | forma | o que é |
-|---|---|---|
-| 1 | estrela | a marca: superelipse de quatro pontas, girando |
-| 2 | setas | duas setas grossas para a direita, com uma luz que as atravessa |
-| 3 | redemoinho | braços em espiral saindo do centro |
-
-#### Como funciona
-
-Cada forma é um **campo**: uma função que recebe um ponto da tela e o tempo, e
-devolve um valor de 0 a 1.
-
-```js
-var estrela = function (x, y, t) {
-  var a = t * 0.17, c = Math.cos(a), s = Math.sin(a), R = 1.15;
-  var u = (x * c + y * s) / R, w = (-x * s + y * c) / R;
-  var d = Math.pow(Math.abs(u), 0.6) + Math.pow(Math.abs(w), 0.6);
-  return (1 - d) / 0.20;
-};
-```
-
-Quem transforma esse valor em preto e branco é o **dithering**, com a matriz
-Bayer 8×8 — a mesma das versões anteriores do hero. Quanto maior o valor, mais
-chance a célula tem de acender:
-
-```js
-if (v > 0.30 + (BAYER[j & 7][i & 7] / 64) * 0.58) {
-  ctx.fillRect(px, py, LADO, LADO);
+```css
+.hero{
+  --celula: clamp(74px, 7.6vw, 128px);   /* tamanho do quadrado */
+  --grade:  rgba(242, 242, 238, .062);   /* cor da linha */
 }
 ```
 
-Sem dithering, um degradê viraria uma borda dura; com ele, vira uma
-transição esfarelada em pixels.
+`--celula` é o tamanho do quadrado e `--grade` é a força da linha. Subir muito
+essa opacidade transforma a textura em wireframe; ela precisa ficar no limite
+de "quase não se vê".
 
-A troca entre duas formas é a interpolação entre os dois campos, com um atraso
-diferente por célula. Por isso uma forma se desmancha em pixels enquanto a
-outra se escreve por cima, em vez de haver um corte.
+A grade vive em `.hero::before`, e não no `.hero`, por causa da máscara:
 
-#### O que dá para ajustar
-
-```js
-var PARADO = 3.4, TRANS = 1.9;   // segundos parado em cada forma / de transição
-var COR = '#172684';             // cor dos pixels
+```css
+mask-image: radial-gradient(115% 105% at 50% 44%, #000 45%, transparent 100%);
 ```
 
-Com três formas, o ciclo inteiro dá 16 segundos.
+É ela que dissolve a grade nas bordas. Sem máscara a textura corre de ponta a
+ponta e o hero parece um wireframe em vez de uma superfície com luz. E ela
+precisa estar no pseudo-elemento porque, aplicada no `.hero`, apagaria também
+o texto.
 
-A cor dos pixels é **4% mais escura que o fundo** do hero (`#182889` → 
-`#172684`). O desenho aparece por diferença de tom, bem de leve, e por isso ele
-passa por trás do texto sem atrapalhar a leitura. Se quiser mais presença, mexa
-nessa cor — não no tamanho nem na quantidade de pixels.
+> Versões anteriores tinham aqui um campo de pixels animado, desenhado em
+> `<canvas>`. Ele saiu, e com ele saiu a seção 7 do `assets/js/main.js` — o
+> arquivo hoje não tem nada ligado ao hero.
 
-Trocar uma forma é trocar uma função e o nome dela na lista:
-
-```js
-var CAMPOS = [estrela, setas, redemoinho];
-```
-
-Nas setas, três números mandam:
-
-```js
-var ALTURA = 0.62, GROSSURA = 0.30, PASSO_SETA = 0.68;
-```
-
-A folga entre as duas é `PASSO_SETA - 2 × GROSSURA`. Engrossar sem afastar
-funde as duas numa mancha só. E a luz que varre as setas não pode descer
-demais, ou apaga metade delas abaixo do piso do dither.
-
-O tamanho do pixel vem do tamanho do painel, em `medir()`:
-
-```js
-PASSO = Math.max(9, Math.min(15, Math.round(Math.min(larg, alt) / 40)));
-LADO  = Math.max(3, Math.round(PASSO * 0.62));
-```
-
-`PASSO` é a distância de um pixel ao outro e `LADO` é o quadrado desenhado — a
-diferença entre os dois é o preto que sobra entre eles.
-
-Na superelipse da estrela, o expoente `0.6` é o que faz as pontas: acima de 1 a
-forma é um retângulo arredondado, em 1 é um losango, e **abaixo de 1 os lados
-ficam côncavos**. O `0.20` é a espessura da borda esfarelada: mais que isso e a
-estrela encolhe, porque o dither come as pontas.
-
-#### O sangramento
-
-O campo (`.painel__arte`) cobre o hero inteiro, por baixo do texto. As formas
-são maiores que o quadro: elas passam das bordas e são cortadas por elas.
-
-```js
-meia = Math.min(larg, alt) * (deitado ? 0.62 : 0.80);
-```
-
-Subir esse número faz a forma crescer e sangrar mais.
-
-Houve uma versão em que o desenho abria um vazio elíptico em volta do texto,
-porque os pixels eram claros e disputavam a leitura. Com a cor a 4% do fundo
-isso deixou de ser necessário, e o vazio saiu: a forma passa inteira por trás
-do texto.
-
-O desenho roda a 20 quadros por segundo e para sozinho quando o hero sai da
-tela. Com `prefers-reduced-motion` ligado, desenha só a estrela, parada.
+O título quebra sozinho em até 15 caracteres por linha e a linha de apoio em
+até 42 (`max-width` em `.hero h1` e `.hero__lead`).
 
 ### O espaçamento entre as dobras
 

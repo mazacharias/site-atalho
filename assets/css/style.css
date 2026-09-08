@@ -177,11 +177,28 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 /* ---------- 7. Hero ---------- */
 .hero{
   position:relative; overflow:hidden;
-  /* o azul da marca, o mesmo do CTA da barra de navegação */
   background:var(--brand); color:var(--on-dark);
+  --celula:clamp(74px, 7.6vw, 128px);
+  --grade:rgba(242, 242, 238, .062);
   display:flex; align-items:center;
   min-height:clamp(560px, 86vh, 840px);
   padding:clamp(56px, 8vh, 110px) 0 clamp(56px, 8vh, 110px);
+}
+/* Textura de fundo: uma grade de linhas finas. São dois gradientes de uma
+   listra só — um na vertical, outro na horizontal — repetidos pelo
+   `background-size`, e centrados para as linhas caírem simétricas em qualquer
+   largura. A máscara dissolve a grade nas bordas: sem ela a textura corre de
+   ponta a ponta e parece um wireframe, não uma superfície com luz.
+   Fica num pseudo-elemento porque a máscara apagaria também o texto.        */
+.hero::before{
+  content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(to right,  var(--grade) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grade) 1px, transparent 1px);
+  background-size:var(--celula) var(--celula);
+  background-position:center center;
+  -webkit-mask-image:radial-gradient(115% 105% at 50% 44%, #000 45%, transparent 100%);
+          mask-image:radial-gradient(115% 105% at 50% 44%, #000 45%, transparent 100%);
 }
 .hero .shell{ position:relative; z-index:1; width:100%; }
 /* tudo centrado numa coluna só, como no layout de referência */
@@ -223,10 +240,6 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 .hero .btn--acento{ background:var(--paper); color:var(--brand); }
 .hero .btn--acento:hover{ background:#fff; }
 
-/* a arte cobre o hero inteiro, atrás do texto. O desenho é grande de
-   propósito: as formas passam das bordas e são cortadas por elas */
-.painel__arte{ position:absolute; inset:0; z-index:0; }
-.painel__arte canvas{ position:absolute; inset:0; display:block; width:100%; height:100%; }
 
 /* ---------- 8. Cabeçalho de seção ---------- */
 .sec-head{
@@ -598,7 +611,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 
 /* ---------- 19. Impressão ---------- */
 @media print{
-  .header,.drawer,.burger,.form,.painel__arte,.video__btn{ display:none !important; }
+  .header,.drawer,.burger,.form,.video__btn{ display:none !important; }
   body{ background:#fff; color:#000; }
   .s-dark,.s-brand,.hero,.footer{ background:#fff !important; color:#000 !important; }
 }
