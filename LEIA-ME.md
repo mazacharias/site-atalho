@@ -272,8 +272,8 @@ Para mudar a cor da barra, edite `.header` em `assets/css/style.css`:
 ### O hero
 
 Uma dobra centrada, na ordem: o selo (`.selo`), o título, a linha de apoio e os
-dois botões. O fundo é o azul da marca (`--brand`, o mesmo do botão da barra de
-navegação) com uma **grade de linhas finas** por cima.
+dois botões. O fundo é **preto** (`--ink`) e o azul aparece como única cor de
+destaque: é ele que desenha a grade, a etiqueta do selo e o botão principal.
 
 A grade não é imagem nem canvas: são dois gradientes de uma listra só — um na
 vertical, outro na horizontal — repetidos pelo `background-size`. Três números
@@ -282,10 +282,10 @@ controlam tudo:
 ```css
 .hero{
   --celula: clamp(74px, 7.6vw, 128px);   /* tamanho do quadrado */
-  --grade:  rgba(242, 242, 238, .05);    /* força da linha */
+  --grade:  rgba(159, 176, 238, .085);   /* força da linha */
 }
 .hero::before{
-  --aceso:  rgba(242, 242, 238, .017);   /* quadrados preenchidos */
+  --aceso:  rgba(159, 176, 238, .030);   /* quadrados preenchidos */
 }
 ```
 

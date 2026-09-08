@@ -25,7 +25,7 @@
   --on-dark:      #f2f2ee;
   --on-dark-70:   rgba(242, 242, 238, .70);
   --on-dark-45:   rgba(242, 242, 238, .45);
-  --line-dark:    rgba(242, 242, 238, .17);
+  --line-dark:    rgba(159, 176, 238, .30);
   --on-dark-line: rgba(242, 242, 238, .15);
 
   --shell:        1280px;
@@ -177,9 +177,11 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 /* ---------- 7. Hero ---------- */
 .hero{
   position:relative; overflow:hidden;
-  background:var(--brand); color:var(--on-dark);
+  /* preto, com o azul como única cor de destaque: é ele que desenha a grade,
+     o selo e o botão principal */
+  background:var(--ink); color:var(--on-dark);
   --celula:clamp(74px, 7.6vw, 128px);
-  --grade:rgba(242, 242, 238, .05);
+  --grade:rgba(159, 176, 238, .085);
   display:flex; align-items:center;
   min-height:clamp(560px, 86vh, 840px);
   padding:clamp(56px, 8vh, 110px) 0 clamp(56px, 8vh, 110px);
@@ -196,7 +198,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
    também o texto.                                                          */
 .hero::before{
   content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
-  --aceso:rgba(242, 242, 238, .017);
+  --aceso:rgba(159, 176, 238, .030);
   background-image:
     linear-gradient(to right,  var(--grade) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grade) 1px, transparent 1px),
@@ -255,18 +257,12 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 }
 .btn--acento{ background:#9fb0ee; color:#0b0c14; }
 .btn--acento:hover{ background:#b7c4f5; }
-/* sobre o azul da marca o botão primário precisa ser branco para continuar
-   sendo o elemento mais forte do hero */
-.hero .btn--acento{ background:var(--paper); color:var(--brand); }
-.hero .btn--acento:hover{ background:#fff; }
 
 
 /* ---------- 8. Cabeçalho de seção ---------- */
 .sec-head{
-  padding-top:22px; border-top:1px solid var(--line);
   align-items:end; margin-bottom:clamp(30px, 3.4vw, 50px);
 }
-.s-dark .sec-head{ border-color:var(--on-dark-line); }
 .sec-head__id{
   grid-column:1 / 13; display:flex; align-items:baseline; gap:14px;
   margin-bottom:clamp(18px, 2vw, 30px);
