@@ -142,8 +142,12 @@ section[id]{ scroll-margin-top:90px; }
 }
 
 .nav{ display:flex; align-items:center; gap:clamp(16px, 2.2vw, 32px); }
-.nav a{ font-size:14px; opacity:.72; transition:opacity .2s var(--ease); }
-.nav a:hover{ opacity:1; }
+.nav a{
+  font-size:14px; color:var(--on-dark); opacity:1;
+  transition:text-decoration-color .2s var(--ease);
+  text-decoration:underline 1px transparent; text-underline-offset:6px;
+}
+.nav a:hover{ text-decoration-color:currentColor; }
 .header__cta{ display:flex; align-items:center; gap:12px; }
 
 

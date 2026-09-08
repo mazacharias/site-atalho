@@ -42,7 +42,7 @@ assets/css/style.css  todo o visual do site
 assets/css/fonts.css  declaração da Open Sans
 assets/js/main.js     menu, acordeão, animações e formulário
 assets/fonts/         Open Sans hospedada no próprio site
-assets/video/sistema.mp4   vídeo da seção Sistema (H.264, 229 KB)
+assets/video/sistema.mp4   vídeo da seção Sistema (H.264, 108 KB)
 assets/video/sistema.webm  o mesmo vídeo em WebM, para quem suporta
 assets/img/sistema-poster.jpg  quadro que aparece antes do play
 assets/img/favicon.svg  ícone da aba do navegador
@@ -182,7 +182,7 @@ sistema do estúdio em cinco atos: contato, conversa assíncrona, briefing,
 cronograma e entregas.
 
 O player não baixa nada até alguém clicar em "Assistir": antes disso existe só
-a imagem de capa (30 KB). O vídeo vai em dois formatos e o navegador escolhe —
+a imagem de capa (19 KB). O vídeo vai em dois formatos e o navegador escolhe —
 WebM para quem suporta, MP4 para todo o resto.
 
 ### Trocar pelo seu vídeo
@@ -247,7 +247,9 @@ Tudo o que define a aparência está no topo de `assets/css/style.css`, no bloco
 
 ### A barra de navegação
 
-A navegação é sempre branca. Para isso a barra fica escura em todos os estados:
+A navegação é sempre branca — os links não ficam esmaecidos em estado algum, e
+o retorno ao passar o mouse é um sublinhado, também branco. Para isso a barra
+fica escura em todos os estados:
 transparente sobre o hero, e com fundo escuro translúcido quando a página rola
 (`.header.is-stuck`) ou nas páginas de projeto (`.header--solid`). O menu mobile
 segue a mesma regra — fundo escuro, texto claro.
