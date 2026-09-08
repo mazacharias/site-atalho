@@ -194,7 +194,82 @@
     });
   });
 
-  /* ---------- 7. Ano do rodapé ---------- */
+  /* ---------- 7. Moinho de pixels ----------
+     Uma grade de quadrados onde cada célula acende conforme uma função de
+     pás girando em torno do centro. O recorte serrilhado vem de uma matriz
+     de dithering: sem ela as bordas ficariam lisas e o desenho perderia a
+     textura de pixel.                                                     */
+  var tela = document.getElementById('moinho');
+  if (tela && tela.getContext) {
+    var ctx = tela.getContext('2d');
+    var PAS = 8, TORCAO = 1.35, PASSO = 17, LADO = 12;
+    var BAYER = [
+      [0,32,8,40,2,34,10,42],[48,16,56,24,50,18,58,26],
+      [12,44,4,36,14,46,6,38],[60,28,52,20,62,30,54,22],
+      [3,35,11,43,1,33,9,41],[51,19,59,27,49,17,57,25],
+      [15,47,7,39,13,45,5,37],[63,31,55,23,61,29,53,21]
+    ];
+    var larg = 0, alt = 0, dpr = 1;
+
+    var medir = function () {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      larg = tela.clientWidth; alt = tela.clientHeight;
+      tela.width = Math.round(larg * dpr);
+      tela.height = Math.round(alt * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // a malha acompanha o tamanho do painel, para o desenho não rarear no celular
+      PASSO = Math.max(11, Math.min(18, Math.round(Math.min(larg, alt) / 24)));
+      LADO = PASSO - 5;
+    };
+
+    var desenhar = function (fase) {
+      ctx.clearRect(0, 0, larg, alt);
+      ctx.fillStyle = '#9fb0ee';
+      var cx = larg * 0.5, cy = alt * 0.5;
+      var raio = Math.hypot(larg, alt) * 0.5;
+      var cols = Math.ceil(larg / PASSO), linhas = Math.ceil(alt / PASSO);
+      var margemX = (larg - cols * PASSO) / 2, margemY = (alt - linhas * PASSO) / 2;
+
+      for (var j = 0; j < linhas; j++) {
+        for (var i = 0; i < cols; i++) {
+          var x = margemX + i * PASSO, y = margemY + j * PASSO;
+          var dx = x + PASSO / 2 - cx, dy = y + PASSO / 2 - cy;
+          var r = Math.hypot(dx, dy) / raio;
+          var a = Math.atan2(dy, dx);
+
+          // pás girando: o termo em r torce o braço e vira espiral
+          var v = (Math.cos(a * PAS + r * TORCAO * Math.PI * 2 - fase) + 1) / 2;
+
+          // o limiar é que carrega o desenho: o dither serrilha a borda das pás,
+          // o termo em r rareia para fora e o último abre o vazio do miolo
+          var limiar = 0.46 + (BAYER[j & 7][i & 7] / 64 - 0.5) * 0.40;
+          limiar += Math.pow(r, 1.7) * 0.62;
+          limiar += Math.max(0, 0.075 - r) * 7;
+
+          if (v > limiar) ctx.fillRect(Math.round(x), Math.round(y), LADO, LADO);
+        }
+      }
+    };
+
+    var parado = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var inicio = 0;
+    var quadro = function (agora) {
+      if (!inicio) inicio = agora;
+      desenhar(((agora - inicio) / 1000) * 0.22);
+      requestAnimationFrame(quadro);
+    };
+
+    medir();
+    if (parado) desenhar(0); else requestAnimationFrame(quadro);
+
+    var remedir;
+    window.addEventListener('resize', function () {
+      clearTimeout(remedir);
+      remedir = setTimeout(function () { medir(); if (parado) desenhar(0); }, 140);
+    });
+  }
+
+  /* ---------- 8. Ano do rodapé ---------- */
   var ano = document.getElementById('ano');
   if (ano) ano.textContent = new Date().getFullYear();
 })();

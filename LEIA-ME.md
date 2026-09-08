@@ -264,27 +264,22 @@ Para mudar a cor da barra, edite `.header` em `assets/css/style.css`:
 
 ### O hero
 
-Fundo claro com uma aurora azul no alto: quatro manchas borradas que derivam
-devagar, em ciclos longos e dessincronizados, e se dissolvem no papel antes de
-chegar ao texto. Por cima vai uma camada de grão, que é o que impede a mancha
-de parecer degradê de banco.
+Painel escuro dividido em dois: texto à esquerda, um moinho de pixels à
+direita. O desenho não é imagem — é gerado em `<canvas>` a cada quadro, na
+seção 7 do `assets/js/main.js`.
 
-Tudo em `assets/css/style.css`, seção 7:
+Cada célula da grade acende conforme uma função de pás girando em torno do
+centro. O recorte serrilhado vem de uma matriz de dithering (Bayer 8×8): sem
+ela as bordas das pás ficariam lisas e o desenho perderia a textura de pixel.
 
-```css
-.hero__aurora{ filter: blur(72px); height: 66%; }  /* espalhamento e alcance */
-.hero__aurora .b1{ background: radial-gradient(... #2b3fb8 ...); }  /* cor de cada mancha */
-@keyframes deriva1 { ... }                          /* trajeto e amplitude */
-.hero__grao{ opacity: .24; }                        /* intensidade do grão */
+```js
+var PAS = 8, TORCAO = 1.35;              // número de pás e quanto elas torcem
+ctx.fillStyle = '#9fb0ee';               // cor dos quadrados
+desenhar(((agora - inicio) / 1000) * 0.22);   // 0.22 = velocidade de rotação
 ```
 
-Para deixar o movimento mais lento, aumente os `26s`, `31s`, `23s` e `35s` das
-quatro animações — mantendo os valores diferentes entre si, que é o que evita a
-sensação de pulsação sincronizada. Com `prefers-reduced-motion` ligado, a
-aurora fica parada.
-
-Os três chips saem dos serviços do estúdio. O terceiro é o azul cheio, para a
-linha não ficar toda no mesmo peso.
+A malha se adapta ao tamanho do painel, para o desenho não rarear no celular.
+Com `prefers-reduced-motion` ligado, o moinho é desenhado uma vez e não gira.
 
 ### O espaçamento entre as dobras
 
@@ -293,20 +288,6 @@ Um único token controla o respiro de todas as seções:
 ```css
 --section: clamp(56px, 6.2vw, 96px);
 ```
-
-### O fundo do hero
-
-A malha de pontos do hero é feita só com CSS, em `assets/css/style.css`:
-
-```css
-.hero__dots{
-  background-size: clamp(20px, 2.1vw, 28px) ...;  /* distância entre os pontos */
-  opacity: .08;                                   /* intensidade */
-}
-```
-
-Aumente a `opacity` para deixar os pontos mais presentes, ou diminua para quase
-sumir. O `background-size` controla o espaçamento da malha.
 
 ### O cronograma
 
