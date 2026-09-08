@@ -360,14 +360,33 @@ forma é um retângulo arredondado, em 1 é um losango, e **abaixo de 1 os lados
 ficam côncavos**. O `0.20` é a espessura da borda esfarelada: mais que isso e a
 estrela encolhe, porque o dither come as pontas.
 
-O campo vive dentro de uma caixa fechada nos quatro lados (`.painel__arte`), e
-o texto fica do lado de fora dela. A altura da caixa é
-`clamp(340px, 58vh, 560px)` no desktop e proporção 5:4 no celular; a linha da
-borda é o token `--line-dark`.
+#### O sangramento
 
-As formas são medidas a partir de `meia`, que vale um pouco mais que a metade
-do menor lado da caixa. Subir esse número faz as formas crescerem — mas passe
-de `1.15` e as pontas da estrela começam a bater na borda.
+O campo (`.painel__arte`) cobre o hero inteiro, por baixo do texto, e as formas
+são grandes de propósito: elas passam das bordas e são cortadas por elas. É o
+corte que dá o efeito.
+
+Três números governam isso, na função `medir()`:
+
+```js
+meia   = Math.min(larg, alt) * 0.66;    // tamanho das formas
+cxArte = deitado ? larg * 0.64 : larg * 0.5;    // centro do desenho
+cyArte = deitado ? alt  * 0.5  : alt  * 0.70;
+```
+
+`meia` é o tamanho: subir faz a forma crescer e sangrar mais. `cxArte` e
+`cyArte` dizem onde ela fica — no formato deitado o texto ocupa a esquerda,
+então o desenho é jogado para a direita; no formato em pé ele desce para
+baixo do texto.
+
+Para o texto não brigar com os pixels, o desenho **se dissolve** ao chegar
+perto dele. Não é uma máscara por cima: é o próprio valor do campo que cai, e
+o dithering rareia os pixels sozinho — por isso a passagem não tem borda.
+
+```js
+var a2 = (px / larg - 0.24) / 0.22;   // deitado: some da esquerda para a direita
+var atenY = (py / alt - 0.40) / 0.22; // em pé: some de cima para baixo
+```
 
 O desenho roda a 20 quadros por segundo e para sozinho quando o hero sai da
 tela. Com `prefers-reduced-motion` ligado, desenha só a estrela, parada.

@@ -221,6 +221,7 @@
 
     var larg = 0, alt = 0, dpr = 1, PASSO = 14, LADO = 9;
     var cols = 0, linhas = 0, meia = 1, mx = 0, my = 0, atrasos = null;
+    var cxArte = 0, cyArte = 0, deitado = true;
 
     /* ---- as três formas, cada uma um campo (x, y, t) -> 0..1 ---- */
 
@@ -237,7 +238,7 @@
        deitado: a aresta dianteira fica em x = ponta - |y|, e o que acende é
        a distância até ela. Uma onda de brilho atravessa as duas da esquerda
        para a direita — é ela que dá o sentido de avanço */
-    var ALTURA = 0.62, GROSSURA = 0.30, PASSO_SETA = 0.68;
+    var ALTURA = 1.05, GROSSURA = 0.34, PASSO_SETA = 0.82;
     var umaSeta = function (x, y, ponta) {
       if (Math.abs(y) > ALTURA) return 0;
       var d = Math.abs(x - (ponta - Math.abs(y)));
@@ -248,7 +249,7 @@
       /* as duas faixas correm paralelas, com uma folga constante de
          PASSO_SETA - 2 x GROSSURA entre elas. Encostar esse passo na grossura
          faz as setas se fundirem numa mancha só */
-      var v = Math.max(umaSeta(x, y, 0.65 + anda), umaSeta(x, y, 0.65 - PASSO_SETA + anda));
+      var v = Math.max(umaSeta(x, y, 0.72 + anda), umaSeta(x, y, 0.72 - PASSO_SETA + anda));
       if (v <= 0) return 0;
       return v * (0.80 + 0.32 * Math.sin(x * 2.4 - t * 2.1));
     };
@@ -283,9 +284,15 @@
       cols = Math.ceil(larg / PASSO); linhas = Math.ceil(alt / PASSO);
       /* sobra dividida nas duas pontas, para a grade ficar centrada */
       mx = (larg - cols * PASSO) / 2; my = (alt - linhas * PASSO) / 2;
-      /* um pouco maior que a metade do menor lado: as formas ocupam melhor
-         a caixa, e as pontas da estrela ainda param dentro dela */
-      meia = Math.min(larg, alt) / 2 * 1.10;
+
+      /* A arte cobre o hero inteiro. No formato deitado o texto fica à
+         esquerda, então o desenho é jogado para a direita; no formato em pé
+         ele desce para baixo do texto. `meia` é grande de propósito: as formas
+         passam das bordas e são cortadas por elas — é daí que vem o corte  */
+      deitado = larg / Math.max(1, alt) > 1.15;
+      meia = Math.min(larg, alt) * 0.66;
+      cxArte = deitado ? larg * 0.64 : larg * 0.5;
+      cyArte = deitado ? alt * 0.5 : alt * 0.70;
 
       atrasos = new Float32Array(cols * linhas);
       for (var i = 0; i < atrasos.length; i++) atrasos[i] = hash2(i * 0.731, i * 0.219);
@@ -308,15 +315,28 @@
 
       for (var j = 0; j < linhas; j++) {
         var py = my + j * PASSO;
-        var y = (alt / 2 - (py + PASSO / 2)) / meia;
+        var y = (cyArte - (py + PASSO / 2)) / meia;
+        /* o desenho se dissolve ao chegar perto do texto: em vez de uma
+           máscara por cima, é o próprio valor que cai, e o dithering rareia
+           os pixels sozinho */
+        var atenY = deitado ? 1 : (py / alt - 0.40) / 0.22;
+        if (atenY <= 0) continue;
+        if (atenY > 1) atenY = 1;
+
         for (var i = 0; i < cols; i++) {
           var px = mx + i * PASSO;
-          var x = (px + PASSO / 2 - larg / 2) / meia;
+          var x = (px + PASSO / 2 - cxArte) / meia;
+          var aten = atenY;
+          if (deitado) {
+            var a2 = (px / larg - 0.24) / 0.22;
+            if (a2 <= 0) continue;
+            aten = a2 > 1 ? 1 : a2;
+          }
 
-          var v = A(x, y, t);
+          var v = A(x, y, t) * aten;
           if (m > 0) {
             var k = suave(m * (1 + ESPALHA) - atrasos[j * cols + i] * ESPALHA);
-            if (k > 0) v += (B(x, y, t) - v) * k;
+            if (k > 0) v += (B(x, y, t) * aten - v) * k;
           }
           if (v <= 0) continue;
           if (v > 1) v = 1;

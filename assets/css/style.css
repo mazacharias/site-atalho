@@ -179,12 +179,13 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
   position:relative; overflow:hidden;
   /* o azul da marca, o mesmo do CTA da barra de navegação */
   background:var(--brand); color:var(--on-dark);
-  --pt:clamp(44px, 6vh, 84px);
-  --pb:clamp(48px, 6.5vh, 92px);
-  padding:var(--pt) 0 var(--pb);
+  display:flex; align-items:center;
+  min-height:clamp(470px, 76vh, 720px);
+  padding:clamp(44px, 6vh, 84px) 0 clamp(48px, 6.5vh, 92px);
 }
-.painel{ display:grid; grid-template-columns:1fr 1.06fr; gap:clamp(28px, 4vw, 64px); align-items:stretch; }
-.painel__txt{ display:flex; flex-direction:column; justify-content:center; padding-block:clamp(24px, 3vw, 44px); }
+.hero .shell{ position:relative; z-index:1; width:100%; }
+.painel{ max-width:min(54%, 640px); }
+.painel__txt{ display:flex; flex-direction:column; }
 .hero h1{
   max-width:15ch;
   font-weight:600; font-size:clamp(32px, 4.1vw, 58px);
@@ -199,12 +200,9 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 .btn--acento{ background:#9fb0ee; color:#0b0c14; }
 .btn--acento:hover{ background:#b7c4f5; }
 
-.painel__arte{
-  /* a arte vive dentro de uma caixa fechada nos quatro lados; o texto fica
-     do lado de fora dela */
-  position:relative; min-height:clamp(340px, 58vh, 560px); overflow:hidden;
-  border:1px solid var(--line-dark);
-}
+/* a arte cobre o hero inteiro, atrás do texto. O desenho é grande de
+   propósito: as formas passam das bordas e são cortadas por elas */
+.painel__arte{ position:absolute; inset:0; z-index:0; }
 .painel__arte canvas{ position:absolute; inset:0; display:block; width:100%; height:100%; }
 
 /* ---------- 8. Cabeçalho de seção ---------- */
@@ -531,8 +529,9 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
   .nav{ display:none; }
   .burger{ display:flex; }
   .header__cta .btn{ display:none; }
-  .painel{ grid-template-columns:1fr; }
-  .painel__arte{ min-height:0; aspect-ratio:5 / 4; }
+  /* no celular o texto vai para o topo e a arte ocupa a parte de baixo */
+  .hero{ align-items:flex-start; min-height:clamp(560px, 90vh, 780px); }
+  .painel{ max-width:100%; }
   .sec-head__id{ margin-bottom:20px; }
   .sec-head__t,.sec-head__x{ grid-column:1 / 13; }
   .faq-wrap__t{ grid-column:1 / 13; position:static; margin-bottom:34px; }

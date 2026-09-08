@@ -86,6 +86,12 @@
 
 <!-- ====================== HERO ====================== -->
 <section class="hero">
+  <!-- Campo de pixels com dithering: estrela, setas, redemoinho. Sangra pelo
+       hero inteiro, atrás do texto. Ver seção 7 do main.js -->
+  <div class="painel__arte">
+    <canvas id="padrao" aria-hidden="true"></canvas>
+  </div>
+
   <div class="shell">
     <div class="painel">
       <div class="painel__txt">
@@ -98,11 +104,6 @@
           </a>
           <a class="btn btn--ghost" href="#projetos">Ver projetos</a>
         </div>
-      </div>
-
-      <!-- Campo de pixels com dithering: estrela, setas, redemoinho. Ver seção 7 do main.js -->
-      <div class="painel__arte">
-        <canvas id="padrao" aria-hidden="true"></canvas>
       </div>
     </div>
   </div>
