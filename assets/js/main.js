@@ -290,9 +290,9 @@
          ele desce para baixo do texto. `meia` é grande de propósito: as formas
          passam das bordas e são cortadas por elas — é daí que vem o corte  */
       deitado = larg / Math.max(1, alt) > 1.15;
-      meia = Math.min(larg, alt) * 0.66;
-      cxArte = deitado ? larg * 0.64 : larg * 0.5;
-      cyArte = deitado ? alt * 0.5 : alt * 0.70;
+      meia = Math.min(larg, alt) * (deitado ? 1.05 : 1.25);
+      cxArte = larg / 2;
+      cyArte = alt / 2;
 
       atrasos = new Float32Array(cols * linhas);
       for (var i = 0; i < atrasos.length; i++) atrasos[i] = hash2(i * 0.731, i * 0.219);
@@ -316,22 +316,22 @@
       for (var j = 0; j < linhas; j++) {
         var py = my + j * PASSO;
         var y = (cyArte - (py + PASSO / 2)) / meia;
-        /* o desenho se dissolve ao chegar perto do texto: em vez de uma
-           máscara por cima, é o próprio valor que cai, e o dithering rareia
-           os pixels sozinho */
-        var atenY = deitado ? 1 : (py / alt - 0.40) / 0.22;
-        if (atenY <= 0) continue;
-        if (atenY > 1) atenY = 1;
+        var ey = (py + PASSO / 2 - alt / 2) / (alt * (deitado ? 0.30 : 0.22));
 
         for (var i = 0; i < cols; i++) {
           var px = mx + i * PASSO;
           var x = (px + PASSO / 2 - cxArte) / meia;
-          var aten = atenY;
-          if (deitado) {
-            var a2 = (px / larg - 0.24) / 0.22;
-            if (a2 <= 0) continue;
-            aten = a2 > 1 ? 1 : a2;
-          }
+
+          /* o texto fica no meio, então o desenho abre um vazio ali. Não é uma
+             máscara por cima: é o próprio valor do campo que cai perto do
+             centro, e o dithering rareia os pixels sozinho — por isso a
+             passagem não tem borda */
+          /* no formato em pé o vazio é largo e baixo: sobra desenho em cima e
+             embaixo do texto, e não dos lados dele */
+          var ex = (px + PASSO / 2 - larg / 2) / (larg * (deitado ? 0.22 : 0.62));
+          var aten = (Math.sqrt(ex * ex + ey * ey) - 1) / 0.42;
+          if (aten <= 0) continue;
+          if (aten > 1) aten = 1;
 
           var v = A(x, y, t) * aten;
           if (m > 0) {

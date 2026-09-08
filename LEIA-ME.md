@@ -66,10 +66,12 @@ qualquer editor (VS Code, Bloco de Notas, ou o próprio editor da Hostinger).
 **Números do estúdio** — a seção "Estúdio" tem `40+` e `6–8`. Ajuste para a
 sua realidade.
 
-**A frase do hero** — o `<h1>` do `index.html`, com a linha de apoio logo
-abaixo (`.hero__lead`) e os dois botões. As duas quebram sozinhas: o título em
-até 15 caracteres por linha, a linha de apoio em até 34 (`max-width` em
-`.hero h1` e `.hero__lead`).
+**O hero** — tudo centrado, na ordem: o selo (`.selo`), o título (`<h1>`), a
+linha de apoio (`.hero__lead`) e os dois botões. O selo aponta para a seção do
+vídeo; troque o texto dele ou apague o bloco inteiro se não quiser.
+
+O título quebra sozinho em até 15 caracteres por linha e a linha de apoio em
+até 42 (`max-width` em `.hero h1` e `.hero__lead`).
 
 **Domínio** — em `robots.txt` e `sitemap.xml`, troque
 `https://www.atalhostudio.com.br` pelo seu endereço real.
@@ -360,33 +362,42 @@ forma é um retângulo arredondado, em 1 é um losango, e **abaixo de 1 os lados
 ficam côncavos**. O `0.20` é a espessura da borda esfarelada: mais que isso e a
 estrela encolhe, porque o dither come as pontas.
 
-#### O sangramento
+#### O sangramento e o vazio do meio
 
-O campo (`.painel__arte`) cobre o hero inteiro, por baixo do texto, e as formas
-são grandes de propósito: elas passam das bordas e são cortadas por elas. É o
+O campo (`.painel__arte`) cobre o hero inteiro, por baixo do texto. As formas
+são **maiores que o hero**: elas passam das bordas e são cortadas por elas. É o
 corte que dá o efeito.
 
-Três números governam isso, na função `medir()`:
-
 ```js
-meia   = Math.min(larg, alt) * 0.66;    // tamanho das formas
-cxArte = deitado ? larg * 0.64 : larg * 0.5;    // centro do desenho
-cyArte = deitado ? alt  * 0.5  : alt  * 0.70;
+meia = Math.min(larg, alt) * (deitado ? 1.05 : 1.25);
 ```
 
-`meia` é o tamanho: subir faz a forma crescer e sangrar mais. `cxArte` e
-`cyArte` dizem onde ela fica — no formato deitado o texto ocupa a esquerda,
-então o desenho é jogado para a direita; no formato em pé ele desce para
-baixo do texto.
-
-Para o texto não brigar com os pixels, o desenho **se dissolve** ao chegar
-perto dele. Não é uma máscara por cima: é o próprio valor do campo que cai, e
-o dithering rareia os pixels sozinho — por isso a passagem não tem borda.
+Como o texto fica no centro, o desenho abre um vazio ali — uma elipse em volta
+do bloco de texto:
 
 ```js
-var a2 = (px / larg - 0.24) / 0.22;   // deitado: some da esquerda para a direita
-var atenY = (py / alt - 0.40) / 0.22; // em pé: some de cima para baixo
+var ex = (px + PASSO / 2 - larg / 2) / (larg * (deitado ? 0.22 : 0.62));
+var ey = (py + PASSO / 2 - alt  / 2) / (alt  * (deitado ? 0.30 : 0.22));
+var aten = (Math.sqrt(ex * ex + ey * ey) - 1) / 0.42;
 ```
+
+No formato deitado a elipse é alta e estreita, em volta do bloco; no formato em
+pé ela é larga e baixa, de modo que sobre desenho **em cima e embaixo** do
+texto, e não dos lados.
+
+Duas coisas aprendidas ajustando isso, e que valem se você mexer nos números:
+
+- **o vazio não pode ser maior que o corpo da forma.** A estrela tem o miolo no
+  centro; com um vazio grande e a forma pequena, sobram só quatro pontas soltas
+  e o desenho vira sujeira. Por isso `meia` é tão grande — o que aparece em
+  volta do vazio é o meio da forma, não a beirada dela
+- **não adianta baixar o valor em vez de abrir o vazio.** Deixar a forma passar
+  fraquinha por trás do texto põe pixels em cima das letras e atrapalha a
+  leitura mais do que ajuda
+
+A passagem entre o vazio e o desenho não tem borda porque não é uma máscara por
+cima: é o próprio valor do campo que cai, e o dithering rareia os pixels
+sozinho.
 
 O desenho roda a 20 quadros por segundo e para sozinho quando o hero sai da
 tela. Com `prefers-reduced-motion` ligado, desenha só a estrela, parada.
