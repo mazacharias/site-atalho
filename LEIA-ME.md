@@ -264,47 +264,58 @@ Para mudar a cor da barra, edite `.header` em `assets/css/style.css`:
 
 ### O hero
 
-Painel escuro dividido em dois: texto à esquerda, uma estrela de quatro pontas
-girando à direita. O desenho não é imagem nem vídeo — é gerado em `<canvas>` a
-cada quadro, na seção 7 do `assets/js/main.js`.
+Painel escuro dividido em dois: texto à esquerda, uma nuvem de pontos à direita.
+Não é imagem nem vídeo — é gerada em `<canvas>` a cada quadro, na seção 7 do
+`assets/js/main.js`.
 
-A silhueta é uma superelipse: `|u|^p + |w|^p = 1`. Com o expoente `p` acima de 1
-a forma é um retângulo arredondado; em 1 é um losango; **abaixo de 1 os lados
-ficam côncavos e nascem as pontas**. O valor usado é `0.60` — em `0.5` a estrela
-sai magra demais, acima de `0.7` ela volta a virar losango.
+São sempre **os mesmos pontos**, que se remodelam em quatro formas, em ciclo:
+
+| | forma | o que é |
+|---|---|---|
+| 1 | estrela | a marca: silhueta de quatro pontas em halftone |
+| 2 | esfera | malha de pontos sobre a superfície |
+| 3 | montanha | um pico com relevo de ruído |
+| 4 | onda | um lençol ondulado, em fuga |
+
+Cada ponto tem um índice numa malha `(u, v)`, e cada forma é uma função
+`(u, v) → posição no espaço + peso do ponto`. A transição é só interpolar as
+duas formas vizinhas — com um atraso diferente por ponto, para o enxame não
+chegar todo junto. A câmera também interpola: cada forma guarda a sua própria
+inclinação e o seu próprio zoom, então o enquadramento acompanha a mudança.
 
 ```js
-var giro = t * 0.17;                       // um quarto de volta a cada ~9 s
-var raio = Math.min(larg, alt) * 0.66      // tamanho
-         * (1 + Math.sin(t * 0.5) * 0.05); // respiração de ±5%
-var u = ( dx * c + dy * s) / raio;         // c e s giram o sistema de eixos
-var w = (-dx * s + dy * c) / raio;
-var d = Math.pow(Math.abs(u), 0.60) + Math.pow(Math.abs(w), 0.60);
-var v = (1 - d) / 0.34;                    // faixa de dissolução da borda
-ctx.fillStyle = '#9fb0ee';                 // cor
+{ plano: 0, cam: { pitch: 0.34, escala: 0.62, sobe: -0.06 }, ganho: 1, … }
 ```
 
-Duas coisas seguram o resultado:
+Para mudar o ritmo, ajuste no topo da seção 7:
 
-- a **faixa de dissolução** (`0.34`), que é a espessura da borda esfarelada. `d`
-  cresce muito rápido perto do centro, então essa faixa precisa ser estreita:
-  mais larga que isso e o miolo cheio da estrela desaparece
-- o **dithering** (matriz Bayer 8×8) no limiar, que esfarela essa borda em
-  pixels em vez de deixar um contorno liso
+```js
+var PARADO = 3.2, TRANS = 2.1;   // segundos parado em cada forma / de transição
+```
 
-Para trocar o número de pontas, mude os expoentes por eixo ou some mais um
-termo girado — quatro pontas saem naturalmente porque a superelipse tem dois
-eixos. Para uma estrela mais gorda, suba o `0.60`; para pontas mais finas e
-longas, desça.
+Com quatro formas, o ciclo inteiro dá 21 segundos.
 
-A estrela sangra até as bordas do hero — para cima, para baixo e para a direita
+Três decisões seguram o resultado:
+
+- **soma de luz** (`globalCompositeOperation = 'lighter'`): onde os pontos se
+  acumulam a luz soma e estoura em branco — é daí que vem o brilho. De quebra,
+  dispensa ordenar os pontos por profundidade
+- **halftone na estrela**: a malha fica cartesiana e só acendem os pontos
+  dentro da forma. Torcer a malha para caber na estrela amontoaria pontos nas
+  diagonais e abriria um X no miolo
+- **queda de brilho no meio da transição** (`fatorLuz`), senão o momento em que
+  os pontos se amontoam vira um clarão branco
+
+A nuvem sangra até as bordas do hero — para cima, para baixo e para a direita
 até a beirada da tela — por margens negativas em `.painel__arte`, casadas com o
 respiro do hero via as variáveis `--pt` e `--pb`. Se mudar o respiro, as margens
 acompanham sozinhas.
 
-O desenho roda a 20 quadros por segundo — o passo visível combina com a estética
-de pixel e evita recalcular a forma 60 vezes por segundo à toa. Com
-`prefers-reduced-motion` ligado, a estrela é desenhada uma vez e fica parada.
+O desenho roda a 30 quadros por segundo e para sozinho quando o hero sai da
+tela. Com `prefers-reduced-motion` ligado, desenha só a estrela, parada.
+
+Para trocar a cor dos pontos, mude a linha `var COR = [159, 176, 238];` — são os
+valores R, G e B do azul-claro do hero.
 
 ### O espaçamento entre as dobras
 
