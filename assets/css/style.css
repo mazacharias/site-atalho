@@ -88,7 +88,7 @@ section[id]{ scroll-margin-top:90px; }
   font-size:11px; font-weight:600; letter-spacing:.17em; text-transform:uppercase;
   color:var(--ink-35);
 }
-.s-dark .micro,.s-brand .micro,.hero .micro,.footer .micro,.drawer .micro{ color:var(--on-dark-45); }
+.s-dark .micro,.s-brand .micro,.hero .micro,.footer .micro{ color:var(--on-dark-45); }
 .accent{ color:var(--brand); }
 .s-dark .accent,.hero .accent{ color:#93a1de; }
 
@@ -106,6 +106,8 @@ section[id]{ scroll-margin-top:90px; }
 .btn--solid:hover{ background:var(--brand-deep); }
 .btn--light{ background:var(--on-dark); color:var(--ink); }
 .btn--light:hover{ background:#fff; }
+.header .btn--light{ background:var(--brand); color:#fff; }
+.header .btn--light:hover{ background:var(--brand-deep); }
 .btn--ghost{ border-color:var(--line); color:var(--ink); }
 .btn--ghost:hover{ border-color:var(--brand); color:var(--brand); }
 .s-dark .btn--ghost,.s-brand .btn--ghost,.hero .btn--ghost{ border-color:var(--on-dark-line); color:var(--on-dark); }
@@ -123,17 +125,12 @@ section[id]{ scroll-margin-top:90px; }
 /* ---------- 6. Cabeçalho ---------- */
 .header{
   position:fixed; inset:0 0 auto 0; z-index:60; padding-block:20px;
-  color:var(--on-dark);
-  transition:background .35s var(--ease), color .35s var(--ease), padding .3s var(--ease), box-shadow .35s var(--ease);
+  background:#fff; color:var(--ink);
+  transition:padding .3s var(--ease), box-shadow .35s var(--ease);
 }
 .header__bar{ display:flex; align-items:center; justify-content:space-between; gap:24px; }
-.header.is-stuck{
-  padding-block:13px;
-  background:rgba(10, 11, 16, .82);
-  backdrop-filter:saturate(180%) blur(16px); -webkit-backdrop-filter:saturate(180%) blur(16px);
-  box-shadow:0 1px 0 var(--on-dark-line);
-}
-.header--solid{ position:sticky; background:var(--ink); box-shadow:0 1px 0 var(--on-dark-line); }
+.header.is-stuck{ padding-block:13px; box-shadow:0 1px 0 var(--line), 0 8px 28px rgba(12,13,18,.06); }
+.header--solid{ position:sticky; box-shadow:0 1px 0 var(--line); }
 
 .brand{
   display:inline-flex; align-items:baseline; flex:none;
@@ -143,7 +140,7 @@ section[id]{ scroll-margin-top:90px; }
 
 .nav{ display:flex; align-items:center; gap:clamp(16px, 2.2vw, 32px); }
 .nav a{
-  font-size:14px; color:var(--on-dark); opacity:1;
+  font-size:14px; color:var(--ink); opacity:1;
   transition:text-decoration-color .2s var(--ease);
   text-decoration:underline 1px transparent; text-underline-offset:6px;
 }
@@ -163,17 +160,17 @@ body.nav-open .burger span::before{ transform:translateY(6px) rotate(45deg); }
 body.nav-open .burger span::after { transform:translateY(-6px) rotate(-45deg); }
 
 .drawer{
-  position:fixed; inset:0; z-index:55; background:var(--ink); color:var(--on-dark);
+  position:fixed; inset:0; z-index:55; background:#fff; color:var(--ink);
   padding:104px var(--gut) 36px; display:flex; flex-direction:column; justify-content:space-between;
   opacity:0; visibility:hidden; transform:translateY(-6px);
   transition:opacity .3s var(--ease), transform .3s var(--ease), visibility .3s;
 }
 body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 .drawer__link{
-  display:flex; align-items:baseline; gap:14px; padding:15px 0; border-bottom:1px solid var(--on-dark-line);
+  display:flex; align-items:baseline; gap:14px; padding:15px 0; border-bottom:1px solid var(--line);
   font-size:25px; font-weight:300; letter-spacing:-.03em;
 }
-.drawer__link i{ font-style:normal; font-size:11px; font-weight:600; letter-spacing:.12em; color:var(--on-dark-45); }
+.drawer__link i{ font-style:normal; font-size:11px; font-weight:600; letter-spacing:.12em; color:var(--ink-35); }
 .drawer__foot{ display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between; }
 
 /* ---------- 7. Hero ---------- */
