@@ -275,6 +275,15 @@ Uma dobra centrada, na ordem: o selo (`.selo`), o título, a linha de apoio e os
 dois botões. O fundo é **preto** (`--ink`) e o azul aparece como única cor de
 destaque: é ele que desenha a grade, a etiqueta do selo e o botão principal.
 
+Sobre o azul há duas variantes, e a diferença importa:
+
+- `--brand` (#182889) é o azul do CTA da barra de navegação, usado em tudo o
+  que é **bloco preenchido**: o botão principal e a etiqueta do selo, sempre com
+  texto branco
+- `--brand-claro` (#5a6ce2) é o mesmo azul clareado, para o que é **fino ou
+  texto sobre fundo escuro**: os números das dobras, os marcadores das listas e
+  as linhas da grade. Ali o `--brand` some no preto
+
 A grade não é imagem nem canvas: são dois gradientes de uma listra só — um na
 vertical, outro na horizontal — repetidos pelo `background-size`. Três números
 controlam tudo:
@@ -282,10 +291,10 @@ controlam tudo:
 ```css
 .hero{
   --celula: clamp(74px, 7.6vw, 128px);   /* tamanho do quadrado */
-  --grade:  rgba(159, 176, 238, .085);   /* força da linha */
+  --grade:  rgba(90, 108, 226, .16);     /* força da linha */
 }
 .hero::before{
-  --aceso:  rgba(159, 176, 238, .030);   /* quadrados preenchidos */
+  --aceso:  rgba(90, 108, 226, .055);    /* quadrados preenchidos */
 }
 ```
 

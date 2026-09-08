@@ -8,6 +8,7 @@
 :root{
   --brand:        #182889;
   --brand-deep:   #0f1a5e;
+  --brand-claro:  #5a6ce2;   /* o mesmo azul, clareado para ler sobre escuro */
   --brand-lift:   #23359f;
   --brand-soft:   #e7e9f4;
   --brand-tint:   rgba(24, 40, 137, .08);
@@ -25,7 +26,7 @@
   --on-dark:      #f2f2ee;
   --on-dark-70:   rgba(242, 242, 238, .70);
   --on-dark-45:   rgba(242, 242, 238, .45);
-  --line-dark:    rgba(159, 176, 238, .30);
+  --line-dark:    rgba(90, 108, 226, .42);
   --on-dark-line: rgba(242, 242, 238, .15);
 
   --shell:        1280px;
@@ -91,7 +92,7 @@ section[id]{ scroll-margin-top:90px; }
 }
 .s-dark .micro,.s-brand .micro,.footer .micro{ color:var(--on-dark-45); }
 .accent{ color:var(--brand); }
-.s-dark .accent{ color:#93a1de; }
+.s-dark .accent{ color:var(--brand-claro); }
 
 /* ---------- 5. Botões e links ---------- */
 .btn{
@@ -181,7 +182,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
      o selo e o botão principal */
   background:var(--ink); color:var(--on-dark);
   --celula:clamp(74px, 7.6vw, 128px);
-  --grade:rgba(159, 176, 238, .085);
+  --grade:rgba(90, 108, 226, .16);
   display:flex; align-items:center;
   min-height:clamp(560px, 86vh, 840px);
   padding:clamp(56px, 8vh, 110px) 0 clamp(56px, 8vh, 110px);
@@ -198,7 +199,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
    também o texto.                                                          */
 .hero::before{
   content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
-  --aceso:rgba(159, 176, 238, .030);
+  --aceso:rgba(90, 108, 226, .055);
   background-image:
     linear-gradient(to right,  var(--grade) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grade) 1px, transparent 1px),
@@ -235,7 +236,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 }
 .selo:hover{ border-color:var(--on-dark-45); color:var(--on-dark); }
 .selo__tag{
-  background:#9fb0ee; color:#0b0c14; padding:3px 8px;
+  background:var(--brand); color:#fff; padding:3px 8px;
   font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
 }
 .selo svg{ width:14px; height:14px; flex:none; }
@@ -255,8 +256,8 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
   display:flex; flex-wrap:wrap; justify-content:center; gap:12px;
   margin-top:clamp(30px, 3.6vw, 46px);
 }
-.btn--acento{ background:#9fb0ee; color:#0b0c14; }
-.btn--acento:hover{ background:#b7c4f5; }
+.btn--acento{ background:var(--brand); color:#fff; }
+.btn--acento:hover{ background:var(--brand-deep); }
 
 
 /* ---------- 8. Cabeçalho de seção ---------- */
@@ -268,7 +269,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
   margin-bottom:clamp(18px, 2vw, 30px);
 }
 .sec-head__id b{ font-size:11px; font-weight:600; letter-spacing:.1em; color:var(--brand); }
-.s-dark .sec-head__id b{ color:#93a1de; }
+.s-dark .sec-head__id b{ color:var(--brand-claro); }
 .sec-head__t{ grid-column:1 / 8; }
 .sec-head__x{ grid-column:9 / 13; align-self:end; }
 .sec-head__x p{ font-size:15px; line-height:1.72; color:var(--ink-50); }
@@ -290,7 +291,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
   grid-column:span 4; padding:clamp(26px, 2.6vw, 38px) 0 clamp(30px, 3vw, 44px);
   position:relative; transition:opacity .3s var(--ease);
 }
-.card__n{ font-size:11px; font-weight:600; letter-spacing:.1em; color:#93a1de; }
+.card__n{ font-size:11px; font-weight:600; letter-spacing:.1em; color:var(--brand-claro); }
 .card h3{ margin:20px 0 12px; }
 .card > p{ font-size:14.5px; line-height:1.72; color:var(--on-dark-70); max-width:34ch; }
 .card ul{ margin-top:24px; border-bottom:1px solid var(--on-dark-line); }
@@ -300,7 +301,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 }
 .card li::before{
   content:""; position:absolute; left:0; top:17px; width:6px; height:6px;
-  background:#93a1de;
+  background:var(--brand-claro);
 }
 .cards .card + .card{ padding-left:clamp(20px, 2.2vw, 34px); }
 
@@ -446,11 +447,11 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 .faq__a p{ padding:0 56px 26px 0; font-size:15px; line-height:1.75; color:var(--ink-70); max-width:70ch; }
 
 /* ---------- 14. Contato ---------- */
-.contact__t{ grid-column:1 / 6; }
-.contact__form{ grid-column:7 / 13; }
+.contact__form{ grid-column:1 / 7; }
+.contact__t{ grid-column:8 / 13; }
 .contact__list li{ display:block; }
 .contact__list small{ width:auto; margin-bottom:7px; }
-.contact__list{ margin-top:clamp(36px, 4.5vw, 56px); }
+.contact__list{ margin-top:0; }
 .contact__list li{ border-top:1px solid var(--on-dark-line); padding:16px 0; display:flex; gap:20px; align-items:baseline; }
 .contact__list small{ flex:none; width:96px; font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--on-dark-45); }
 .contact__list a,.contact__list span{ font-size:clamp(15px, 1.5vw, 18px); font-weight:300; letter-spacing:-.012em; }
@@ -550,8 +551,8 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
   .faq{ grid-column:4 / 13; }
   .contact__t{ grid-column:1 / 13; }
   .block__tx,.block__full{ grid-column:3 / 13; }
-  .contact__t{ grid-column:1 / 13; }
-  .contact__form{ grid-column:1 / 13; margin-top:48px; }
+  .contact__form{ grid-column:1 / 13; }
+  .contact__t{ grid-column:1 / 13; margin-top:48px; }
   .footer__brand{ grid-column:1 / 13; }
   .footer__col{ margin-top:44px; }
   .footer__col:nth-of-type(2){ grid-column:1 / 5; }
