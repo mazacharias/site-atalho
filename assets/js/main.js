@@ -200,7 +200,7 @@
      um ponto da tela, devolve um valor de 0 a 1. Quem transforma esse valor
      em preto e branco é o dithering (matriz Bayer 8x8): quanto maior o valor,
      mais chance a célula tem de acender. É o mesmo desenho da estrela e do
-     pássaro, agora com quatro formas que se sucedem.
+     pássaro, agora com três formas que se sucedem.
 
      A transição é a interpolação entre dois campos, com um atraso por célula:
      em vez de um corte, uma forma se desmancha em pixels enquanto a outra se
@@ -222,7 +222,7 @@
     var larg = 0, alt = 0, dpr = 1, PASSO = 14, LADO = 9;
     var cols = 0, linhas = 0, meia = 1, mx = 0, my = 0, atrasos = null;
 
-    /* ---- as quatro formas, cada uma um campo (x, y, t) -> 0..1 ---- */
+    /* ---- as três formas, cada uma um campo (x, y, t) -> 0..1 ---- */
 
     /* Estrela: superelipse de expoente 0,6. Abaixo de 1 os lados ficam
        côncavos, e é daí que nascem as quatro pontas. Gira no próprio plano */
@@ -233,39 +233,36 @@
       return (1 - d) / 0.20;
     };
 
-    /* Esfera: um disco sombreado. A profundidade aqui é desenho, não câmera —
-       o valor cai do lado iluminado para o escuro e o dither faz o resto */
-    var esfera = function (x, y, t) {
-      var R = 0.90, r = Math.sqrt(x * x + y * y) / R;
-      if (r >= 1) return 0;
-      var z = Math.sqrt(1 - r * r);
-      var a = t * 0.33, lx = Math.cos(a) * 0.62, ly = 0.42, lz = 0.66;
-      var luz = (x / R) * lx + (y / R) * ly + z * lz;
-      /* o piso mantém o lado escuro salpicado, e é ele que preserva o
-         contorno redondo — sem piso o disco perde a borda no lado de sombra */
-      return 0.48 + 0.72 * Math.max(0, luz);
+    /* Duas setas para a direita. Cada uma é a faixa em volta de um "V"
+       deitado: a aresta dianteira fica em x = ponta - |y|, e o que acende é
+       a distância até ela. Uma onda de brilho atravessa as duas da esquerda
+       para a direita — é ela que dá o sentido de avanço */
+    var umaSeta = function (x, y, ponta) {
+      if (Math.abs(y) > 0.72) return 0;
+      var d = Math.abs(x - (ponta - Math.abs(y)));
+      return (0.17 - d) / 0.10;
+    };
+    var setas = function (x, y, t) {
+      var anda = Math.sin(t * 0.8) * 0.045;
+      /* as duas não podem se cruzar: cada uma ocupa 0,72 na horizontal, então
+         o passo entre elas tem de ser maior que isso */
+      var v = Math.max(umaSeta(x, y, 0.80 + anda), umaSeta(x, y, 0.02 + anda));
+      if (v <= 0) return 0;
+      return v * (0.80 + 0.32 * Math.sin(x * 2.4 - t * 2.1));
     };
 
-    /* Montanha: uma silhueta. Cheia na crista, rareando para a base */
-    var perfil = function (x) {
-      return 1.10 * Math.exp(-3.2 * (x - 0.04) * (x - 0.04))
-           + 0.44 * Math.exp(-3.0 * (x + 0.74) * (x + 0.74))
-           + 0.38 * Math.exp(-3.4 * (x - 0.82) * (x - 0.82))
-           + 0.05 * Math.sin(x * 9.1) + 0.032 * Math.sin(x * 17.3 + 1.2);
-    };
-    var montanha = function (x, y, t) {
-      var topo = -0.86 + perfil(x) * (1 + 0.035 * Math.sin(t * 0.5));
-      if (y > topo) return 0;
-      return Math.max(0.16, 1 - (topo - y) / 0.78);
+    /* Redemoinho: braços que saem do centro. O ângulo é somado ao raio, e é
+       essa soma que entorta o braço reto e o transforma em espiral */
+    var redemoinho = function (x, y, t) {
+      var r = Math.sqrt(x * x + y * y);
+      if (r < 0.02) return 1;
+      var ang = Math.atan2(y, x);
+      var braco = Math.sin(8 * (ang + r * 1.5) - t * 1.1);
+      var disco = (1.06 - r) / 0.26;          /* a borda do disco se esfarela */
+      return Math.min(disco, 0.40 + 0.74 * braco);
     };
 
-    /* Onda: faixas que atravessam o quadro e escorrem com o tempo */
-    var onda = function (x, y, t) {
-      var f = y * 8.2 + 1.15 * Math.sin(x * 2.0 + t * 0.6) + t * 0.7;
-      return 0.40 + 0.75 * Math.sin(f);
-    };
-
-    var CAMPOS = [estrela, esfera, montanha, onda];
+    var CAMPOS = [estrela, setas, redemoinho];
 
     var hash2 = function (a, b) {
       var n = Math.sin(a * 127.1 + b * 311.7) * 43758.5453;

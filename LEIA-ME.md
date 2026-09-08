@@ -277,14 +277,13 @@ O desenho é chapado de propósito: **uma grade fixa de células quadradas, toda
 do mesmo tamanho e da mesma cor**, sem perspectiva e sem sombra. Quem cria o
 tom é o dithering.
 
-Quatro formas se sucedem em ciclo:
+Três formas se sucedem em ciclo:
 
 | | forma | o que é |
 |---|---|---|
 | 1 | estrela | a marca: superelipse de quatro pontas, girando |
-| 2 | esfera | um disco com luz de um lado só |
-| 3 | montanha | uma silhueta, cheia na crista e rareando para a base |
-| 4 | onda | faixas que atravessam o quadro e escorrem |
+| 2 | setas | duas setas para a direita, com uma luz que as atravessa |
+| 3 | redemoinho | braços em espiral saindo do centro |
 
 #### Como funciona
 
@@ -324,7 +323,18 @@ var PARADO = 3.4, TRANS = 1.9;   // segundos parado em cada forma / de transiç�
 var COR = '#9fb0ee';             // cor dos pixels
 ```
 
-Com quatro formas, o ciclo inteiro dá 21 segundos.
+Com três formas, o ciclo inteiro dá 16 segundos.
+
+Trocar uma forma é trocar uma função e o nome dela na lista:
+
+```js
+var CAMPOS = [estrela, setas, redemoinho];
+```
+
+Duas contas valem atenção nas setas: cada uma ocupa 0,72 na horizontal, então
+o passo entre as duas tem de ser maior que isso — senão elas se cruzam. E a
+luz que as varre não pode descer demais, ou apaga metade da seta abaixo do
+piso do dither.
 
 O tamanho do pixel vem do tamanho do painel, em `medir()`:
 
