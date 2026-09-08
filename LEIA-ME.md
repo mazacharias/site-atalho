@@ -322,14 +322,15 @@ outra se escreve por cima, em vez de haver um corte.
 
 ```js
 var PARADO = 3.4, TRANS = 1.9;   // segundos parado em cada forma / de transição
-var COR = '#d9e0fa';             // cor dos pixels
+var COR = '#172684';             // cor dos pixels
 ```
 
 Com três formas, o ciclo inteiro dá 16 segundos.
 
-A cor dos pixels é clara de propósito: o fundo do hero é o azul da marca
-(`--brand`, o mesmo do botão da barra de navegação), e sobre ele um tom médio
-perde contraste e o desenho some.
+A cor dos pixels é **4% mais escura que o fundo** do hero (`#182889` → 
+`#172684`). O desenho aparece por diferença de tom, bem de leve, e por isso ele
+passa por trás do texto sem atrapalhar a leitura. Se quiser mais presença, mexa
+nessa cor — não no tamanho nem na quantidade de pixels.
 
 Trocar uma forma é trocar uma função e o nome dela na lista:
 
@@ -362,42 +363,21 @@ forma é um retângulo arredondado, em 1 é um losango, e **abaixo de 1 os lados
 ficam côncavos**. O `0.20` é a espessura da borda esfarelada: mais que isso e a
 estrela encolhe, porque o dither come as pontas.
 
-#### O sangramento e o vazio do meio
+#### O sangramento
 
 O campo (`.painel__arte`) cobre o hero inteiro, por baixo do texto. As formas
-são **maiores que o hero**: elas passam das bordas e são cortadas por elas. É o
-corte que dá o efeito.
+são maiores que o quadro: elas passam das bordas e são cortadas por elas.
 
 ```js
-meia = Math.min(larg, alt) * (deitado ? 1.05 : 1.25);
+meia = Math.min(larg, alt) * (deitado ? 0.62 : 0.80);
 ```
 
-Como o texto fica no centro, o desenho abre um vazio ali — uma elipse em volta
-do bloco de texto:
+Subir esse número faz a forma crescer e sangrar mais.
 
-```js
-var ex = (px + PASSO / 2 - larg / 2) / (larg * (deitado ? 0.22 : 0.62));
-var ey = (py + PASSO / 2 - alt  / 2) / (alt  * (deitado ? 0.30 : 0.22));
-var aten = (Math.sqrt(ex * ex + ey * ey) - 1) / 0.42;
-```
-
-No formato deitado a elipse é alta e estreita, em volta do bloco; no formato em
-pé ela é larga e baixa, de modo que sobre desenho **em cima e embaixo** do
-texto, e não dos lados.
-
-Duas coisas aprendidas ajustando isso, e que valem se você mexer nos números:
-
-- **o vazio não pode ser maior que o corpo da forma.** A estrela tem o miolo no
-  centro; com um vazio grande e a forma pequena, sobram só quatro pontas soltas
-  e o desenho vira sujeira. Por isso `meia` é tão grande — o que aparece em
-  volta do vazio é o meio da forma, não a beirada dela
-- **não adianta baixar o valor em vez de abrir o vazio.** Deixar a forma passar
-  fraquinha por trás do texto põe pixels em cima das letras e atrapalha a
-  leitura mais do que ajuda
-
-A passagem entre o vazio e o desenho não tem borda porque não é uma máscara por
-cima: é o próprio valor do campo que cai, e o dithering rareia os pixels
-sozinho.
+Houve uma versão em que o desenho abria um vazio elíptico em volta do texto,
+porque os pixels eram claros e disputavam a leitura. Com a cor a 4% do fundo
+isso deixou de ser necessário, e o vazio saiu: a forma passa inteira por trás
+do texto.
 
 O desenho roda a 20 quadros por segundo e para sozinho quando o hero sai da
 tela. Com `prefers-reduced-motion` ligado, desenha só a estrela, parada.

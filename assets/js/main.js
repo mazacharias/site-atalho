@@ -208,7 +208,9 @@
   var tela = document.getElementById('padrao');
   if (tela && tela.getContext) {
     var ctx = tela.getContext('2d');
-    var COR = '#d9e0fa';   /* claro o bastante para segurar contraste sobre o azul da marca */
+    /* 4% mais escuro que o azul do fundo (#182889): o desenho aparece por
+       diferença de tom, de leve, sem competir com o texto */
+    var COR = '#172684';
     var PARADO = 3.4, TRANS = 1.9;   /* segundos parado em cada forma / de transição */
     var ESPALHA = 0.55;              /* quanto as células se atrasam entre si */
 
@@ -290,7 +292,7 @@
          ele desce para baixo do texto. `meia` é grande de propósito: as formas
          passam das bordas e são cortadas por elas — é daí que vem o corte  */
       deitado = larg / Math.max(1, alt) > 1.15;
-      meia = Math.min(larg, alt) * (deitado ? 1.05 : 1.25);
+      meia = Math.min(larg, alt) * (deitado ? 0.62 : 0.80);
       cxArte = larg / 2;
       cyArte = alt / 2;
 
@@ -316,8 +318,6 @@
       for (var j = 0; j < linhas; j++) {
         var py = my + j * PASSO;
         var y = (cyArte - (py + PASSO / 2)) / meia;
-        var ey = (py + PASSO / 2 - alt / 2) / (alt * (deitado ? 0.30 : 0.22));
-
         for (var i = 0; i < cols; i++) {
           var px = mx + i * PASSO;
           var x = (px + PASSO / 2 - cxArte) / meia;
@@ -326,17 +326,12 @@
              máscara por cima: é o próprio valor do campo que cai perto do
              centro, e o dithering rareia os pixels sozinho — por isso a
              passagem não tem borda */
-          /* no formato em pé o vazio é largo e baixo: sobra desenho em cima e
-             embaixo do texto, e não dos lados dele */
-          var ex = (px + PASSO / 2 - larg / 2) / (larg * (deitado ? 0.22 : 0.62));
-          var aten = (Math.sqrt(ex * ex + ey * ey) - 1) / 0.42;
-          if (aten <= 0) continue;
-          if (aten > 1) aten = 1;
-
-          var v = A(x, y, t) * aten;
+          /* Não há mais vazio no meio: com a cor a 4% do fundo, o desenho passa
+             por trás do texto sem disputar leitura, e a forma fica inteira    */
+          var v = A(x, y, t);
           if (m > 0) {
             var k = suave(m * (1 + ESPALHA) - atrasos[j * cols + i] * ESPALHA);
-            if (k > 0) v += (B(x, y, t) * aten - v) * k;
+            if (k > 0) v += (B(x, y, t) - v) * k;
           }
           if (v <= 0) continue;
           if (v > 1) v = 1;
