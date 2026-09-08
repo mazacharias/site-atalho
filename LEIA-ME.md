@@ -262,6 +262,21 @@ Para mudar a cor da barra, edite `.header` em `assets/css/style.css`:
 .header{ background:var(--paper); color:var(--ink); }
 ```
 
+### O hero
+
+O título vai em caixa alta (`text-transform: uppercase` em `.hero h1`), sobre o
+azul da marca chapado — sem gradiente. Para voltar à caixa mista, apague essa
+linha e devolva o `letter-spacing` para um valor negativo, que caixa alta e
+tracking apertado não combinam.
+
+### O espaçamento entre as dobras
+
+Um único token controla o respiro de todas as seções:
+
+```css
+--section: clamp(56px, 6.2vw, 96px);
+```
+
 ### O fundo do hero
 
 A malha de pontos do hero é feita só com CSS, em `assets/css/style.css`:
