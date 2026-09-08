@@ -264,22 +264,26 @@ Para mudar a cor da barra, edite `.header` em `assets/css/style.css`:
 
 ### O hero
 
-Painel escuro dividido em dois: texto à esquerda, um moinho de pixels à
-direita. O desenho não é imagem — é gerado em `<canvas>` a cada quadro, na
-seção 7 do `assets/js/main.js`.
+Painel escuro dividido em dois: texto à esquerda, um pássaro de pixels batendo
+asas à direita. O desenho não é imagem nem sprite — é gerado em `<canvas>` a
+cada quadro, na seção 7 do `assets/js/main.js`.
 
-Cada célula da grade acende conforme uma função de pás girando em torno do
-centro. O recorte serrilhado vem de uma matriz de dithering (Bayer 8×8): sem
-ela as bordas das pás ficariam lisas e o desenho perderia a textura de pixel.
+A silhueta é um campo matemático: elipses para corpo, cabeça, bico, cauda e
+asas, amostradas numa grade. Cada asa é uma corrente de elipses ao longo de um
+arco, afinando para a ponta — uma elipse só daria um bastão. Cada célula da
+grade acende quando o campo passa de um limiar, e esse limiar carrega uma
+matriz de dithering (Bayer 8×8): é ela que esfarela a borda em pixels em vez
+de deixar um contorno liso.
 
 ```js
-var PAS = 8, TORCAO = 1.35;              // número de pás e quanto elas torcem
-ctx.fillStyle = '#9fb0ee';               // cor dos quadrados
-desenhar(((agora - inicio) / 1000) * 0.22);   // 0.22 = velocidade de rotação
+ctx.fillStyle = '#9fb0ee';                        // cor dos quadrados
+desenhar(((agora - inicio) / 1000) * 0.52);       // 0.52 ≈ meia batida por segundo
+var bat = Math.sin(t * Math.PI * 2);              // -1 asas em cima, +1 embaixo
 ```
 
-A malha se adapta ao tamanho do painel, para o desenho não rarear no celular.
-Com `prefers-reduced-motion` ligado, o moinho é desenhado uma vez e não gira.
+A malha e a escala se adaptam ao tamanho do painel, para o desenho não rarear
+no celular nem cortar as pontas das asas. Com `prefers-reduced-motion` ligado,
+o pássaro é desenhado uma vez e fica parado.
 
 ### O espaçamento entre as dobras
 

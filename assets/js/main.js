@@ -194,22 +194,61 @@
     });
   });
 
-  /* ---------- 7. Moinho de pixels ----------
-     Uma grade de quadrados onde cada célula acende conforme uma função de
-     pás girando em torno do centro. O recorte serrilhado vem de uma matriz
-     de dithering: sem ela as bordas ficariam lisas e o desenho perderia a
-     textura de pixel.                                                     */
-  var tela = document.getElementById('moinho');
+  /* ---------- 7. Pássaro de pixels ----------
+     O bicho não é sprite: a silhueta é um campo matemático — elipses para
+     corpo, cabeça, cauda e asas — amostrado numa grade. Cada célula acende
+     quando o campo passa de um limiar, e o limiar carrega uma matriz de
+     dithering (Bayer 8x8): é ela que esfarela a borda em pixels em vez de
+     deixar um contorno liso.                                              */
+  var tela = document.getElementById('passaro');
   if (tela && tela.getContext) {
     var ctx = tela.getContext('2d');
-    var PAS = 8, TORCAO = 1.35, PASSO = 17, LADO = 12;
     var BAYER = [
       [0,32,8,40,2,34,10,42],[48,16,56,24,50,18,58,26],
       [12,44,4,36,14,46,6,38],[60,28,52,20,62,30,54,22],
       [3,35,11,43,1,33,9,41],[51,19,59,27,49,17,57,25],
       [15,47,7,39,13,45,5,37],[63,31,55,23,61,29,53,21]
     ];
-    var larg = 0, alt = 0, dpr = 1;
+    var PASSO = 16, LADO = 11, larg = 0, alt = 0, escala = 1, dpr = 1;
+
+    /* elipse com borda macia: 1 no miolo, some ao longe */
+    var elipse = function (x, y, cx, cy, rx, ry, giro) {
+      var dx = x - cx, dy = y - cy;
+      var c = Math.cos(giro), s = Math.sin(giro);
+      var u = (dx * c + dy * s) / rx, w = (-dx * s + dy * c) / ry;
+      var d = Math.sqrt(u * u + w * w);
+      return 1 - Math.min(1, Math.max(0, (d - 0.80) / 0.40));
+    };
+
+    /* asa: uma sequência de elipses ao longo de um arco, afinando para a ponta.
+       Uma elipse só daria um bastão; a corrente é o que dá a curva da asa.   */
+    var asa = function (x, y, lado, bat) {
+      var v = 0;
+      for (var k = 0; k <= 8; k++) {
+        var u = k / 8;                                   // 0 no ombro, 1 na ponta
+        var px = lado * (0.05 + u * 0.62);
+        var py = -0.04
+               + bat * Math.pow(u, 1.30) * 0.40          // sobe e desce
+               + Math.pow(u, 2.2) * 0.07;                // leve queda da ponta
+        var r = 0.082 * (1 - u * 0.80);                  // afina
+        v = Math.max(v, elipse(x, y, px, py, r * 1.45, r, lado * bat * 0.5));
+      }
+      return v;
+    };
+
+    var campo = function (x, y, t) {
+      var bat = Math.sin(t * Math.PI * 2);
+      y -= bat * 0.030;                                  // o corpo sobe na batida
+      var v = 0;
+      v = Math.max(v, asa(x, y, -1, bat));               // asa esquerda
+      v = Math.max(v, asa(x, y,  1, bat));               // asa direita
+      v = Math.max(v, elipse(x, y, 0, 0.03, 0.062, 0.175, 0));      // corpo
+      v = Math.max(v, elipse(x, y, 0, -0.155, 0.052, 0.050, 0));    // cabeça
+      v = Math.max(v, elipse(x, y, 0, -0.215, 0.020, 0.026, 0));    // bico
+      v = Math.max(v, elipse(x, y, -0.045, 0.255, 0.030, 0.075, 0.30));  // cauda
+      v = Math.max(v, elipse(x, y,  0.045, 0.255, 0.030, 0.075, -0.30));
+      return v;
+    };
 
     var medir = function () {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -217,36 +256,29 @@
       tela.width = Math.round(larg * dpr);
       tela.height = Math.round(alt * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      // a malha acompanha o tamanho do painel, para o desenho não rarear no celular
-      PASSO = Math.max(11, Math.min(18, Math.round(Math.min(larg, alt) / 24)));
+      PASSO = Math.max(10, Math.min(17, Math.round(Math.min(larg, alt) / 26)));
       LADO = PASSO - 5;
+      // a envergadura vai de -0,67 a 0,67 e a altura de -0,47 a 0,34:
+      // a escala sai daí, para as pontas das asas nunca saírem do quadro
+      escala = Math.min(larg * 0.70, alt * 1.12);
     };
 
-    var desenhar = function (fase) {
+    var desenhar = function (t) {
       ctx.clearRect(0, 0, larg, alt);
       ctx.fillStyle = '#9fb0ee';
-      var cx = larg * 0.5, cy = alt * 0.5;
-      var raio = Math.hypot(larg, alt) * 0.5;
+      var cx = larg / 2, cy = alt / 2;
       var cols = Math.ceil(larg / PASSO), linhas = Math.ceil(alt / PASSO);
-      var margemX = (larg - cols * PASSO) / 2, margemY = (alt - linhas * PASSO) / 2;
+      var mx = (larg - cols * PASSO) / 2, my = (alt - linhas * PASSO) / 2;
 
       for (var j = 0; j < linhas; j++) {
         for (var i = 0; i < cols; i++) {
-          var x = margemX + i * PASSO, y = margemY + j * PASSO;
-          var dx = x + PASSO / 2 - cx, dy = y + PASSO / 2 - cy;
-          var r = Math.hypot(dx, dy) / raio;
-          var a = Math.atan2(dy, dx);
-
-          // pás girando: o termo em r torce o braço e vira espiral
-          var v = (Math.cos(a * PAS + r * TORCAO * Math.PI * 2 - fase) + 1) / 2;
-
-          // o limiar é que carrega o desenho: o dither serrilha a borda das pás,
-          // o termo em r rareia para fora e o último abre o vazio do miolo
-          var limiar = 0.46 + (BAYER[j & 7][i & 7] / 64 - 0.5) * 0.40;
-          limiar += Math.pow(r, 1.7) * 0.62;
-          limiar += Math.max(0, 0.075 - r) * 7;
-
-          if (v > limiar) ctx.fillRect(Math.round(x), Math.round(y), LADO, LADO);
+          var px = mx + i * PASSO, py = my + j * PASSO;
+          var x = (px + PASSO / 2 - cx) / escala;
+          var y = (py + PASSO / 2 - cy) / escala;
+          var v = campo(x, y, t);
+          if (v <= 0) continue;
+          var limiar = 0.42 + (BAYER[j & 7][i & 7] / 64 - 0.5) * 0.58;
+          if (v > limiar) ctx.fillRect(Math.round(px), Math.round(py), LADO, LADO);
         }
       }
     };
@@ -255,17 +287,17 @@
     var inicio = 0;
     var quadro = function (agora) {
       if (!inicio) inicio = agora;
-      desenhar(((agora - inicio) / 1000) * 0.22);
+      desenhar(((agora - inicio) / 1000) * 0.52);          // ~0,5 batida por segundo
       requestAnimationFrame(quadro);
     };
 
     medir();
-    if (parado) desenhar(0); else requestAnimationFrame(quadro);
+    if (parado) desenhar(0.62); else requestAnimationFrame(quadro);
 
     var remedir;
     window.addEventListener('resize', function () {
       clearTimeout(remedir);
-      remedir = setTimeout(function () { medir(); if (parado) desenhar(0); }, 140);
+      remedir = setTimeout(function () { medir(); if (parado) desenhar(0.25); }, 140);
     });
   }
 

@@ -175,18 +175,11 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 
 /* ---------- 7. Hero ---------- */
 .hero{
-  background:#08080e; color:var(--on-dark);
-  padding:clamp(28px, 4vh, 56px) 0 clamp(32px, 4.5vh, 64px);
+  background:var(--ink); color:var(--on-dark);
+  padding:clamp(44px, 6vh, 84px) 0 clamp(48px, 6.5vh, 92px);
 }
-.painel{
-  display:grid; grid-template-columns:1fr 1.12fr;
-  border:1px solid var(--on-dark-line);
-  background:var(--ink);
-}
-.painel__txt{
-  display:flex; flex-direction:column; justify-content:center;
-  padding:clamp(30px, 3.6vw, 60px);
-}
+.painel{ display:grid; grid-template-columns:1fr 1.12fr; align-items:center; }
+.painel__txt{ display:flex; flex-direction:column; justify-content:center; padding-block:clamp(24px, 3vw, 44px); }
 .hero h1{
   max-width:16ch;
   font-weight:600; font-size:clamp(30px, 3.5vw, 50px);
@@ -533,7 +526,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
   .burger{ display:flex; }
   .header__cta .btn{ display:none; }
   .painel{ grid-template-columns:1fr; }
-  .painel__arte{ min-height:0; aspect-ratio:5 / 4; border-top:1px solid var(--on-dark-line); }
+  .painel__arte{ min-height:0; aspect-ratio:5 / 4; }
   .sec-head__id{ margin-bottom:20px; }
   .sec-head__t,.sec-head__x{ grid-column:1 / 13; }
   .faq-wrap__t{ grid-column:1 / 13; position:static; margin-bottom:34px; }
