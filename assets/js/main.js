@@ -284,7 +284,9 @@
       cols = Math.ceil(larg / PASSO); linhas = Math.ceil(alt / PASSO);
       /* sobra dividida nas duas pontas, para a grade ficar centrada */
       mx = (larg - cols * PASSO) / 2; my = (alt - linhas * PASSO) / 2;
-      meia = Math.min(larg, alt) / 2;
+      /* um pouco maior que a metade do menor lado: as formas ocupam melhor
+         a caixa, e as pontas da estrela ainda param dentro dela */
+      meia = Math.min(larg, alt) / 2 * 1.10;
 
       atrasos = new Float32Array(cols * linhas);
       for (var i = 0; i < atrasos.length; i++) atrasos[i] = hash2(i * 0.731, i * 0.219);

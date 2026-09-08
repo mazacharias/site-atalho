@@ -66,9 +66,10 @@ qualquer editor (VS Code, Bloco de Notas, ou o próprio editor da Hostinger).
 **Números do estúdio** — a seção "Estúdio" tem `40+` e `6–8`. Ajuste para a
 sua realidade.
 
-**A frase do hero** — o `<h1>` do `index.html` é a única linha de texto do
-hero, junto dos dois botões. Trocar por uma frase mais longa é seguro: ela
-quebra sozinha em até 17 caracteres por linha (`max-width:17ch` em `.hero h1`).
+**A frase do hero** — o `<h1>` do `index.html`, com a linha de apoio logo
+abaixo (`.hero__lead`) e os dois botões. As duas quebram sozinhas: o título em
+até 15 caracteres por linha, a linha de apoio em até 34 (`max-width` em
+`.hero h1` e `.hero__lead`).
 
 **Domínio** — em `robots.txt` e `sitemap.xml`, troque
 `https://www.atalhostudio.com.br` pelo seu endereço real.
@@ -340,10 +341,14 @@ forma é um retângulo arredondado, em 1 é um losango, e **abaixo de 1 os lados
 ficam côncavos**. O `0.20` é a espessura da borda esfarelada: mais que isso e a
 estrela encolhe, porque o dither come as pontas.
 
-O campo sangra até as bordas do hero — para cima, para baixo e para a direita
-até a beirada da tela — por margens negativas em `.painel__arte`, casadas com o
-respiro do hero via as variáveis `--pt` e `--pb`. Se mudar o respiro, as margens
-acompanham sozinhas.
+O campo vive dentro de uma caixa fechada nos quatro lados (`.painel__arte`), e
+o texto fica do lado de fora dela. A altura da caixa é
+`clamp(340px, 58vh, 560px)` no desktop e proporção 5:4 no celular; a linha da
+borda é o token `--line-dark`.
+
+As formas são medidas a partir de `meia`, que vale um pouco mais que a metade
+do menor lado da caixa. Subir esse número faz as formas crescerem — mas passe
+de `1.15` e as pontas da estrela começam a bater na borda.
 
 O desenho roda a 20 quadros por segundo e para sozinho quando o hero sai da
 tela. Com `prefers-reduced-motion` ligado, desenha só a estrela, parada.
