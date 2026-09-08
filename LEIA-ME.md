@@ -264,10 +264,27 @@ Para mudar a cor da barra, edite `.header` em `assets/css/style.css`:
 
 ### O hero
 
-O título vai em caixa alta (`text-transform: uppercase` em `.hero h1`), sobre o
-azul da marca chapado — sem gradiente. Para voltar à caixa mista, apague essa
-linha e devolva o `letter-spacing` para um valor negativo, que caixa alta e
-tracking apertado não combinam.
+Fundo claro com uma aurora azul no alto: quatro manchas borradas que derivam
+devagar, em ciclos longos e dessincronizados, e se dissolvem no papel antes de
+chegar ao texto. Por cima vai uma camada de grão, que é o que impede a mancha
+de parecer degradê de banco.
+
+Tudo em `assets/css/style.css`, seção 7:
+
+```css
+.hero__aurora{ filter: blur(72px); height: 66%; }  /* espalhamento e alcance */
+.hero__aurora .b1{ background: radial-gradient(... #2b3fb8 ...); }  /* cor de cada mancha */
+@keyframes deriva1 { ... }                          /* trajeto e amplitude */
+.hero__grao{ opacity: .24; }                        /* intensidade do grão */
+```
+
+Para deixar o movimento mais lento, aumente os `26s`, `31s`, `23s` e `35s` das
+quatro animações — mantendo os valores diferentes entre si, que é o que evita a
+sensação de pulsação sincronizada. Com `prefers-reduced-motion` ligado, a
+aurora fica parada.
+
+Os três chips saem dos serviços do estúdio. O terceiro é o azul cheio, para a
+linha não ficar toda no mesmo peso.
 
 ### O espaçamento entre as dobras
 
