@@ -369,3 +369,61 @@ do `index.html`:
 `--s` é a semana em que a fase começa (1 a 8) e `--n` é quantas semanas ela dura.
 Para trabalhar com mais semanas, mude o `repeat(8, 1fr)` das regras
 `.gantt__scale`, `.gantt__track` e `.gantt__miles` no CSS.
+
+---
+
+## 9. Celular
+
+O site é feito para a mão antes da mesa. O que sustenta isso:
+
+### Alvos de toque
+
+Todo link e botão tem **no mínimo 44 px de altura** abaixo de 860 px de
+largura. É a medida em que o polegar acerta sem errar. Vários links do site são
+texto puro, que nasce com a altura da linha (18 a 26 px), então eles ganham
+`min-height` e viram `inline-flex` no bloco móvel do `style.css`.
+
+Nas listas verticais (rodapé) o link ocupa a **largura da coluna**, não a da
+palavra: numa lista, o que se acerta é a linha inteira.
+
+### Altura da janela
+
+```css
+.hero{ min-height:clamp(520px, 84vh, 760px);
+       min-height:clamp(520px, 84svh, 760px); }
+```
+
+As duas linhas são de propósito. No celular, `vh` mede a janela **sem** a barra
+do navegador, então o hero nasce mais alto que a tela e salta quando a barra
+some ao rolar. `svh` mede com a barra visível. A primeira linha é o reserva
+para navegador antigo, que ignora a segunda.
+
+Há ainda um bloco para **celular deitado** (`max-height: 560px`), onde o
+`min-height` fixo empurraria os botões para fora da tela.
+
+### Área segura
+
+`viewport-fit=cover` no `<meta viewport>`, e a margem lateral vira
+`max(clamp(...), env(safe-area-inset-left), env(safe-area-inset-right))`.
+Sem isso, o conteúdo passa por baixo do entalhe quando o aparelho está deitado.
+O rodapé soma `env(safe-area-inset-bottom)` para não encostar na barra de
+gestos.
+
+### Toque
+
+O realce cinza padrão do navegador foi desligado (`-webkit-tap-highlight-color`),
+e no lugar entrou um `:active` com opacidade, só onde não existe cursor
+(`@media (hover:none)`). Desligar um sem colocar o outro deixa o toque sem
+nenhuma resposta visível.
+
+A gaveta do menu tem `overscroll-behavior:contain`, para o dedo não arrastar a
+página atrás dela ao chegar no fim da lista.
+
+### Peso
+
+O primeiro carregamento são **127 KB em 4 arquivos**. A capa do vídeo (35 KB)
+tem `loading="lazy"`: em conexão lenta ela sai do caminho crítico, que é
+justamente quando isso importa. Em conexão rápida o navegador a busca de
+qualquer jeito, e tudo bem.
+
+Medido em rede de 1,6 Mbps com o processador 4× mais lento: LCP em 1,1 s.
