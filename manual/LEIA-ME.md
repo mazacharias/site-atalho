@@ -23,4 +23,28 @@ python3 <caminho>/html_to_pdf.py sistema-visual.html pice-sistema-visual.pdf
 cortado em silêncio, sem erro nenhum. Rode sempre antes de converter.
 
 As três capturas de tela (`ap-*.jpg`) alimentam a página "Aplicação"; refaça-as
-quando o site mudar de cara.
+quando o site mudar de cara. Elas são prints de viewport, nos tamanhos
+1000x625, 900x499 e 900x475; desligue o `scroll-behavior:smooth` antes de
+rolar, senão o print sai no meio do caminho.
+
+## Como refazer o vídeo
+
+`filme.html` é o fonte do filme de 20 segundos da dobra "Sistema": um SVG com
+uma função `render(t)` determinística, sem dependência nenhuma. Ele carrega a
+fonte de `assets/fonts/`, então precisa de um servidor, não de `file://`.
+
+```
+python3 -m http.server 8899 &     # a partir da raiz do site
+mkdir -p quadros
+node manual/render-filme.js       # 600 quadros PNG, 30 q/s
+
+ffmpeg -framerate 30 -i quadros/f%04d.png -vf scale=1280:720:flags=lanczos \
+  -c:v libx264 -pix_fmt yuv420p -crf 26 -preset slow -movflags +faststart \
+  assets/video/sistema.mp4
+ffmpeg -framerate 30 -i quadros/f%04d.png -vf scale=1280:720:flags=lanczos \
+  -c:v libvpx-vp9 -crf 38 -b:v 0 -row-mt 1 assets/video/sistema.webm
+ffmpeg -i quadros/f0455.png -q:v 5 assets/img/sistema-poster.jpg
+```
+
+As cores do filme estão em uma linha só, no topo do `<script>`: `FUNDO`,
+`CLARO`, `ACENTO` e `VERDE`.

@@ -247,13 +247,14 @@ Tudo o que define a aparência está no topo de `assets/css/style.css`, no bloco
 --ink:    #131211;  /* preto quente dos blocos escuros */
 --fumaca: #b6b2ac;  /* cinza quente das marcas sobre o escuro */
 --paper:  #e4e0d9;  /* papel quente de fundo */
+--verde:  #aecd96;  /* verde da marca, sobre o escuro */
 --shell:  1280px;   /* largura máxima do conteúdo */
 ```
 
 ### A paleta
 
-Monocromática e quente: um preto, um cinza e um papel. **Não há cor de
-destaque** — o destaque é o contraste entre eles.
+A base é monocromática e quente: um preto, um cinza e um papel. Sobre ela
+entra **um verde só**, sempre em marcas pequenas.
 
 ```css
 --preto:  #0a0908;   --ink:    #131211;   /* fundo escuro */
@@ -262,15 +263,27 @@ destaque** — o destaque é o contraste entre eles.
 --areia:  #dcd7cf;   /* preenchimento suave sobre papel */
 --paper:  #e4e0d9;   --paper-2: #f1eee9;  /* superfícies claras */
 --on-dark:#e9e5df;   /* texto sobre o escuro */
+
+--verde:       #aecd96;   /* verde da marca */
+--verde-tinta: #3f5a2e;   /* o mesmo verde legível sobre papel */
 ```
 
 A regra de uso é a inversão: **sobre papel, o elemento de mais peso é o preto;
 sobre o escuro, é o papel**. É por isso que o botão principal do hero é claro e
 o da barra de navegação é escuro, sendo os dois o mesmo botão.
 
-Onde o destaque é fino ou é texto sobre fundo escuro (números das dobras,
-marcadores de lista, linhas da grade do hero), entra o `--fumaca`: o preto
-simplesmente desapareceria ali.
+O verde segue a mesma inversão, e por um motivo de contraste. O `--verde` tem
+10.7:1 contra o preto e apenas 1.3:1 contra o papel: sobre o escuro ele é
+nítido, sobre o claro ele some. Por isso, no claro, quem faz o papel dele é o
+`--verde-tinta` (5.9:1 contra o papel). Os dois carregam texto do fundo oposto.
+
+Onde o verde aparece: o botão de ação principal, a etiqueta do selo e as
+etiquetas dos projetos, os números das dobras, os marcadores das listas de
+serviço, os marcos do cronograma, o anel de foco do teclado e os quadrados
+acesos da textura do hero. Fora dessa lista, a página é monocromática.
+
+Onde o destaque é fino mas não é acento (traços, linhas, textos secundários
+sobre o escuro), continua entrando o `--fumaca`: o preto desapareceria ali.
 
 ### A barra de navegação
 
@@ -280,8 +293,8 @@ elemento próprio mesmo quando o fundo abaixo tem a mesma cor. Ao rolar ela grud
 no topo, encolhe um pouco e ganha uma sombra rasa.
 
 Os links são escuros, sem esmaecer, e o retorno ao passar o mouse é um
-sublinhado. O botão "Iniciar projeto" fica preto dentro da barra clara, para
-ter contraste. O menu mobile usa a mesma superfície.
+sublinhado. O botão "Iniciar projeto" fica no verde escuro (`--verde-tinta`)
+dentro da barra clara, para ter contraste. O menu mobile usa a mesma superfície.
 
 Para mudar a cor da barra, edite `.header` em `assets/css/style.css`:
 
@@ -292,9 +305,8 @@ Para mudar a cor da barra, edite `.header` em `assets/css/style.css`:
 ### O hero
 
 Uma dobra centrada, na ordem: o selo (`.selo`), o título, a linha de apoio e os
-dois botões. O fundo é o preto quente (`--ink`), o botão principal é claro
-(`--paper`) e a etiqueta do selo é o cinza (`--fumaca`) com texto preto: sobre
-o escuro, quem tem mais peso é o claro.
+dois botões. O fundo é o preto quente (`--ink`), e o botão principal e a
+etiqueta do selo são o verde (`--verde`) com texto preto.
 
 A grade não é imagem nem canvas: são dois gradientes de uma listra só — um na
 vertical, outro na horizontal — repetidos pelo `background-size`. Três números

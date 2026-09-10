@@ -22,14 +22,14 @@ SUP = """<h1 class="tit">Superfícies</h1>
     </div>
     <p class="sf__uso">Hero, Sistema, Processo, Contato, rodapé.</p>
   </div>
-  <div class="sf sf--fumaca">
-    <div class="sf__topo"><span class="rot">Fumaça</span><code>--fumaca #b6b2ac</code></div>
+  <div class="sf sf--verde">
+    <div class="sf__topo"><span class="rot">Verde</span><code>--verde #aecd96</code></div>
     <div class="sf__demo">
-      <div class="sf__h">Superfície de apoio.</div>
-      <p class="sf__p">Cinza quente, para blocos pequenos e etiquetas.</p>
+      <div class="sf__h">Superfície de destaque.</div>
+      <p class="sf__p">Só em blocos pequenos: etiquetas e o botão principal.</p>
       <div class="sf__btns"><span class="bt bt--solid">Iniciar projeto</span><span class="bt bt--ghost">Ver projetos</span></div>
     </div>
-    <p class="sf__uso">Etiqueta do selo, marcas sobre o escuro, quadros de imagem.</p>
+    <p class="sf__uso">Etiqueta do selo, etiquetas de projeto, botão de ação.</p>
   </div>
 </div>"""
 
@@ -38,11 +38,11 @@ CSS_SUP = """
 .sf{ display:flex; flex-direction:column; border:1px solid var(--line); }
 .sf--papel{ background:var(--paper); }
 .sf--tinta{ background:var(--ink); border-color:transparent; }
-.sf--fumaca{ background:var(--fumaca); border-color:transparent; }
+.sf--verde{ background:var(--verde); border-color:transparent; }
 .sf__topo{ display:flex; justify-content:space-between; align-items:baseline; padding:14px 18px;
   border-bottom:1px solid var(--line); }
 .sf--tinta .sf__topo{ border-color:var(--on-dark-line); }
-.sf--fumaca .sf__topo{ border-color:rgba(19,18,17,.18); }
+.sf--verde .sf__topo{ border-color:rgba(19,18,17,.18); }
 .sf__topo code{ font-size:10px; color:var(--ink-50); }
 .sf--tinta .sf__topo code{ color:var(--on-dark-45); }
 .sf--tinta .rot{ color:var(--on-dark-45); }
@@ -54,14 +54,14 @@ CSS_SUP = """
 .sf__p code{ font-size:11px; }
 .sf__btns{ display:flex; gap:9px; margin-top:22px; }
 .bt{ display:inline-flex; align-items:center; height:34px; padding:0 15px; font-size:11px; font-weight:600; }
-.bt--solid{ background:var(--ink); color:var(--paper); }
-.bt--claro{ background:var(--paper); color:var(--ink); }
+.bt--solid{ background:var(--verde-tinta); color:var(--paper-2); }
+.bt--claro{ background:var(--verde); color:var(--ink); }
 .bt--light{ background:var(--on-dark); color:var(--ink); }
 .bt--ghost{ border:1px solid var(--line); color:var(--ink); }
 .bt--ghostd{ border:1px solid var(--on-dark-line); color:var(--on-dark); }
 .sf__uso{ margin:0; padding:14px 18px; border-top:1px solid var(--line); font-size:10.5px; color:var(--ink-50); }
 .sf--tinta .sf__uso{ border-color:var(--on-dark-line); color:var(--on-dark-45); }
-.sf--fumaca .sf__uso{ border-color:rgba(19,18,17,.18); color:rgba(19,18,17,.55); }
+.sf--verde .sf__uso{ border-color:rgba(19,18,17,.18); color:rgba(19,18,17,.55); }
 """
 
 # ------------------------------------------------------- 05 · COMPONENTES
@@ -72,9 +72,9 @@ COMP = """<h1 class="tit">Componentes</h1>
   <div>
     <div class="rot">Botões</div>
     <div class="cx">
-      <div class="cx__l"><span class="b b--solid">Iniciar projeto <i>→</i></span><span class="rot2">solid · preto sobre papel</span></div>
+      <div class="cx__l"><span class="b b--solid">Iniciar projeto <i>→</i></span><span class="rot2">solid · verde escuro sobre papel</span></div>
       <div class="cx__l"><span class="b b--ghost">Ver projetos</span><span class="rot2">ghost · só a borda, sobre papel</span></div>
-      <div class="cx__l escuro"><span class="b b--light">Enviar mensagem <i>→</i></span><span class="rot2">light · sobre fundo escuro, é ele o principal ali</span></div>
+      <div class="cx__l escuro"><span class="b b--light">Enviar mensagem <i>→</i></span><span class="rot2">light · verde claro, o principal sobre o escuro</span></div>
       <div class="cx__l"><span class="b b--sm b--solid">Versão pequena</span><span class="rot2">sm · 42 px, texto 13 px</span></div>
     </div>
     <div class="rot" style="margin-top:24px">Seta</div>
@@ -86,7 +86,7 @@ COMP = """<h1 class="tit">Componentes</h1>
     <div class="cx escuro" style="padding:26px 20px">
       <span class="selo"><b>Novo</b>O sistema do estúdio em 20 segundos <i>→</i></span>
     </div>
-    <p class="nota" style="margin:10px 0 0">Etiqueta em cinza quente com texto preto, borda em
+    <p class="nota" style="margin:10px 0 0">Etiqueta no verde com texto preto, borda em
       <code>--line-dark</code>. Só existe no hero.</p>
     <div class="rot" style="margin-top:24px">Rótulo micro e cabeçalho de dobra</div>
     <div class="cx">
@@ -98,7 +98,7 @@ COMP = """<h1 class="tit">Componentes</h1>
       <div class="li"><s></s>Plataforma e territórios de marca</div>
       <div class="li"><s></s>Símbolo, logotipo e tipografia</div>
     </div>
-    <p class="nota" style="margin:10px 0 0">Quadrado de 6 px em preto, alinhado pela base do texto.
+    <p class="nota" style="margin:10px 0 0">Quadrado de 6 px no verde, alinhado pela base do texto.
       Cada item é separado por uma régua, não por espaço.</p>
   </div>
 </div>"""
@@ -114,17 +114,17 @@ CSS_COMP = """
   font-size:13px; font-weight:600; white-space:nowrap; }
 .b i{ font-style:normal; font-size:12px; }
 .b--sm{ height:38px; padding:0 18px; font-size:12px; }
-.b--solid{ background:var(--ink); color:var(--paper); }
+.b--solid{ background:var(--verde-tinta); color:var(--paper-2); }
 .b--ghost{ border:1px solid var(--line); color:var(--ink); }
-.b--light{ background:var(--on-dark); color:var(--ink); }
+.b--light{ background:var(--verde); color:var(--ink); }
 .rot2{ font-size:10px; color:var(--ink-50); }
 .cx__l.escuro .rot2{ color:var(--on-dark-45); }
 .selo{ display:inline-flex; align-items:center; gap:10px; padding:5px 12px 5px 5px;
   border:1px solid var(--line-dark); font-size:11.5px; color:var(--on-dark-70); }
-.selo b{ background:var(--fumaca); color:var(--ink); padding:3px 8px; font-size:9.5px; font-weight:600;
+.selo b{ background:var(--verde); color:var(--ink); padding:3px 8px; font-size:9.5px; font-weight:600;
   letter-spacing:.1em; text-transform:uppercase; }
 .selo i{ font-style:normal; }
 .li{ display:flex; align-items:baseline; gap:11px; font-size:12px; color:var(--ink-70); padding:10px 0; }
 .li + .li{ border-top:1px solid var(--line-soft); }
-.li s{ width:6px; height:6px; background:var(--ink); flex:none; text-decoration:none; }
+.li s{ width:6px; height:6px; background:var(--verde-tinta); flex:none; text-decoration:none; }
 """

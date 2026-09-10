@@ -28,7 +28,7 @@ CSS_CAPA = """
 .capa{ padding:0; }
 .capa__grade{
   position:absolute; inset:0;
-  --celula:96px; --grade:rgba(233,229,223,.10); --aceso:rgba(233,229,223,.035);
+  --celula:96px; --grade:rgba(233,229,223,.10); --aceso:rgba(174,205,150,.085);
   background-image:
     linear-gradient(to right,  var(--grade) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grade) 1px, transparent 1px),
@@ -61,7 +61,7 @@ CSS_CAPA = """
   border-top:1px solid var(--on-dark-line); font-size:13px; color:var(--on-dark-70);
 }
 .capa__indice li:last-child{ border-bottom:1px solid var(--on-dark-line); }
-.capa__indice span{ font-size:9.5px; font-weight:600; letter-spacing:.14em; color:var(--fumaca); }
+.capa__indice span{ font-size:9.5px; font-weight:600; letter-spacing:.14em; color:var(--verde); }
 .capa__pe{ position:absolute; left:64px; right:64px; bottom:54px; display:flex; justify-content:space-between; }
 """
 
@@ -76,9 +76,9 @@ def amostra(nome, valor, uso, escura=False):
 </div>"""
 
 COR = """<h1 class="tit">Cor</h1>
-<p class="sub">Um preto, um cinza e um papel, todos quentes. <b>Não existe cor de destaque</b>:
-  o destaque é o contraste entre eles. A regra que mais importa é a inversão: sobre papel,
-  o elemento de mais peso é o preto; sobre o escuro, é o papel.</p>
+<p class="sub">Um preto, um cinza e um papel, todos quentes, mais <b>um verde só</b>.
+  A regra que mais importa é a inversão: sobre papel, o elemento de mais peso é o preto;
+  sobre o escuro, é o papel. O verde tem duas versões pela mesma razão.</p>
 <div class="corpo">
   <div class="rot" style="margin-bottom:12px">Escuros</div>
   <div class="grade-am">
@@ -87,16 +87,18 @@ COR = """<h1 class="tit">Cor</h1>
   amostra('--ink',    '#131211', 'Fundo do hero e das dobras escuras; texto e blocos cheios sobre papel'),
   amostra('--ink-2',  '#1c1a18', 'Superfície elevada dentro do escuro; fundo do vídeo'),
   amostra('--ink-3',  '#272421', 'Terceiro plano, uso pontual'),
+  amostra('--verde-tinta', '#3f5a2e', 'O verde sobre papel: botão da barra, números, marcos'),
 ]) + """
   </div>
   <div class="rot" style="margin:20px 0 12px">Claros</div>
   <div class="grade-am">
 """ + "".join([
-  amostra('--fumaca',  '#b6b2ac', 'Marcas e traços sobre o escuro: números, marcadores, grade, etiqueta do selo'),
+  amostra('--fumaca',  '#b6b2ac', 'Traços e textos de apoio sobre o escuro, onde o preto sumiria'),
   amostra('--areia',   '#dcd7cf', 'Preenchimento suave sobre papel'),
   amostra('--paper',   '#e4e0d9', 'Fundo das dobras claras; botão principal sobre o escuro'),
   amostra('--paper-2', '#f1eee9', 'Cartões e campos sobre papel'),
   amostra('--on-dark', '#e9e5df', 'Texto sobre fundo escuro'),
+  amostra('--verde',   '#aecd96', 'O verde sobre o escuro: botão, etiquetas, marcadores, foco'),
 ]) + """
   </div>
   <div class="op">
@@ -108,10 +110,10 @@ COR = """<h1 class="tit">Cor</h1>
       <ul><li><code>--on-dark-70</code> · texto corrido</li><li><code>--on-dark-45</code> · rótulo micro</li>
       <li><code>--on-dark-line</code> · 14% · régua</li>
       <li><code>--line-dark</code> · fumaça a 38% · borda do selo</li></ul></div>
-    <div><div class="rot">Por que o cinza existe</div>
-      <p class="nota" style="margin:8px 0 0">O preto sobre o escuro fica em 1,1:1 e desaparece.
-      Onde o destaque é fino ou é texto sobre fundo escuro, quem entra é o
-      <code>--fumaca</code>, que passa de 8:1 sobre o <code>--ink</code>.</p></div>
+    <div><div class="rot">Por que há dois de cada</div>
+      <p class="nota" style="margin:8px 0 0">O preto sobre o escuro some (1,1:1); ali entra o
+      <code>--fumaca</code>, com 8:1. O <code>--verde</code> faz o inverso: 10,7:1 sobre o escuro
+      e 1,3:1 sobre o papel, onde quem assume é o <code>--verde-tinta</code>, com 5,9:1.</p></div>
   </div>
 </div>"""
 

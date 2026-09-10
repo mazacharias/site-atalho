@@ -16,7 +16,7 @@ TEXTURA = """<h1 class="tit">A textura do hero</h1>
       <tr><th>Token</th><th>Valor</th><th>Controla</th></tr>
       <tr><td><code>--celula</code></td><td>74 → 128 px</td><td>Tamanho do quadrado</td></tr>
       <tr><td><code>--grade</code></td><td>papel 10%</td><td>Força da linha</td></tr>
-      <tr><td><code>--aceso</code></td><td>papel 3,5%</td><td>Quadrados preenchidos</td></tr>
+      <tr><td><code>--aceso</code></td><td>verde 8,5%</td><td>Quadrados preenchidos</td></tr>
     </table>
     <p class="nota" style="margin-top:16px">As duas opacidades vivem no limite do "quase não se vê".
       Subir a da linha transforma a textura em wireframe; subir a dos quadrados faz eles virarem manchas.</p>
@@ -38,7 +38,7 @@ CSS_TEXTURA = """
 .tx{ display:grid; grid-template-columns:1.05fr 1fr; gap:46px; }
 .tx__demo{ position:relative; background:var(--ink); height:100%; min-height:400px; overflow:hidden; }
 .tx__grade{ position:absolute; inset:0;
-  --celula:76px; --grade:rgba(233,229,223,.10); --aceso:rgba(233,229,223,.035);
+  --celula:76px; --grade:rgba(233,229,223,.10); --aceso:rgba(174,205,150,.085);
   background-image:
     linear-gradient(to right,  var(--grade) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grade) 1px, transparent 1px),

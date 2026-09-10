@@ -3,3 +3,4 @@ manual/__pycache__/
 
 # pacote de publicação: gerado a partir dos arquivos versionados
 *.zip
+quadros/

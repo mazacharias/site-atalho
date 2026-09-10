@@ -20,6 +20,7 @@ CABECA = """<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
 :root{
   --preto:#0a0908; --ink:#131211; --ink-2:#1c1a18; --ink-3:#272421;
   --fumaca:#b6b2ac; --areia:#dcd7cf;
+  --verde:#aecd96; --verde-tinta:#3f5a2e;
   --ink-70:rgba(19,18,17,.70); --ink-50:rgba(19,18,17,.50); --ink-35:rgba(19,18,17,.35);
   --line:rgba(19,18,17,.15); --line-soft:rgba(19,18,17,.08); --tinta-7:rgba(19,18,17,.07);
   --paper:#e4e0d9; --paper-2:#f1eee9;
@@ -45,7 +46,7 @@ body{font-family:'DM Sans',Arial,sans-serif;-webkit-font-smoothing:antialiased;}
 .pg--escura .micro{ color:var(--on-dark-45); }
 .pg--fumaca .micro{ color:rgba(19,18,17,.45); }
 .micro b{ color:var(--ink); font-weight:600; }
-.pg--escura .micro b{ color:var(--fumaca); }
+.pg--escura .micro b{ color:var(--verde); }
 
 h1.tit{ margin:0 0 6px; font-weight:300; font-size:44px; line-height:1.06; letter-spacing:-.022em; }
 p.sub{ margin:0 0 26px; font-size:14px; line-height:1.6; color:var(--ink-50); max-width:74ch; }

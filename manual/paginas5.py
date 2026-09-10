@@ -7,7 +7,7 @@ REGRAS = """<h1 class="tit">Regras</h1>
     <div class="rg__t"><s>+</s>Faça</div>
     <ul class="rg__l">
       <li><b>Tudo quadrado.</b> Botão, campo, cartão, selo, ícone, favicon: <code>border-radius:0</code> em todo lugar.</li>
-      <li><b>Nenhuma cor.</b> A paleta é um preto, um cinza e um papel, todos quentes. O destaque vem do contraste, não de matiz.</li>
+      <li><b>Um verde só.</b> A base é um preto, um cinza e um papel, todos quentes; a única matiz é o verde, e sempre em marca pequena.</li>
       <li><b>Inverta o peso.</b> Sobre papel o elemento principal é preto; sobre o escuro, é papel. E alterne as superfícies: nenhuma dobra clara encosta em outra clara.</li>
       <li><b>Régua no lugar de espaço.</b> Listas e blocos se separam por uma linha de 13%, não por respiro extra.</li>
       <li><b>Um token por decisão.</b> Respiro, cor e largura vêm de variáveis; mudar a página inteira deve ser mudar uma linha.</li>
