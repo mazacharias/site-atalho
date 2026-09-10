@@ -1,2 +1,5 @@
 manual/sistema-visual.html
 manual/__pycache__/
+
+# pacote de publicação: gerado a partir dos arquivos versionados
+*.zip
