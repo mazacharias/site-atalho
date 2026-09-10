@@ -6,9 +6,9 @@ REGRAS = """<h1 class="tit">Regras</h1>
   <div class="rg__col">
     <div class="rg__t"><s>+</s>Faça</div>
     <ul class="rg__l">
-      <li><b>Tudo quadrado.</b> Botão, campo, cartão, selo, ícone, favicon: <code>border-radius:0</code> em todo lugar.</li>
-      <li><b>Um verde só.</b> A base é um preto, um cinza e um papel, todos quentes; a única matiz é o verde, e sempre em marca pequena.</li>
-      <li><b>Inverta o peso.</b> Sobre papel o elemento principal é preto; sobre o escuro, é papel. E alterne as superfícies: nenhuma dobra clara encosta em outra clara.</li>
+      <li><b>Nada de canto vivo.</b> Quatro raios cobrem tudo: 26 px em mídia, 16 px em cartão e campo, 10 px em marca miúda, pílula em botão e selo.</li>
+      <li><b>A cor não é fundo nem botão.</b> A base é branca e o peso é do preto; as sete matizes ficam nas mídias, nos selos e nas marcas pequenas.</li>
+      <li><b>Alterne as superfícies.</b> Papel e branco se revezam na ordem do documento, para nenhuma dobra encostar em outra igual.</li>
       <li><b>Régua no lugar de espaço.</b> Listas e blocos se separam por uma linha de 13%, não por respiro extra.</li>
       <li><b>Um token por decisão.</b> Respiro, cor e largura vêm de variáveis; mudar a página inteira deve ser mudar uma linha.</li>
       <li><b>Números tabulares</b> em tabelas e cronogramas, para as colunas não dançarem.</li>
@@ -17,13 +17,13 @@ REGRAS = """<h1 class="tit">Regras</h1>
   <div class="rg__col rg__col--nao">
     <div class="rg__t"><s>−</s>Não faça</div>
     <ul class="rg__l">
-      <li><b>Sem canto arredondado.</b> Nem em foto, nem em vídeo, nem em avatar.</li>
+      <li><b>Sem dobra escura.</b> A página é clara de ponta a ponta; o preto é do texto e dos botões.</li>
       <li><b>Sem travessão no texto.</b> Use vírgula, dois-pontos, parênteses ou ponto final.
         O ponto médio (·) fica só como separador de rótulo. Meia-risca em intervalo (6–8 semanas) continua valendo.</li>
-      <li><b>Sem sombra e sem degradê de fundo.</b> A única exceção é a máscara da textura do hero,
-        que é transparência e não cor.</li>
+      <li><b>Sem sombra inventada.</b> Só os dois degraus do sistema, e o mais forte é estado de
+        <code>:hover</code>, nunca valor de repouso.</li>
       <li><b>Sem segunda família tipográfica.</b> Um arquivo variável cobre do 300 ao 700.</li>
-      <li><b>Sem cor de estado inventada.</b> Sucesso, erro e aviso saem do mesmo preto e do mesmo cinza.</li>
+      <li><b>Sem cor fora das sete.</b> Estado, gráfico e ilustração saem da mesma paleta, na mesma ordem.</li>
       <li><b>Sem prova social fabricada.</b> Nada de número de avaliação ou depoimento que não exista.</li>
     </ul>
   </div>
@@ -59,13 +59,13 @@ CSS_REGRAS = """
 
 def aplicacao(img_hero, img_serv, img_proj):
     return f"""<h1 class="tit">Aplicação</h1>
-<p class="sub">O sistema montado: hero escuro com a textura, dobra clara de conteúdo
+<p class="sub">O sistema montado: hero com a bruma e a grade, dobra de conteúdo em cartões
   e página interna de projeto.</p>
 <div class="corpo ap">
-  <figure><img src="{img_hero}" alt=""><figcaption class="rot">Hero · superfície tinta com a grade</figcaption></figure>
+  <figure><img src="{img_hero}" alt=""><figcaption class="rot">Hero · bruma, grade e o botão preto</figcaption></figure>
   <div class="ap__dir">
-    <figure><img src="{img_serv}" alt=""><figcaption class="rot">Dobra de conteúdo · superfície tinta, 3 colunas</figcaption></figure>
-    <figure><img src="{img_proj}" alt=""><figcaption class="rot">Página de projeto · superfície papel</figcaption></figure>
+    <figure><img src="{img_serv}" alt=""><figcaption class="rot">Dobra de conteúdo · três cartões, um tom cada</figcaption></figure>
+    <figure><img src="{img_proj}" alt=""><figcaption class="rot">Página de projeto · a capa em malha</figcaption></figure>
   </div>
 </div>"""
 
@@ -77,7 +77,7 @@ CSS_APL = """
 .ap figcaption{ margin-top:9px; }
 """
 
-FIM = """<section class="slide pg pg--escura fim">
+FIM = """<section class="slide pg pg--malha fim">
   <div class="fim__marca">picê</div>
   <p class="fim__t">Sistema visual · versão 1</p>
   <p class="fim__n">Este documento descreve o estado do site em setembro de 2026.
@@ -88,9 +88,9 @@ FIM = """<section class="slide pg pg--escura fim">
 
 CSS_FIM = """
 .fim{ justify-content:center; }
-.fim__marca{ font-size:30px; font-weight:600; letter-spacing:-.03em; color:var(--on-dark); }
-.fim__t{ margin:22px 0 0; font-size:56px; font-weight:300; letter-spacing:-.028em; color:var(--on-dark); }
-.fim__n{ margin:24px 0 0; max-width:56ch; font-size:13px; line-height:1.72; color:var(--on-dark-70); }
+.fim__marca{ font-size:30px; font-weight:600; letter-spacing:-.03em; color:var(--white); }
+.fim__t{ margin:22px 0 0; font-size:56px; font-weight:300; letter-spacing:-.028em; color:var(--white); }
+.fim__n{ margin:24px 0 0; max-width:56ch; font-size:13px; line-height:1.72; color:rgba(255,255,255,.9); }
 .fim__pe{ position:absolute; left:64px; right:64px; bottom:54px; display:flex; justify-content:space-between; }
-.fim .micro{ color:var(--on-dark-45); }
+.fim .micro{ color:rgba(255,255,255,.75); }
 """

@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 TEXTURA = """<h1 class="tit">A textura do hero</h1>
-<p class="sub">Uma grade de quadrados sobre o preto quente, com alguns deles acesos.
-  Não é imagem nem canvas: são dois gradientes de uma listra só, repetidos pelo
-  <code>background-size</code> e centrados, para as linhas caírem simétricas em qualquer largura.</p>
+<p class="sub">Duas camadas sobre o branco: a bruma, que é a paleta encostando nos quatro cantos,
+  e a grade, com seis quadrados acesos, um por matiz. A grade não é imagem nem canvas: são dois
+  gradientes de uma listra só, repetidos pelo <code>background-size</code> e centrados, para as
+  linhas caírem simétricas em qualquer largura.</p>
 <div class="corpo tx">
   <div class="tx__demo">
     <div class="tx__grade"></div>
@@ -15,11 +16,12 @@ TEXTURA = """<h1 class="tit">A textura do hero</h1>
     <table class="tab" style="margin-top:10px">
       <tr><th>Token</th><th>Valor</th><th>Controla</th></tr>
       <tr><td><code>--celula</code></td><td>74 → 128 px</td><td>Tamanho do quadrado</td></tr>
-      <tr><td><code>--grade</code></td><td>papel 10%</td><td>Força da linha</td></tr>
-      <tr><td><code>--aceso</code></td><td>verde 8,5%</td><td>Quadrados preenchidos</td></tr>
+      <tr><td><code>--grade</code></td><td>preto 5,5%</td><td>Força da linha</td></tr>
+      <tr><td>as seis cores</td><td>15% a 20%</td><td>Quadrados preenchidos, um por matiz</td></tr>
     </table>
-    <p class="nota" style="margin-top:16px">As duas opacidades vivem no limite do "quase não se vê".
-      Subir a da linha transforma a textura em wireframe; subir a dos quadrados faz eles virarem manchas.</p>
+    <p class="nota" style="margin-top:16px">A opacidade da linha vive no limite do "quase não se vê":
+      subir transforma a textura em wireframe. A dos quadrados é o único lugar do site em que a cor
+      aparece sem estar dentro de um bloco.</p>
     <div class="rot" style="margin-top:22px">Os quadrados acesos</div>
     <p class="nota" style="margin:8px 0 0">Seis camadas <code>no-repeat</code> de uma célula cada,
       posicionadas a partir do centro. Como a grade também parte do centro, cada quadrado cai
@@ -36,15 +38,16 @@ TEXTURA = """<h1 class="tit">A textura do hero</h1>
 
 CSS_TEXTURA = """
 .tx{ display:grid; grid-template-columns:1.05fr 1fr; gap:46px; }
-.tx__demo{ position:relative; background:var(--ink); height:100%; min-height:400px; overflow:hidden; }
+.tx__demo{ position:relative; background:var(--paper-2); height:100%; min-height:400px;
+  overflow:hidden; border-radius:var(--r-lg); border:1px solid var(--line); }
 .tx__grade{ position:absolute; inset:0;
-  --celula:76px; --grade:rgba(233,229,223,.10); --aceso:rgba(174,205,150,.085);
+  --celula:76px; --grade:rgba(14,14,13,.055);
   background-image:
     linear-gradient(to right,  var(--grade) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grade) 1px, transparent 1px),
-    linear-gradient(var(--aceso), var(--aceso)),
-    linear-gradient(var(--aceso), var(--aceso)),
-    linear-gradient(var(--aceso), var(--aceso));
+    linear-gradient(rgba(255,138,0,.20),  rgba(255,138,0,.20)),
+    linear-gradient(rgba(255,45,111,.18), rgba(255,45,111,.18)),
+    linear-gradient(rgba(155,93,245,.16), rgba(155,93,245,.16));
   background-size:var(--celula) var(--celula);
   background-repeat:repeat,repeat,no-repeat,no-repeat,no-repeat;
   background-position:center center, center center,
@@ -53,9 +56,12 @@ CSS_TEXTURA = """
     calc(50% - 3 * var(--celula)) calc(50% + 1 * var(--celula));
 }
 .tx__veu{ position:absolute; inset:0;
-  background:radial-gradient(ellipse 62% 58% at 50% 50%, #131211 30%, rgba(19,18,17,.60) 68%, rgba(19,18,17,0) 100%); }
+  background:
+    radial-gradient(52% 46% at 4% 100%, rgba(255, 96, 122, .34) 0%, transparent 64%),
+    radial-gradient(46% 44% at 98% 2%,  rgba(120, 150, 255, .30) 0%, transparent 62%),
+    radial-gradient(ellipse 62% 58% at 50% 50%, var(--paper-2) 28%, rgba(251,251,250,.66) 66%, rgba(251,251,250,0) 100%); }
 .tx__txt{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-  text-align:center; color:var(--on-dark); font-size:31px; font-weight:600;
+  text-align:center; color:var(--ink); font-size:31px; font-weight:600;
   letter-spacing:-.026em; line-height:1.05; }
 """
 

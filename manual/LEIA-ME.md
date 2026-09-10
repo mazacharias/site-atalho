@@ -47,4 +47,4 @@ ffmpeg -i quadros/f0455.png -q:v 5 assets/img/sistema-poster.jpg
 ```
 
 As cores do filme estão em uma linha só, no topo do `<script>`: `FUNDO`,
-`CLARO`, `ACENTO` e `VERDE`.
+`CLARO`, `ACENTO`, e as cores `LARANJA`, `CORAL`, `ROSA`, `ROXO` e `AZUL`.

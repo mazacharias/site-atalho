@@ -104,5 +104,6 @@ CSS_GRADE = """
 .usos{ margin-top:22px; display:flex; flex-direction:column; gap:9px; }
 .uso{ display:grid; grid-template-columns:repeat(12,1fr); gap:10px; }
 .uso em{ font-style:normal; font-size:10px; line-height:26px; height:26px; padding:0 9px;
-  background:var(--ink); color:var(--on-dark); white-space:nowrap; overflow:hidden; }
+  background:var(--ink); color:var(--white); border-radius:var(--r-sm);
+  white-space:nowrap; overflow:hidden; }
 """

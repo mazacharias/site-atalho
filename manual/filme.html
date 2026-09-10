@@ -1,20 +1,22 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
 <style>
 @font-face{font-family:'DM Sans';src:url('/assets/fonts/dm-sans-var-latin.woff2') format('woff2');font-weight:300 700;}
-html,body{margin:0;padding:0;background:#131211;}
+html,body{margin:0;padding:0;background:#F7F7F5;}
 svg{display:block;font-family:'DM Sans',sans-serif;}
-text{fill:#E9E5DF;}
+text{fill:#0E0E0D;}
 </style></head><body>
 <svg id="c" width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
   <defs>
   </defs>
-  <rect width="1600" height="900" fill="#131211"/>
+  <rect width="1600" height="900" fill="#F7F7F5"/>
   <g id="palco"></g>
   <g id="chrome"></g>
 </svg>
 <script>
 const NS='http://www.w3.org/2000/svg';
-const FUNDO='#131211', CLARO='#E9E5DF', ACENTO='#B6B2AC', VERDE='#AECD96';
+const FUNDO='#F7F7F5', CLARO='#0E0E0D', ACENTO='#C7C5BF';
+/* as cores do sistema, na ordem em que entram no filme */
+const LARANJA='#FF8A00', CORAL='#FF5A3C', ROSA='#FF2D6F', ROXO='#9B5DF5', AZUL='#4D7CFF';
 const el=(tag,attrs={},pai=null)=>{const n=document.createElementNS(NS,tag);
   for(const k in attrs) n.setAttribute(k,attrs[k]); (pai||document.getElementById('palco')).appendChild(n); return n;};
 const txt=(s,attrs={},pai=null)=>{const n=el('text',attrs,pai); n.textContent=s; return n;};
@@ -48,9 +50,9 @@ const cxA=440, cxB=1040, cy=270, L=120;
 const q1a=el('rect',{x:cxA,y:cy,width:L,height:L,fill:'none',stroke:CLARO,'stroke-width':2},g1);
 const l1=[]; for(let i=0;i<3;i++) l1.push(el('rect',{x:cxA+22,y:cy+30+i*24,width:0,height:6,fill:ACENTO},g1));
 const q1b=el('rect',{x:cxB,y:cy,width:L,height:L,fill:'none',stroke:CLARO,'stroke-width':2},g1);
-const q1bF=el('rect',{x:cxB,y:cy,width:L,height:L,fill:VERDE,opacity:0},g1);
+const q1bF=el('rect',{x:cxB,y:cy,width:L,height:L,fill:ROSA,opacity:0},g1);
 const trilhoA=el('line',{x1:cxA+L+34,y1:cy+L/2,x2:cxA+L+34,y2:cy+L/2,stroke:CLARO,'stroke-opacity':.28,'stroke-dasharray':'6 8'},g1);
-const bala=el('rect',{x:0,y:0,width:26,height:26,fill:VERDE,opacity:0},g1);
+const bala=el('rect',{x:0,y:0,width:26,height:26,fill:ROSA,opacity:0},g1);
 txt('VOCÊ',    {x:cxA,y:cy+L+34,'font-size':14,'font-weight':600,'letter-spacing':2.8,'fill-opacity':.55},g1);
 txt('ESTÚDIO', {x:cxB,y:cy+L+34,'font-size':14,'font-weight':600,'letter-spacing':2.8,'fill-opacity':.55},g1);
 
@@ -80,7 +82,7 @@ const doc=el('rect',{x:DX,y:DY,width:DW,height:DH,fill:'none',stroke:CLARO,'stro
 const docTit=el('rect',{x:DX+34,y:DY+40,width:0,height:14,fill:CLARO},g3);
 const docL=[]; for(let i=0;i<6;i++) docL.push(el('rect',{x:DX+34,y:DY+92+i*30,width:0,height:8,fill:ACENTO},g3));
 const selo=el('rect',{x:DX+34,y:DY+296,width:34,height:34,fill:'none',stroke:CLARO,'stroke-width':2,opacity:0},g3);
-const seloC=el('path',{d:`M${DX+42} ${DY+313} l7 8 13 -16`,fill:'none',stroke:VERDE,'stroke-width':3,opacity:0},g3);
+const seloC=el('path',{d:`M${DX+42} ${DY+313} l7 8 13 -16`,fill:'none',stroke:ROXO,'stroke-width':3,opacity:0},g3);
 txt('ESCOPO · METAS · LIMITES',{x:DX+84,y:DY+319,'font-size':14,'font-weight':600,'letter-spacing':2.2,'fill-opacity':.6},g3);
 
 /* ================= ATO 4 · CRONOGRAMA ================= */
@@ -89,12 +91,12 @@ const GX=330, GW=940, COL=GW/8, GY=232;
 const colL=[]; for(let i=0;i<=8;i++) colL.push(el('line',{x1:GX+i*COL,y1:GY-16,x2:GX+i*COL,y2:GY+300,stroke:CLARO,'stroke-opacity':.13},g4));
 const BARRAS=[{s:0,n:2,y:0,t:'Descoberta'},{s:2,n:2,y:1,t:'Direção'},{s:3,n:4,y:2,t:'Design'},{s:6,n:2,y:3,t:'Entrega'}];
 const barN=BARRAS.map(b=>{
-  const r=el('rect',{x:GX+b.s*COL+5,y:GY+b.y*56,width:0,height:34,fill:b.y===3?VERDE:ACENTO},g4);
+  const r=el('rect',{x:GX+b.s*COL+5,y:GY+b.y*56,width:0,height:34,fill:[LARANJA,CORAL,ROSA,ROXO][b.y]},g4);
   const a=txt(b.t,{x:GX+b.s*COL+5,y:GY+b.y*56-9,'font-size':14.5,'font-weight':600,'letter-spacing':1.4,'fill-opacity':.65,opacity:0},g4);
   return {r,a,w:b.n*COL-10};
 });
 const baseL=el('line',{x1:GX,y1:GY+272,x2:GX,y2:GY+272,stroke:CLARO,'stroke-opacity':.4},g4);
-const marcos=[2,4,6,8].map(c=>el('rect',{x:GX+c*COL-7,y:GY+265,width:14,height:14,fill:VERDE,opacity:0},g4));
+const marcos=[2,4,6,8].map(c=>el('rect',{x:GX+c*COL-7,y:GY+265,width:14,height:14,fill:AZUL,opacity:0},g4));
 for(let i=0;i<8;i++) txt('S'+(i+1),{x:GX+i*COL+8,y:GY+310,'font-size':13.5,'font-weight':600,'letter-spacing':1.6,'fill-opacity':.45},g4);
 
 /* ================= ATO 5 · ENTREGAS ================= */
