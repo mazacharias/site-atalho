@@ -1,29 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
-  <defs>
-    <linearGradient id="base" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#b500ff"/><stop offset=".42" stop-color="#1f26ff"/>
-      <stop offset=".68" stop-color="#5e8dff"/><stop offset="1" stop-color="#b6ffd7"/>
-    </linearGradient>
-    <radialGradient id="g1" cx=".08" cy=".04" r=".72">
-      <stop offset="0" stop-color="#db00ff"/><stop offset=".5" stop-color="#b500ff" stop-opacity=".7"/>
-      <stop offset="1" stop-color="#b500ff" stop-opacity="0"/></radialGradient>
-    <radialGradient id="g2" cx=".42" cy=".34" r=".66">
-      <stop offset="0" stop-color="#1f26ff"/><stop offset="1" stop-color="#2d4cff" stop-opacity="0"/></radialGradient>
-    <radialGradient id="g3" cx=".9" cy=".2" r=".55">
-      <stop offset="0" stop-color="#5e8dff"/><stop offset="1" stop-color="#5e8dff" stop-opacity="0"/></radialGradient>
-    <radialGradient id="g4" cx=".93" cy=".96" r=".62">
-      <stop offset="0" stop-color="#b6ffd7"/><stop offset=".5" stop-color="#e2fff4" stop-opacity=".6"/>
-      <stop offset="1" stop-color="#e2fff4" stop-opacity="0"/></radialGradient>
-    <radialGradient id="g5" cx=".06" cy=".97" r=".58">
-      <stop offset="0" stop-color="#f7a8ff"/><stop offset="1" stop-color="#f7a8ff" stop-opacity="0"/></radialGradient>
-  </defs>
-  <rect width="1600" height="900" fill="url(#base)"/>
-  <rect width="1600" height="900" fill="url(#g1)"/>
-  <rect width="1600" height="900" fill="url(#g2)"/>
-  <rect width="1600" height="900" fill="url(#g3)"/>
-  <rect width="1600" height="900" fill="url(#g4)"/>
-  <rect width="1600" height="900" fill="url(#g5)"/>
-  <g opacity=".62" fill="#ffffff" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="21.6" letter-spacing="2.59">
+  <rect width="1600" height="900" fill="#fbfcfc"/>
+  <circle cx="659.6" cy="414" r="221.4" fill="none" stroke="#333333" stroke-width="2"/><circle cx="940.4" cy="414" r="221.4" fill="#333333" fill-opacity=".9"/><circle cx="800" cy="414" r="54.0" fill="#2de2aa"/>
+  <g opacity=".42" fill="#333333" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="21.6" letter-spacing="2.59">
     <text x="56" y="860">CAPA · SUBSTITUIR IMAGEM</text>
   </g>
 </svg>

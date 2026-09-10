@@ -1,29 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1200" width="960" height="1200">
-  <defs>
-    <linearGradient id="base" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#ff0075"/><stop offset=".42" stop-color="#d31fff"/>
-      <stop offset=".68" stop-color="#b55eff"/><stop offset="1" stop-color="#b6eaff"/>
-    </linearGradient>
-    <radialGradient id="g1" cx=".08" cy=".04" r=".72">
-      <stop offset="0" stop-color="#ff004e"/><stop offset=".5" stop-color="#ff0075" stop-opacity=".7"/>
-      <stop offset="1" stop-color="#ff0075" stop-opacity="0"/></radialGradient>
-    <radialGradient id="g2" cx=".42" cy=".34" r=".66">
-      <stop offset="0" stop-color="#d31fff"/><stop offset="1" stop-color="#bd2dff" stop-opacity="0"/></radialGradient>
-    <radialGradient id="g3" cx=".9" cy=".2" r=".55">
-      <stop offset="0" stop-color="#b55eff"/><stop offset="1" stop-color="#b55eff" stop-opacity="0"/></radialGradient>
-    <radialGradient id="g4" cx=".93" cy=".96" r=".62">
-      <stop offset="0" stop-color="#b6eaff"/><stop offset=".5" stop-color="#e2f2ff" stop-opacity=".6"/>
-      <stop offset="1" stop-color="#e2f2ff" stop-opacity="0"/></radialGradient>
-    <radialGradient id="g5" cx=".06" cy=".97" r=".58">
-      <stop offset="0" stop-color="#ffa8be"/><stop offset="1" stop-color="#ffa8be" stop-opacity="0"/></radialGradient>
-  </defs>
-  <rect width="960" height="1200" fill="url(#base)"/>
-  <rect width="960" height="1200" fill="url(#g1)"/>
-  <rect width="960" height="1200" fill="url(#g2)"/>
-  <rect width="960" height="1200" fill="url(#g3)"/>
-  <rect width="960" height="1200" fill="url(#g4)"/>
-  <rect width="960" height="1200" fill="url(#g5)"/>
-  <g opacity=".62" fill="#ffffff" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="13.0" letter-spacing="1.56">
+  <rect width="960" height="1200" fill="#fbfcfc"/>
+  <circle cx="480" cy="552" r="288.0" fill="#333333"/><path d="M480 552 L480 264.0 A288.0 288.0 0 0 1 768.0 552 Z" fill="#2de2aa"/>
+  <g opacity=".42" fill="#333333" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="13.0" letter-spacing="1.56">
     <text x="34" y="1146">PROJETO 02 · SUBSTITUIR IMAGEM</text>
   </g>
 </svg>

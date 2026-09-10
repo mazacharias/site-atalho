@@ -1,42 +1,28 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
 <style>
 @font-face{font-family:'DM Sans';src:url('/assets/fonts/dm-sans-var-latin.woff2') format('woff2');font-weight:300 700;}
-html,body{margin:0;padding:0;background:#F7F7F5;}
+html,body{margin:0;padding:0;background:#FBFCFC;}
 svg{display:block;font-family:'DM Sans',sans-serif;}
-text{fill:#0E0E0D;}
+text{fill:#333333;}
 </style></head><body>
 <svg id="c" width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <!-- a mesma malha dos blocos de mídia do site, para o filme ser do
-         mesmo material que as capas -->
-    <linearGradient id="malha" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#FF8A00"/><stop offset=".42" stop-color="#FF1F4B"/>
-      <stop offset=".68" stop-color="#FF5EA8"/><stop offset="1" stop-color="#CBB6FF"/>
-    </linearGradient>
-    <radialGradient id="m1" cx=".08" cy=".04" r=".75">
-      <stop offset="0" stop-color="#FFB100"/><stop offset="1" stop-color="#FFB100" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="m2" cx=".92" cy=".96" r=".64">
-      <stop offset="0" stop-color="#EFE2FF"/><stop offset="1" stop-color="#EFE2FF" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <rect width="1600" height="900" fill="#F7F7F5"/>
+  <defs></defs>
+  <rect width="1600" height="900" fill="#FBFCFC"/>
   <g id="palco"></g>
   <g id="chrome"></g>
 </svg>
 <script>
 const NS='http://www.w3.org/2000/svg';
-const FUNDO='#F7F7F5', TINTA='#0E0E0D', CINZA='#C7C5BF';
-/* as sete cores do sistema, na ordem em que entram no filme */
-const LARANJA='#FF8A00', CORAL='#FF5A3C', ROSA='#FF2D6F', ROXO='#9B5DF5', AZUL='#4D7CFF';
+const FUNDO='#FBFCFC', TINTA='#333333', CINZA='#D2D6D6', BRANCO='#FFFFFF';
+/* a única cor da marca. Ela nunca carrega texto claro: onde há texto
+   sobre ela, o texto é o preto.                                         */
+const VERDE='#2DE2AA';
 
 const el=(tag,attrs={},pai=null)=>{const n=document.createElementNS(NS,tag);
   for(const k in attrs) n.setAttribute(k,attrs[k]); (pai||document.getElementById('palco')).appendChild(n); return n;};
 const txt=(s,attrs={},pai=null)=>{const n=el('text',attrs,pai); n.textContent=s; return n;};
-/* um quadrado com a malha é três retângulos empilhados, como no SVG das capas */
-const malha=(a,pai)=>{const g=el('g',{},pai);
-  ['url(#malha)','url(#m1)','url(#m2)'].forEach(f=>el('rect',Object.assign({},a,{fill:f}),g));
-  return g;};
+/* o logo é arredondado, então todo retângulo do filme tem raio */
+const R=18;
 
 /* ---------- tempo e suavização ---------- */
 const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
@@ -59,33 +45,34 @@ const ATOS=[
 const FIM=27.4;
 
 /* ================= ATO 1 · CONTATO ================= */
-/* dois quadrados e um bloco que atravessa: quando ele chega, o quadrado
-   do estúdio deixa de ser contorno e vira a malha                        */
+/* dois quadros e um disco que atravessa: quando ele chega, o quadro do
+   estúdio deixa de ser contorno e se preenche de verde                   */
 const g1=el('g',{opacity:0});
 const L=170, cxA=380, cxB=1050, cy=250;
-const q1a=el('rect',{x:cxA,y:cy,width:L,height:L,fill:'none',stroke:TINTA,'stroke-width':2},g1);
-const l1=[]; for(let i=0;i<3;i++) l1.push(el('rect',{x:cxA+30,y:cy+46+i*30,width:0,height:9,fill:CINZA},g1));
+const q1a=el('rect',{x:cxA,y:cy,width:L,height:L,rx:R,fill:'none',stroke:TINTA,'stroke-width':2},g1);
+const l1=[]; for(let i=0;i<3;i++) l1.push(el('rect',{x:cxA+30,y:cy+46+i*30,width:0,height:9,rx:4.5,fill:CINZA},g1));
 const trilhoA=el('line',{x1:cxA+L+40,y1:cy+L/2,x2:cxA+L+40,y2:cy+L/2,stroke:TINTA,'stroke-opacity':.22,'stroke-width':2,'stroke-dasharray':'2 10','stroke-linecap':'round'},g1);
-const q1bM=malha({x:cxB,y:cy,width:L,height:L},g1); q1bM.setAttribute('opacity',0);
-const q1b=el('rect',{x:cxB,y:cy,width:L,height:L,fill:'none',stroke:TINTA,'stroke-width':2},g1);
-const bala=el('rect',{x:0,y:0,width:34,height:34,fill:ROSA,opacity:0},g1);
+const q1bM=el('rect',{x:cxB,y:cy,width:L,height:L,rx:R,fill:VERDE,opacity:0},g1);
+const q1b=el('rect',{x:cxB,y:cy,width:L,height:L,rx:R,fill:'none',stroke:TINTA,'stroke-width':2},g1);
+const bala=el('circle',{cx:0,cy:0,r:17,fill:VERDE,opacity:0},g1);
 txt('VOCÊ',    {x:cxA,y:cy+L+44,'font-size':15,'font-weight':600,'letter-spacing':3,'fill-opacity':.5},g1);
 txt('ESTÚDIO', {x:cxB,y:cy+L+44,'font-size':15,'font-weight':600,'letter-spacing':3,'fill-opacity':.5},g1);
 
 /* ================= ATO 2 · CONVERSA ================= */
-/* barras cheias em vez de contorno: as suas em preto, as do estúdio em cor */
+/* barras cheias em forma de pílula: as suas em preto, as do estúdio em
+   cinza, e a última, que é o aceite, em verde                            */
 const g2=el('g',{opacity:0});
 const espinha=el('line',{x1:800,y1:190,x2:800,y2:190,stroke:TINTA,'stroke-opacity':.14,'stroke-width':2},g2);
 const MSGS=[
   {lado:-1,w:250,y:212,h:'ter 14:20',q:0.06,c:TINTA},
-  {lado: 1,w:290,y:284,h:'ter 16:05',q:0.20,c:LARANJA},
+  {lado: 1,w:290,y:284,h:'ter 16:05',q:0.20,c:CINZA},
   {lado:-1,w:200,y:356,h:'qua 09:12',q:0.40,c:TINTA},
-  {lado: 1,w:330,y:428,h:'qua 18:40',q:0.62,c:ROSA},
-  {lado: 1,w:235,y:500,h:'qui 10:15',q:0.82,c:ROXO}
+  {lado: 1,w:330,y:428,h:'qua 18:40',q:0.62,c:CINZA},
+  {lado: 1,w:235,y:500,h:'qui 10:15',q:0.82,c:VERDE}
 ];
 const msgN=MSGS.map(m=>{
   const x = m.lado<0 ? 800-32-m.w : 800+32;
-  const r = el('rect',{x,y:m.y,width:m.w,height:42,fill:m.c,opacity:0},g2);
+  const r = el('rect',{x,y:m.y,width:m.w,height:42,rx:21,fill:m.c,opacity:0},g2);
   const a = m.lado<0
     ? txt(m.h,{x:800-32-m.w-18,y:m.y+28,'font-size':15,'font-weight':600,'letter-spacing':1.6,'text-anchor':'end','fill-opacity':.45,opacity:0},g2)
     : txt(m.h,{x:800+32+m.w+18,y:m.y+28,'font-size':15,'font-weight':600,'letter-spacing':1.6,'fill-opacity':.45,opacity:0},g2);
@@ -95,42 +82,43 @@ const msgN=MSGS.map(m=>{
 /* ================= ATO 3 · BRIEFING ================= */
 const g3=el('g',{opacity:0});
 const DX=580, DY=170, DW=440, DH=410;
-const doc=el('rect',{x:DX,y:DY,width:DW,height:DH,fill:'#FFFFFF',stroke:TINTA,'stroke-width':2},g3);
-const docTit=el('rect',{x:DX+38,y:DY+44,width:0,height:20,fill:TINTA},g3);
-const docL=[]; for(let i=0;i<6;i++) docL.push(el('rect',{x:DX+38,y:DY+104+i*32,width:0,height:10,fill:CINZA},g3));
-/* o aceite: um quadrado cheio de cor com o visto em branco por cima */
-const selo=el('rect',{x:DX+38,y:DY+318,width:44,height:44,fill:ROXO,opacity:0},g3);
-const seloC=el('path',{d:`M${DX+50} ${DY+341} l9 10 16 -20`,fill:'none',stroke:'#FFFFFF','stroke-width':4,'stroke-linecap':'square',opacity:0},g3);
+const doc=el('rect',{x:DX,y:DY,width:DW,height:DH,rx:R,fill:BRANCO,stroke:TINTA,'stroke-width':2},g3);
+const docTit=el('rect',{x:DX+38,y:DY+44,width:0,height:20,rx:10,fill:TINTA},g3);
+const docL=[]; for(let i=0;i<6;i++) docL.push(el('rect',{x:DX+38,y:DY+104+i*32,width:0,height:10,rx:5,fill:CINZA},g3));
+/* o aceite: um disco verde com o visto em preto por cima, porque branco
+   sobre o verde daria 1,67:1                                             */
+const selo=el('circle',{cx:DX+60,cy:DY+340,r:24,fill:VERDE,opacity:0},g3);
+const seloC=el('path',{d:`M${DX+50} ${DY+341} l8 9 15 -19`,fill:'none',stroke:TINTA,'stroke-width':4,'stroke-linecap':'round','stroke-linejoin':'round',opacity:0},g3);
 txt('ESCOPO · METAS · LIMITES',{x:DX+100,y:DY+347,'font-size':15,'font-weight':600,'letter-spacing':2.2,'fill-opacity':.55},g3);
 
 /* ================= ATO 4 · CRONOGRAMA ================= */
 const g4=el('g',{opacity:0});
 const GX=300, GW=1000, COL=GW/8, GY=210;
 const colL=[]; for(let i=0;i<=8;i++) colL.push(el('line',{x1:GX+i*COL,y1:GY-24,x2:GX+i*COL,y2:GY+372,stroke:TINTA,'stroke-opacity':.10,'stroke-width':2},g4));
-const BARRAS=[{s:0,n:2,y:0,t:'Descoberta',c:LARANJA},{s:2,n:2,y:1,t:'Direção',c:CORAL},
-              {s:3,n:4,y:2,t:'Design',c:ROSA},{s:6,n:2,y:3,t:'Entrega',c:ROXO}];
+const BARRAS=[{s:0,n:2,y:0,t:'Descoberta'},{s:2,n:2,y:1,t:'Direção'},
+              {s:3,n:4,y:2,t:'Design'},{s:6,n:2,y:3,t:'Entrega'}];
 const barN=BARRAS.map(b=>{
-  const r=el('rect',{x:GX+b.s*COL+6,y:GY+b.y*74,width:0,height:42,fill:b.c},g4);
+  const r=el('rect',{x:GX+b.s*COL+6,y:GY+b.y*74,width:0,height:42,rx:21,fill:TINTA},g4);
   const a=txt(b.t,{x:GX+b.s*COL+6,y:GY+b.y*74-14,'font-size':16,'font-weight':600,'letter-spacing':1.2,'fill-opacity':.7,opacity:0},g4);
   return {r,a,w:b.n*COL-12};
 });
 const baseL=el('line',{x1:GX,y1:GY+342,x2:GX,y2:GY+342,stroke:TINTA,'stroke-opacity':.35,'stroke-width':2},g4);
-const marcos=[2,4,6,8].map(c=>el('rect',{x:GX+c*COL-9,y:GY+333,width:18,height:18,fill:AZUL,opacity:0},g4));
+const marcos=[2,4,6,8].map(c=>el('circle',{cx:GX+c*COL,cy:GY+342,r:9,fill:VERDE,opacity:0},g4));
 for(let i=0;i<8;i++) txt('S'+(i+1),{x:GX+i*COL+10,y:GY+387,'font-size':14,'font-weight':600,'letter-spacing':1.6,'fill-opacity':.4},g4);
 
 /* ================= ATO 5 · ENTREGAS ================= */
-/* o bloco de malha se parte em três peças: o material do estúdio virando
-   entrega. As peças não são mais malha, senão viram três cópias da mesma
-   textura em vez de três coisas diferentes                                */
+/* o bloco verde se parte em três peças: o material do estúdio virando
+   entrega. As peças são cartões brancos, e só a do meio leva a tarja
+   verde: três tarjas iguais seriam cor demais para o sistema             */
 const g5=el('g',{opacity:0});
 const EW=190, EY=250, EX0=800-EW/2;
-const blocoM=malha({x:EX0,y:EY,width:EW,height:EW},g5); blocoM.setAttribute('opacity',0);
-const ENT=[{n:'Manual',c:LARANJA},{n:'Arquivos',c:ROSA},{n:'Templates',c:ROXO}];
+const blocoM=el('rect',{x:EX0,y:EY,width:EW,height:EW,rx:R,fill:VERDE,opacity:0},g5);
+const ENT=[{n:'Manual',c:TINTA},{n:'Arquivos',c:VERDE},{n:'Templates',c:TINTA}];
 const entN=ENT.map((e,i)=>{
   const xf=420+i*300;
   const g=el('g',{opacity:0},g5);
-  el('rect',{x:EX0,y:EY,width:EW,height:EW,fill:'#FFFFFF',stroke:TINTA,'stroke-width':2},g);
-  el('rect',{x:EX0,y:EY,width:EW,height:14,fill:e.c},g);
+  el('rect',{x:EX0,y:EY,width:EW,height:EW,rx:R,fill:BRANCO,stroke:TINTA,'stroke-width':2},g);
+  el('rect',{x:EX0+22,y:EY+22,width:EW-44,height:14,rx:7,fill:e.c},g);
   const a=txt(e.n,{x:xf+EW/2,y:EY+EW+54,'font-size':20,'font-weight':600,'text-anchor':'middle',opacity:0},g5);
   return {g,a,xf};
 });
@@ -146,8 +134,8 @@ function render(t){
   q1b.setAttribute('opacity',eOut(p(t,A1.a+1.5,A1.a+2.1)));
   const vb=p(t,A1.a+1.9,A1.a+3.4);
   bala.setAttribute('opacity', vb>0 && vb<1 ? 1 : 0);
-  bala.setAttribute('x',(lerp(cxA+L+23,cxB+L/2-17,eInOut(vb))).toFixed(1));
-  bala.setAttribute('y',(cy+L/2-17).toFixed(1));
+  bala.setAttribute('cx',(lerp(cxA+L+40,cxB+L/2,eInOut(vb))).toFixed(1));
+  bala.setAttribute('cy',(cy+L/2).toFixed(1));
   q1bM.setAttribute('opacity',eOut(p(t,A1.a+3.3,A1.a+3.9)).toFixed(3));
 
   /* ---- ato 2 ---- */
@@ -188,13 +176,13 @@ function render(t){
   marcos.forEach((m,i)=>{
     const t0=A4.a+2.8+i*.22, pr=eOut4(p(t,t0,t0+.4));
     m.setAttribute('opacity',pr.toFixed(3));
-    m.setAttribute('y',(GY+333-30*(1-pr)).toFixed(1));
+    m.setAttribute('cy',(GY+342-30*(1-pr)).toFixed(1));
   });
 
   /* ---- ato 5 ---- */
   const A5=ATOS[4], v5=janela(t,A5.a,A5.b,.4,.4);
   g5.setAttribute('opacity',v5.toFixed(3));
-  /* a malha entra, e sai no instante em que as peças começam a se separar */
+  /* o bloco verde entra, e sai no instante em que as peças se separam */
   blocoM.setAttribute('opacity',(eOut(p(t,A5.a+.1,A5.a+.7))*(1-p(t,A5.a+1.1,A5.a+1.5))).toFixed(3));
   entN.forEach((e,i)=>{
     const t0=A5.a+1.1+i*.14, pr=eInOut(p(t,t0,t0+1.0));

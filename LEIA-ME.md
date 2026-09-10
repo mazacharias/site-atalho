@@ -124,8 +124,9 @@ Para mudar tamanho ou peso, edite `assets/css/style.css`:
 }
 ```
 
-O favicon é a letra "p" da DM Sans, em branco sobre um ladrilho quadrado com
-a malha de gradiente, em `assets/img/favicon.svg`. Não é texto: é o contorno da letra convertido em
+O favicon é **provisório**: a letra "p" da DM Sans em branco sobre um ladrilho
+preto arredondado, em `assets/img/favicon.svg`. Ele deve ser trocado pelo
+símbolo do logo assim que o arquivo entrar. Não é texto: é o contorno da letra convertido em
 vetor, para não depender de a fonte estar instalada em quem abre o arquivo.
 
 ### A fonte
@@ -244,90 +245,62 @@ Tudo o que define a aparência está no topo de `assets/css/style.css`, no bloco
 `:root`. Trocar uma variável ali muda o site inteiro:
 
 ```css
---paper:  #f7f7f5;  /* chão da página */
+--ink:    #333333;  /* preto da marca: texto, réguas, botões */
+--cinza:  #fbfcfc;  /* chão da página */
 --white:  #ffffff;  /* cartões, campos, mídia */
---ink:    #0e0e0d;  /* texto e botões */
---rosa:   #ff2d6f;  /* uma das sete cores de destaque */
+--verde:  #2de2aa;  /* a única cor, e só como preenchimento */
 --shell:  1280px;   /* largura máxima do conteúdo */
 ```
 
 ### A paleta
 
-A base é branca. O chão da página é um branco levemente quente e as superfícies
-elevadas são o branco puro; a diferença entre os dois, junto da sombra, é o que
-separa cartão de fundo. **Nenhuma dobra é escura.**
+Preto e branco, e só. O chão da página é um cinza quase branco, as superfícies
+elevadas são o branco puro, e o preto da marca é o `#333333`.
 
 ```css
---paper:   #f7f7f5;   /* chão da página */
---paper-2: #fbfbfa;   /* faixa um pouco mais clara, usada no hero */
---white:   #ffffff;   /* cartões, campos, mídia */
---ink:     #0e0e0d;   /* texto e botões */
+--ink:       #333333;   /* texto, réguas e todo botão principal */
+--preto:     #1f1f1f;   /* só o :hover do que já é preto */
+--cinza:     #fbfcfc;   /* chão da página */
+--white:     #ffffff;   /* cartões, campos, mídia */
 --ink-70 / --ink-50 / --ink-35        /* texto corrido, apoio, rótulo micro */
---line: 11% · --line-soft: 6%         /* réguas e divisórias */
+--line: 13% · --line-soft: 7%         /* réguas e divisórias */
 ```
 
-A cor entra por cima disso, em sete matizes, e **cada uma tem duas versões**:
+A única cor é um verde-menta:
 
 ```css
---laranja: #ff8a00;   --laranja-t: #aa5c00;
---coral:   #ff5a3c;   --coral-t:   #db2200;
---rosa:    #ff2d6f;   --rosa-t:    #df0046;
---magenta: #e94ec4;   --magenta-t: #cd18a2;
---roxo:    #9b5df5;   --roxo-t:    #8c43f5;
---azul:    #4d7cff;   --azul-t:    #2961ff;
---ciano:   #16b3e0;   --ciano-t:   #0d7998;
+--verde:       #2de2aa;
+--verde-fundo: rgba(45, 226, 170, .16);   /* lavagem, quando é só clima */
 ```
 
-São duas por causa do contraste. A versão viva é rasa: o `--laranja` tem 2,2:1
-contra o papel, e branco sobre ele dá 2,4:1. Ela só preenche, e nunca é cor de
-texto. Quem é texto, ou carrega texto branco, usa a versão `-t`, calibrada para
-4,6:1 dos dois lados. Na prática: os quadrados da grade e a malha usam a viva;
-número de dobra, rótulo, barra do cronograma e etiqueta usam a `-t`.
+**O verde nunca é texto.** Ele tem 1,67:1 contra o branco, o que o torna
+ilegível como cor de letra, e branco sobre ele dá os mesmos 1,67:1. Ele só
+existe como preenchimento, e o que vai por cima é sempre o preto (7,56:1).
 
-A regra é onde ela pode aparecer. **A cor nunca vira fundo de dobra e nunca
-vira botão**; ela fica nos blocos de mídia, nos selos e nas marcas pequenas.
-O que carrega peso continua sendo o preto: o botão principal é preto em toda
-a página, porque com o fundo claro em todo lugar não existe mais a inversão
-que a paleta anterior precisava.
+E ele aparece em pouquíssimos lugares, de propósito:
 
-Onde a cor aparece, na prática:
+- a etiqueta "Novo" do selo do hero;
+- os marcadores das listas de serviço;
+- o marco final do cronograma;
+- a lavagem por trás do título do hero e alguns pontos dos anéis;
+- a borda do campo em foco.
 
-- os blocos de mídia (capas, galerias, o hero), que usam a mesma malha de
-  gradiente girada no matiz;
-- a bruma do hero e os quadrados acesos da grade, um por matiz;
-- o número de cada dobra, que herda o `--tom` declarado na própria dobra;
-- os cartões de serviço, as fases do cronograma, as entregas e os resultados,
-  um tom cada, na ordem da paleta;
-- a etiqueta "Novo" do selo, o anel de foco e a borda do campo em foco.
-
-### O tom de cada dobra
-
-Cada `<section>` declara o seu tom no próprio HTML, e tudo dentro dela herda:
-
-```html
-<section class="section s-white" id="servicos" style="--tom:var(--rosa-t)">
-```
-
-Para trocar a cor de uma dobra inteira, troque essa variável. Quem lê o `--tom`
-é o número da dobra; os cartões de dentro têm o seu, definido por posição no
-CSS.
-
-### A malha de gradiente
-
-Todos os blocos de mídia são o mesmo material: uma malha de cinco gradientes
-radiais sobre um linear, sempre nas mesmas posições. O que muda de um bloco
-para o outro é uma rotação de matiz, e é só isso que os diferencia.
-
-Os arquivos em `assets/img/` são SVG gerados com essa malha, para servirem de
-provisórios até entrarem as imagens reais. As rotações usadas ficam entre o
-laranja e o azul, passando por rosa e violeta; girar para o verde-limão sai do
-sistema.
+Fora dessa lista a página é preta e branca. O botão principal é preto em toda
+a página, nunca verde.
 
 ### Cantos e sombras
 
-**Nada é arredondado.** Não existe token de raio, e não há `border-radius`
-em lugar nenhum do CSS: botão, campo, cartão, selo, etiqueta, mídia e
-favicon são todos de canto vivo.
+O logo é arredondado, e o raio do resto acompanha:
+
+```css
+--r-lg:   24px;    /* blocos de mídia e cartões grandes */
+--r-md:   14px;    /* cartões, campos, quadros pequenos */
+--r-sm:   8px;
+--r-pill: 999px;   /* botões, selos, etiquetas */
+```
+
+Marca redonda de verdade (marcador de lista, marco, ícone da dúvida) usa
+`border-radius:50%`, não um dos tokens.
 
 A elevação é uma sombra só, `--sombra`, com as duas camadas a 3%. Ela não
 muda em nenhum estado: quem separa o cartão do fundo é a borda em `--line`,
@@ -343,7 +316,7 @@ a encostar nas margens.
 
 ### A barra de navegação
 
-A barra fica colada no topo e é translúcida: o fundo é o `--paper` a 82% com
+A barra fica colada no topo e é translúcida: o fundo é o `--cinza` a 82% com
 `backdrop-filter`, então o conteúdo passa borrado por baixo dela. Ao rolar ela
 encolhe, fica mais opaca e ganha uma sombra rasa.
 
@@ -354,47 +327,50 @@ do site. O menu mobile usa a mesma superfície.
 Para mudar a barra, edite `.header` em `assets/css/style.css`:
 
 ```css
-.header{ background:rgba(247, 247, 245, .82); backdrop-filter:blur(14px); }
+.header{ background:rgba(251, 252, 252, .82); backdrop-filter:blur(14px); }
 ```
 
 ### O hero
 
 Uma dobra centrada, na ordem: o selo (`.selo`), o título, a linha de apoio e os
-dois botões. O fundo é claro, o botão principal é preto e a etiqueta do selo
-é rosa.
+dois botões. O fundo é branco, o botão principal é preto e a etiqueta do selo
+é verde com texto preto.
 
-O fundo tem duas camadas. A de baixo (`.hero::after`) é a **bruma**: a mesma
-paleta a uma fração da força, encostando no branco pelos quatro cantos, longe
-do texto, que fica no meio. Ela está no token `--bruma`.
+O motivo do fundo são **anéis concêntricos**. Havia aqui uma grade de
+quadrados, e ela deixou de funcionar quando o logo passou a ser arredondado:
+quadrado nenhum conversava com ele. Os anéis são o equivalente redondo, e
+partem do centro, o que os deixa concêntricos ao título em qualquer largura.
 
-A de cima (`.hero::before`) é a **grade**. Não é imagem nem canvas: são dois
-gradientes de uma listra só, um na vertical e outro na horizontal, repetidos
-pelo `background-size`. Dois números controlam as linhas:
+O fundo tem duas camadas. A de baixo (`.hero::after`) é a **lavagem**: o verde
+saindo de trás do título, largo e fraco. É o único lugar em que a cor aparece
+sem estar dentro de um bloco.
+
+A de cima (`.hero::before`) são os **anéis**. Não é imagem nem canvas: é um
+`repeating-radial-gradient` de uma volta só, com o anel ocupando 1 px de cada
+`--passo`. Dois números controlam tudo:
 
 ```css
 .hero{
-  --celula: clamp(74px, 7.6vw, 128px);   /* tamanho do quadrado */
-  --grade:  rgba(14, 14, 13, .055);      /* força da linha */
+  --passo: clamp(58px, 5.4vw, 92px);   /* distância de um anel ao seguinte */
+  --anel:  rgba(51, 51, 51, .085);     /* força da linha */
 }
 ```
 
-A opacidade da linha precisa ficar no limite de "quase não se vê": subir
-transforma a textura em wireframe. Os quadrados acesos são seis, um por matiz,
-entre 15% e 20% de cor.
+A opacidade do anel precisa ficar no limite de "quase não se vê": subir
+transforma o fundo em alvo de tiro.
 
-**Os quadrados acesos** são seis camadas `no-repeat` de uma célula cada, uma
-por cor,
-posicionadas a partir do centro:
+**Os pontos** são quatro círculos cheios, dois verdes e dois pretos, camadas
+`no-repeat` posicionadas a partir do centro em múltiplos de `--passo`, para
+pousarem sobre os anéis:
 
 ```css
-background-position: … , calc(50% - 5 * var(--celula)) calc(50% - 3 * var(--celula)), … ;
+background-position: … , calc(50% - 3 * var(--passo)) calc(50% - 2 * var(--passo)), … ;
 ```
 
-Como a grade também parte do centro, cada quadrado cai exatamente dentro de
-uma célula em qualquer largura de tela. Para mudar onde eles ficam, troque os
-pares de números; para ter mais ou menos, acrescente ou remova uma camada em
-`background-image`, `background-repeat` e `background-position` ao mesmo tempo
-— as três listas precisam ter o mesmo número de itens.
+Para mudar onde eles ficam, troque os pares de números; para ter mais ou menos,
+acrescente ou remova uma camada em `background-image`, `background-repeat`,
+`background-size` e `background-position` ao mesmo tempo: as quatro listas
+precisam ter o mesmo número de itens.
 
 **A máscara** apaga a grade no meio, onde fica o texto, e a devolve em direção
 às bordas:

@@ -1,69 +1,42 @@
 /* =========================================================
    PICÊ
    Sistema visual: grade de 12 colunas, tipografia DM Sans e
-   uma base branca sobre a qual a cor entra em blocos: as
-   mídias, os selos e as marcas pequenas. O texto é sempre
-   preto sobre claro, nenhuma dobra é escura e nada tem canto
-   arredondado.
+   uma base preto e branco. A única cor é um verde-menta, e
+   ele nunca é texto: só preenchimento, sempre com preto por
+   cima. O logo é arredondado, e o raio do resto acompanha.
    ========================================================= */
 
 /* ---------- 1. Tokens ---------- */
 :root{
-  /* Base clara. O chão da página é um branco levemente quente e as
-     superfícies elevadas são o branco puro; a diferença entre os dois
-     é o que separa cartão de fundo, junto da sombra.                   */
-  --paper:        #f7f7f5; /* chão da página */
-  --paper-2:      #fbfbfa; /* faixa um pouco mais clara */
-  --white:        #ffffff; /* cartões, campos, mídia */
-  --ink:          #0e0e0d; /* texto e botões */
-  --preto:        #000000;
+  /* Preto, branco e um cinza quase branco. O cinza é o chão da página e
+     o branco puro é a superfície elevada; a diferença entre os dois,
+     junto da borda, é o que separa cartão de fundo.                    */
+  --ink:          #333333;   /* preto da marca: texto, réguas, botões */
+  --preto:        #1f1f1f;   /* só o :hover do que já é preto */
+  --cinza:        #fbfcfc;   /* chão da página */
+  --white:        #ffffff;   /* cartões, campos, mídia */
 
-  --ink-70:       rgba(14, 14, 13, .70);
-  --ink-50:       rgba(14, 14, 13, .50);
-  --ink-35:       rgba(14, 14, 13, .38);
-  --line:         rgba(14, 14, 13, .11);
-  --line-soft:    rgba(14, 14, 13, .06);
-  --tinta-7:      rgba(14, 14, 13, .05);
+  --ink-70:       rgba(51, 51, 51, .70);
+  --ink-50:       rgba(51, 51, 51, .52);
+  --ink-35:       rgba(51, 51, 51, .40);
+  --line:         rgba(51, 51, 51, .13);
+  --line-soft:    rgba(51, 51, 51, .07);
+  --tinta-7:      rgba(51, 51, 51, .06);
 
-  /* Cor. Sete matizes que dividem o mesmo lugar: blocos de mídia,
-     selos e marcas pequenas. Nenhuma delas vira fundo de dobra.
+  /* O verde da marca. Ele tem 1,67:1 contra o branco, ou seja, como cor
+     de texto é ilegível. Por isso entra sempre como preenchimento, com
+     o preto por cima (7,56:1), e em pouquíssimos lugares.              */
+  --verde:        #2de2aa;
+  --verde-fundo:  rgba(45, 226, 170, .16);   /* lavagem, quando é só clima */
 
-     Cada uma tem duas versões, e é o contraste que decide qual usar. As
-     claras são vivas mas rasas: o laranja tem 2,2:1 contra o papel, e
-     branco sobre ele dá 2,4:1. Elas servem de preenchimento sem texto,
-     nunca de cor de texto. Quem é texto, ou carrega texto branco, usa a
-     versão -t, calibrada para 4,6:1 dos dois lados.                    */
-  --laranja:      #ff8a00; --laranja-t: #aa5c00;
-  --coral:        #ff5a3c; --coral-t:   #db2200;
-  --rosa:         #ff2d6f; --rosa-t:    #df0046;
-  --magenta:      #e94ec4; --magenta-t: #cd18a2;
-  --roxo:         #9b5df5; --roxo-t:    #8c43f5;
-  --azul:         #4d7cff; --azul-t:    #2961ff;
-  --ciano:        #16b3e0; --ciano-t:   #0d7998;
+  /* O logo é arredondado, então o raio faz parte do sistema. */
+  --r-lg:         24px;   /* blocos de mídia e cartões grandes */
+  --r-md:         14px;   /* cartões, campos, quadros pequenos */
+  --r-sm:         8px;
+  --r-pill:       999px;  /* botões, selos, etiquetas */
 
-  /* Malha saturada dos blocos de mídia. É a mesma em todo lugar; o que
-     muda de um bloco para o outro é o `--giro`, uma rotação de matiz.  */
-  --giro:         0deg;
-  --malha:
-    radial-gradient(120% 130% at 8% 4%,   #ffb100 0%, #ff8a00 22%, transparent 62%),
-    radial-gradient(110% 120% at 42% 32%, #ff1f4b 0%, #ff2d6f 34%, transparent 70%),
-    radial-gradient(95% 110% at 88% 22%,  #ff5ea8 0%, transparent 66%),
-    radial-gradient(110% 120% at 92% 96%, #cbb6ff 0%, #efe2ff 46%, transparent 78%),
-    radial-gradient(100% 110% at 8% 98%,  #ffe9a8 0%, transparent 68%),
-    linear-gradient(140deg, #ff9a00, #ff2255 42%, #ff5fa2 66%, #d9c2ff);
-
-  /* Bruma do hero: a mesma paleta a uma fração da força, para a cor
-     encostar no branco sem nunca disputar com o texto.                 */
-  --bruma:
-    radial-gradient(52% 46% at 4% 100%,  rgba(255, 96, 122, .34) 0%, transparent 64%),
-    radial-gradient(46% 44% at 98% 2%,   rgba(120, 150, 255, .30) 0%, transparent 62%),
-    radial-gradient(42% 40% at 94% 98%,  rgba(200, 160, 255, .28) 0%, transparent 64%),
-    radial-gradient(44% 38% at 8% 0%,    rgba(255, 190, 120, .28) 0%, transparent 62%);
-
-  /* Uma sombra só, as duas camadas a 3%. Quem separa o cartão do fundo é
-     a borda em --line; a sombra apenas sugere a altura, e não muda em
-     nenhum estado.                                                       */
-  --sombra:       0 1px 2px rgba(14,14,13,.03), 0 10px 30px -12px rgba(14,14,13,.03);
+  /* Uma sombra só, as duas camadas a 3%, e ela não muda em estado nenhum. */
+  --sombra:       0 1px 2px rgba(51,51,51,.03), 0 10px 30px -12px rgba(51,51,51,.03);
 
   --shell:        1280px;
   /* a margem lateral respeita o entalhe do aparelho em paisagem */
@@ -86,7 +59,7 @@ body{
   margin:0;
   font-family:"DM Sans","Helvetica Neue",Arial,sans-serif;
   font-size:16px; font-weight:400; line-height:1.65;
-  color:var(--ink); background:var(--paper);
+  color:var(--ink); background:var(--cinza);
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
 }
 img,svg{ display:block; max-width:100%; }
@@ -95,7 +68,7 @@ button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; 
 h1,h2,h3,h4,p,figure,blockquote{ margin:0; }
 ul,ol{ margin:0; padding:0; list-style:none; }
 ::selection{ background:var(--ink); color:var(--white); }
-:focus-visible{ outline:2px solid var(--azul-t); outline-offset:3px; }
+:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; border-radius:var(--r-sm); }
 
 /* ---------- 3. Estrutura ---------- */
 .shell{ width:100%; max-width:var(--shell); margin-inline:auto; padding-inline:var(--gut); }
@@ -107,7 +80,7 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 .guias{ position:fixed; inset:0; z-index:2; pointer-events:none; }
 .guias::before,.guias::after{
   content:''; position:absolute; top:0; bottom:0; width:0;
-  border-left:1px dashed rgba(14, 14, 13, .12);
+  border-left:1px dashed rgba(51, 51, 51, .13);
 }
 .guias::before{ left:clamp(16px, 2.4vw, 38px); }
 .guias::after { right:clamp(16px, 2.4vw, 38px); }
@@ -118,7 +91,7 @@ section[id]{ scroll-margin-top:90px; }
    página e o branco puro; quem dá o ritmo de verdade são os cartões e
    os blocos de cor.                                                    */
 .s-white{ background:var(--white); }
-.s-paper{ background:var(--paper); }
+.s-cinza{ background:var(--cinza); }
 
 .g12{ display:grid; grid-template-columns:repeat(12, 1fr); gap:var(--colgap); }
 
@@ -145,12 +118,12 @@ section[id]{ scroll-margin-top:90px; }
   font-size:11px; font-weight:600; letter-spacing:.17em; text-transform:uppercase;
   color:var(--ink-35);
 }
-.accent{ color:var(--rosa-t); }
+.accent{ color:var(--ink); }
 
 /* ---------- 5. Botões e links ---------- */
 .btn{
   display:inline-flex; align-items:center; gap:11px;
-  height:50px; padding:0 26px;
+  height:50px; padding:0 26px; border-radius:var(--r-pill);
   font-size:14px; font-weight:600; letter-spacing:.005em;
   border:1px solid transparent; white-space:nowrap;
   transition:background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
@@ -161,9 +134,9 @@ section[id]{ scroll-margin-top:90px; }
    clara, o preto é o que tem mais peso em todo lugar. A cor fica para as
    mídias e as marcas pequenas, não para os botões.                       */
 .btn--solid,.btn--light,.btn--acento{ background:var(--ink); color:var(--white); }
-.btn--solid:hover,.btn--light:hover,.btn--acento:hover{ background:#2c2c2a; }
+.btn--solid:hover,.btn--light:hover,.btn--acento:hover{ background:var(--preto); }
 .btn--ghost{ background:var(--white); border-color:var(--line); color:var(--ink); box-shadow:var(--sombra); }
-.btn--ghost:hover{ border-color:rgba(14,14,13,.22); }
+.btn--ghost:hover{ border-color:rgba(51,51,51,.26); }
 .btn--sm{ height:42px; padding:0 20px; font-size:13px; }
 
 .link-u{
@@ -177,7 +150,7 @@ section[id]{ scroll-margin-top:90px; }
 /* ---------- 6. Cabeçalho ---------- */
 .header{
   position:sticky; top:0; z-index:60; padding-block:20px;
-  background:rgba(247, 247, 245, .82); color:var(--ink);
+  background:rgba(251, 252, 252, .82); color:var(--ink);
   -webkit-backdrop-filter:saturate(180%) blur(14px);
           backdrop-filter:saturate(180%) blur(14px);
   box-shadow:0 1px 0 var(--line-soft);
@@ -185,8 +158,8 @@ section[id]{ scroll-margin-top:90px; }
 }
 .header__bar{ display:flex; align-items:center; justify-content:space-between; gap:24px; }
 .header.is-stuck{
-  padding-block:13px; background:rgba(247, 247, 245, .93);
-  box-shadow:0 1px 0 var(--line), 0 8px 28px rgba(14,14,13,.03);
+  padding-block:13px; background:rgba(251, 252, 252, .93);
+  box-shadow:0 1px 0 var(--line), 0 8px 28px rgba(51,51,51,.03);
 }
 
 .brand{
@@ -217,7 +190,7 @@ body.nav-open .burger span::before{ transform:translateY(6px) rotate(45deg); }
 body.nav-open .burger span::after { transform:translateY(-6px) rotate(-45deg); }
 
 .drawer{
-  position:fixed; inset:0; z-index:55; background:var(--paper); color:var(--ink);
+  position:fixed; inset:0; z-index:55; background:var(--cinza); color:var(--ink);
   overscroll-behavior:contain; -webkit-overflow-scrolling:touch;
   padding:104px var(--gut) 36px; display:flex; flex-direction:column; justify-content:space-between;
   opacity:0; visibility:hidden; transform:translateY(-6px);
@@ -234,78 +207,75 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 /* ---------- 7. Hero ---------- */
 .hero{
   position:relative; overflow:hidden;
-  background:var(--paper-2); color:var(--ink);
-  --celula:clamp(74px, 7.6vw, 128px);
-  --grade:rgba(14, 14, 13, .055);
+  background:var(--white); color:var(--ink);
+  --passo:clamp(58px, 5.4vw, 92px);   /* distância entre um anel e o seguinte */
+  --anel:rgba(51, 51, 51, .085);
   display:flex; align-items:center;
   min-height:clamp(560px, 86vh, 840px);
   padding:clamp(56px, 8vh, 110px) 0 clamp(56px, 8vh, 110px);
 }
-/* Fundo em duas camadas. A de baixo é a bruma: a paleta encostando no
-   branco pelos quatro cantos, longe do texto, que fica no meio.        */
+/* Camada de baixo: uma lavagem de verde larga e fraca, saindo de trás do
+   título. É o único lugar em que o verde aparece sem estar dentro de um
+   bloco, e no volume mais baixo em que ainda se lê como cor.           */
 .hero::after{
   content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
-  background-image:var(--bruma);
+  background-image:
+    radial-gradient(38% 46% at 50% 46%, rgba(45, 226, 170, .17) 0%, transparent 70%),
+    radial-gradient(30% 34% at 12% 88%, rgba(45, 226, 170, .10) 0%, transparent 72%),
+    radial-gradient(26% 32% at 90% 14%, rgba(45, 226, 170, .09) 0%, transparent 72%);
 }
-/* A de cima é a grade: linhas finíssimas, com seis quadrados acesos, um
-   por matiz. As linhas são dois gradientes de uma listra só, um na
-   vertical e outro na horizontal, repetidos pelo `background-size`. Os
-   quadrados são camadas `no-repeat` de uma célula, posicionadas a partir
-   do centro: como a grade também parte do centro, cada um cai exatamente
-   dentro de uma célula em qualquer largura de tela.
+/* Camada de cima: anéis concêntricos, o equivalente redondo da grade que
+   havia aqui. O logo é arredondado, e quadrado nenhum conversava com ele.
 
-   A máscara apaga a grade no meio, onde fica o texto, e a devolve em
-   direção às bordas. Fica num pseudo-elemento porque, no `.hero`, ela
-   apagaria também o texto.                                             */
+   Não é imagem nem canvas: é um `repeating-radial-gradient` de uma volta
+   só, com o anel ocupando 1 px de cada `--passo`. Como ele parte do
+   centro, os anéis ficam concêntricos ao título em qualquer largura.
+
+   Sobre eles vêm quatro círculos cheios, camadas `no-repeat` posicionadas
+   a partir do centro, que pousam sobre os anéis como marcas.
+
+   A máscara apaga tudo no meio, onde fica o texto, e devolve em direção
+   às bordas. Fica num pseudo-elemento porque, no `.hero`, ela apagaria
+   também o texto.                                                       */
 .hero::before{
   content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
-  /* os seis quadrados são as seis cores vivas diluídas: é o único lugar do
-     site em que a cor aparece fora de um bloco de mídia. Num navegador sem
-     `color-mix` o quadrado simplesmente não pinta, e a grade continua      */
-  --q1:color-mix(in srgb, var(--laranja) 20%, transparent);
-  --q2:color-mix(in srgb, var(--rosa)    18%, transparent);
-  --q3:color-mix(in srgb, var(--roxo)    16%, transparent);
-  --q4:color-mix(in srgb, var(--azul)    16%, transparent);
-  --q5:color-mix(in srgb, var(--magenta) 15%, transparent);
-  --q6:color-mix(in srgb, var(--ciano)   16%, transparent);
+  --p1:radial-gradient(circle, var(--verde) 0 6px, transparent 6px);
+  --p2:radial-gradient(circle, var(--ink)   0 4px, transparent 4px);
   background-image:
-    linear-gradient(to right,  var(--grade) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grade) 1px, transparent 1px),
-    linear-gradient(var(--q1), var(--q1)),
-    linear-gradient(var(--q2), var(--q2)),
-    linear-gradient(var(--q3), var(--q3)),
-    linear-gradient(var(--q4), var(--q4)),
-    linear-gradient(var(--q5), var(--q5)),
-    linear-gradient(var(--q6), var(--q6));
-  background-size:var(--celula) var(--celula);
-  background-repeat:repeat, repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+    repeating-radial-gradient(circle at 50% 50%,
+      transparent 0 calc(var(--passo) - 1px), var(--anel) calc(var(--passo) - 1px) var(--passo)),
+    var(--p1), var(--p2), var(--p1), var(--p2);
+  background-repeat:no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+  background-size:
+    100% 100%,
+    calc(2 * var(--passo)) calc(2 * var(--passo)),
+    calc(2 * var(--passo)) calc(2 * var(--passo)),
+    calc(2 * var(--passo)) calc(2 * var(--passo)),
+    calc(2 * var(--passo)) calc(2 * var(--passo));
   background-position:
     center center,
-    center center,
-    calc(50% - 5 * var(--celula)) calc(50% - 3 * var(--celula)),
-    calc(50% - 3 * var(--celula)) calc(50% + 3 * var(--celula)),
-    calc(50% + 4 * var(--celula)) calc(50% - 2 * var(--celula)),
-    calc(50% + 6 * var(--celula)) calc(50% + 2 * var(--celula)),
-    calc(50% - 7 * var(--celula)) calc(50% + 1 * var(--celula)),
-    calc(50% + 2 * var(--celula)) calc(50% + 4 * var(--celula));
-  -webkit-mask-image:radial-gradient(ellipse 62% 58% at 50% 50%, transparent 30%, rgba(0,0,0,.40) 68%, #000 100%);
-          mask-image:radial-gradient(ellipse 62% 58% at 50% 50%, transparent 30%, rgba(0,0,0,.40) 68%, #000 100%);
+    calc(50% - 3 * var(--passo)) calc(50% - 2 * var(--passo)),
+    calc(50% + 4 * var(--passo)) calc(50% + 1 * var(--passo)),
+    calc(50% + 2 * var(--passo)) calc(50% - 3 * var(--passo)),
+    calc(50% - 5 * var(--passo)) calc(50% + 2 * var(--passo));
+  -webkit-mask-image:radial-gradient(ellipse 60% 56% at 50% 50%, transparent 34%, rgba(0,0,0,.45) 70%, #000 100%);
+          mask-image:radial-gradient(ellipse 60% 56% at 50% 50%, transparent 34%, rgba(0,0,0,.45) 70%, #000 100%);
 }
 .hero .shell{ position:relative; z-index:2; width:100%; }
 /* tudo centrado numa coluna só, como no layout de referência */
 .painel{ max-width:900px; margin-inline:auto; text-align:center; }
 
-/* o selo: uma pílula branca que flutua sobre a bruma */
+/* o selo: uma pílula branca que flutua sobre a lavagem */
 .selo{
   display:inline-flex; align-items:center; gap:10px;
-  padding:5px 14px 5px 5px; border:1px solid var(--line);
+  padding:5px 14px 5px 5px; border:1px solid var(--line); border-radius:var(--r-pill);
   background:var(--white); box-shadow:var(--sombra);
   font-size:12.5px; color:var(--ink-70); text-decoration:none;
   transition:color .18s ease;
 }
 .selo:hover{ color:var(--ink); }
 .selo__tag{
-  background:var(--rosa-t); color:var(--white); padding:4px 10px;
+  background:var(--verde); color:var(--ink); padding:4px 10px; border-radius:var(--r-pill);
   font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
 }
 .selo svg{ width:14px; height:14px; flex:none; }
@@ -336,9 +306,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
   grid-column:1 / 13; display:flex; align-items:baseline; gap:14px;
   margin-bottom:clamp(18px, 2vw, 30px);
 }
-/* o número da dobra é o lugar mais barato para a cor aparecer: cada
-   dobra define o seu `--tom` no HTML e tudo dentro dela o herda */
-.sec-head__id b{ font-size:11px; font-weight:600; letter-spacing:.1em; color:var(--tom, var(--ink)); }
+.sec-head__id b{ font-size:11px; font-weight:600; letter-spacing:.1em; color:var(--ink); }
 .sec-head__t{ grid-column:1 / 8; }
 .sec-head__x{ grid-column:9 / 13; align-self:end; }
 .sec-head__x p{ font-size:15px; line-height:1.72; color:var(--ink-50); }
@@ -358,18 +326,14 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 .cards{ row-gap:var(--colgap); }
 .card{
   grid-column:span 4; padding:clamp(26px, 2.6vw, 34px) clamp(24px, 2.4vw, 32px) clamp(28px, 2.8vw, 36px);
-  position:relative; background:var(--paper);
+  position:relative; border-radius:var(--r-lg); background:var(--cinza);
   border:1px solid var(--line); box-shadow:var(--sombra);
   /* os três textos têm comprimentos diferentes; com a coluna flex e a
      margem automática da lista, as três listas começam na mesma linha */
   display:flex; flex-direction:column;
 }
-.s-paper .card{ background:var(--white); }
-/* um tom por card, na mesma ordem da paleta */
-.card:nth-of-type(1){ --tom:var(--laranja-t); }
-.card:nth-of-type(2){ --tom:var(--rosa-t); }
-.card:nth-of-type(3){ --tom:var(--roxo-t); }
-.card__n{ font-size:11px; font-weight:600; letter-spacing:.1em; color:var(--tom); }
+.s-cinza .card{ background:var(--white); }
+.card__n{ font-size:11px; font-weight:600; letter-spacing:.1em; color:var(--ink-35); }
 .card h3{ margin:20px 0 12px; }
 .card > p{ font-size:14.5px; line-height:1.72; color:var(--ink-70); max-width:34ch; }
 .card ul{ margin-top:auto; padding-top:24px; border-bottom:1px solid var(--line); }
@@ -378,14 +342,14 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
   border-top:1px solid var(--line);
 }
 .card li::before{
-  content:""; position:absolute; left:0; top:16px; width:7px; height:7px;
-  background:var(--tom);
+  content:""; position:absolute; left:0; top:16px; width:8px; height:8px; border-radius:50%;
+  background:var(--verde);
 }
 
 /* ---------- 10b. Sistema (vídeo) ---------- */
 .video{
-  position:relative; margin:0; overflow:hidden;
-  aspect-ratio:16 / 9; background:var(--paper);
+  position:relative; margin:0; overflow:hidden; border-radius:var(--r-lg);
+  aspect-ratio:16 / 9; background:var(--cinza);
   border:1px solid var(--line); box-shadow:var(--sombra);
 }
 .video__poster{ width:100%; height:100%; object-fit:cover; }
@@ -393,7 +357,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 .video__btn{
   position:absolute; left:50%; top:50%; transform:translate(-50%, -50%);
   display:inline-flex; align-items:center; gap:14px;
-  height:58px; padding:0 28px 0 24px;
+  height:58px; padding:0 28px 0 24px; border-radius:var(--r-pill);
   background:var(--ink); color:var(--white); box-shadow:var(--sombra);
   font-size:14px; font-weight:600; letter-spacing:.01em;
   transition:background .25s var(--ease), transform .3s var(--ease);
@@ -430,8 +394,8 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 .gantt__bar{
   grid-column:var(--s) / span var(--n);
   display:flex; align-items:center; justify-content:center;
-  height:36px; padding:0 14px;
-  background:var(--fase, var(--ink)); color:var(--white);
+  height:36px; padding:0 14px; border-radius:var(--r-pill);
+  background:var(--ink); color:var(--white);
   font-size:12px; font-weight:600; letter-spacing:.02em; white-space:nowrap;
   transform-origin:left; transform:scaleX(.02); opacity:0;
   transition:transform .75s var(--ease), opacity .4s var(--ease);
@@ -442,18 +406,13 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 .gantt.is-in .gantt__row:nth-of-type(3) .gantt__bar{ transition-delay:.29s; }
 .gantt.is-in .gantt__row:nth-of-type(4) .gantt__bar{ transition-delay:.41s; }
 .gantt.is-in .gantt__row:nth-of-type(5) .gantt__bar{ transition-delay:.53s; }
-/* uma cor por fase, na ordem em que elas acontecem */
-.gantt__row:nth-of-type(1){ --fase:var(--laranja-t); }
-.gantt__row:nth-of-type(2){ --fase:var(--coral-t); }
-.gantt__row:nth-of-type(3){ --fase:var(--rosa-t); }
-.gantt__row:nth-of-type(4){ --fase:var(--roxo-t); }
 .gantt__bar--soft{ background:var(--white); border:1px solid var(--line); color:var(--ink); }
-.gantt__bar--line{ background:transparent; border:1px dashed rgba(14,14,13,.28); color:var(--ink-70); }
+.gantt__bar--line{ background:transparent; border:1px dashed rgba(51,51,51,.28); color:var(--ink-70); }
 
 .gantt__row--mile{ border-bottom:0; padding-block:18px 0; }
 .gantt__miles > div{ grid-column:var(--s) / span 1; text-align:center; }
-.gantt__miles i{ display:block; width:10px; height:10px; margin:0 auto; background:var(--azul-t); }
-.gantt__miles > div:last-child i{ background:var(--ciano-t); }
+.gantt__miles i{ display:block; width:10px; height:10px; margin:0 auto; border-radius:50%; background:var(--ink); }
+.gantt__miles > div:last-child i{ background:var(--verde); }
 .gantt__miles small{ display:block; margin-top:11px; font-size:11px; line-height:1.35; color:var(--ink-35); }
 
 .legend{
@@ -461,21 +420,17 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
   font-size:12px; color:var(--ink-35);
 }
 .legend b{ display:inline-flex; align-items:center; gap:9px; font-weight:400; }
-.legend b::before{ content:""; width:15px; height:8px; background:var(--rosa-t); }
+.legend b::before{ content:""; width:15px; height:8px; border-radius:var(--r-pill); background:var(--ink); }
 .legend b.is-soft::before{ background:var(--white); border:1px solid var(--line); }
-.legend b.is-line::before{ background:transparent; border:1px dashed rgba(14,14,13,.28); }
-.legend b.is-mile::before{ width:10px; height:10px; background:var(--azul-t); }
+.legend b.is-line::before{ background:transparent; border:1px dashed rgba(51,51,51,.28); }
+.legend b.is-mile::before{ width:10px; height:10px; border-radius:50%; background:var(--ink); }
 
 .deliver{ margin-top:clamp(36px, 4.2vw, 56px); }
 .deliver > div{
-  grid-column:span 3; padding:22px 20px 24px;
+  grid-column:span 3; padding:22px 20px 24px; border-radius:var(--r-md);
   background:var(--white); border:1px solid var(--line); box-shadow:var(--sombra);
 }
-.deliver > div:nth-of-type(1){ --tom:var(--laranja-t); }
-.deliver > div:nth-of-type(2){ --tom:var(--coral-t); }
-.deliver > div:nth-of-type(3){ --tom:var(--rosa-t); }
-.deliver > div:nth-of-type(4){ --tom:var(--roxo-t); }
-.deliver span{ font-size:11px; font-weight:600; letter-spacing:.13em; color:var(--tom); }
+.deliver span{ font-size:11px; font-weight:600; letter-spacing:.13em; color:var(--ink-35); }
 .deliver h4{ margin:14px 0 10px; font-size:15.5px; font-weight:600; letter-spacing:-.012em; }
 .deliver p{ font-size:13.5px; line-height:1.65; color:var(--ink-50); }
 
@@ -484,13 +439,13 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 .work__item{ grid-column:span 4; display:flex; flex-direction:column; }
 .work__item--offset{ margin-top:clamp(28px, 4.5vw, 72px); }
 .work__media{
-  position:relative; overflow:hidden; background:var(--paper);
+  position:relative; overflow:hidden; border-radius:var(--r-lg); background:var(--cinza);
   aspect-ratio:4 / 5; box-shadow:var(--sombra);
 }
 .work__media img{ width:100%; height:100%; object-fit:cover; transition:transform .8s var(--ease); }
 .work__item:hover .work__media img{ transform:scale(1.035); }
 .work__tag{
-  position:absolute; left:14px; top:14px; z-index:2; padding:7px 14px;
+  position:absolute; left:14px; top:14px; z-index:2; padding:7px 14px; border-radius:var(--r-pill);
   /* etiqueta branca sobre a mídia colorida: é a cor de baixo que muda,
      não a da etiqueta */
   background:rgba(255,255,255,.92); backdrop-filter:blur(8px);
@@ -520,7 +475,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
   padding:24px 0; text-align:left; font-size:clamp(16px, 1.6vw, 19px); font-weight:600; letter-spacing:-.017em;
 }
 .faq__q i{
-  position:relative; flex:none; width:26px; height:26px; border:1px solid var(--line);
+  position:relative; flex:none; width:26px; height:26px; border:1px solid var(--line); border-radius:50%;
   background:var(--white);
   transition:border-color .3s var(--ease), background .3s var(--ease);
 }
@@ -531,7 +486,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 .faq__q i::before{ width:9px; height:1px; }
 .faq__q i::after { width:1px; height:9px; }
 .faq__q:hover i{ border-color:var(--ink); }
-.faq__item.is-open .faq__q i{ background:var(--azul-t); border-color:var(--azul-t); }
+.faq__item.is-open .faq__q i{ background:var(--ink); border-color:var(--ink); }
 .faq__item.is-open .faq__q i::before,.faq__item.is-open .faq__q i::after{ background:#fff; }
 .faq__item.is-open .faq__q i::after{ transform:translate(-50%,-50%) scaleY(0); }
 .faq__a{ overflow:hidden; height:0; transition:height .4s var(--ease); }
@@ -550,20 +505,20 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 .contact__list a:hover{ border-color:currentColor; }
 
 .form{
-  display:grid; gap:22px; padding:clamp(26px, 3vw, 40px);
-  background:var(--paper); border:1px solid var(--line); box-shadow:var(--sombra);
+  display:grid; gap:22px; padding:clamp(26px, 3vw, 40px); border-radius:var(--r-lg);
+  background:var(--cinza); border:1px solid var(--line); box-shadow:var(--sombra);
 }
-.s-paper .form{ background:var(--white); }
+.s-cinza .form{ background:var(--white); }
 .field label{ display:block; font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-35); margin-bottom:9px; }
 .field{ position:relative; }
 .field input,.field select,.field textarea{
-  width:100%; padding:13px 15px; border:1px solid var(--line);
+  width:100%; padding:13px 15px; border:1px solid var(--line); border-radius:var(--r-md);
   background:var(--white); color:var(--ink); font-family:inherit; font-size:16px;
   transition:border-color .25s var(--ease);
 }
 .field textarea{ resize:vertical; min-height:88px; }
 .field input:focus,.field select:focus,.field textarea:focus{
-  outline:0; border-color:var(--azul-t); box-shadow:0 0 0 3px rgba(41,97,255,.18);
+  outline:0; border-color:var(--ink); box-shadow:0 0 0 3px rgba(45,226,170,.34);
 }
 .field input::placeholder,.field textarea::placeholder{ color:var(--ink-35); }
 .field select{ appearance:none; cursor:pointer; }
@@ -578,7 +533,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 .form__foot p{ font-size:12px; color:var(--ink-35); max-width:32ch; }
 
 /* ---------- 15. Rodapé ---------- */
-.footer{ background:var(--paper); color:var(--ink); border-top:1px solid var(--line);
+.footer{ background:var(--cinza); color:var(--ink); border-top:1px solid var(--line);
   padding-block:clamp(52px, 6vw, 80px) calc(28px + env(safe-area-inset-bottom)); }
 .footer__brand{ grid-column:1 / 5; }
 .footer__brand .brand{ height:30px; }
@@ -609,7 +564,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 .meta small{ display:block; font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-35); margin-bottom:9px; }
 .meta p{ font-size:15px; font-weight:600; letter-spacing:-.012em; }
 
-.cover{ width:100%; height:auto; aspect-ratio:16 / 9; object-fit:cover; background:var(--paper); box-shadow:var(--sombra); }
+.cover{ width:100%; height:auto; aspect-ratio:16 / 9; object-fit:cover; border-radius:var(--r-lg); background:var(--cinza); box-shadow:var(--sombra); }
 .block{ align-items:start; }
 .block__lb{ grid-column:1 / 3; }
 .block__tx{ grid-column:3 / 10; }
@@ -618,19 +573,16 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 .prose p{ font-size:clamp(16px, 1.55vw, 19px); line-height:1.7; font-weight:300; letter-spacing:-.012em; }
 .prose p + p{ margin-top:1.1em; }
 .gallery{ margin-top:clamp(32px, 3.6vw, 48px); }
-.gallery img{ width:100%; height:auto; aspect-ratio:4 / 3; object-fit:cover; background:var(--paper); box-shadow:var(--sombra); }
+.gallery img{ width:100%; height:auto; aspect-ratio:4 / 3; object-fit:cover; border-radius:var(--r-lg); background:var(--cinza); box-shadow:var(--sombra); }
 .gallery img:first-child{ grid-column:3 / 8; }
 .gallery img:last-child{ grid-column:8 / 13; }
 .gallery.gallery--full img{ grid-column:1 / 13; aspect-ratio:16 / 9; }
 
 .results > div{
-  grid-column:span 4; padding:24px 22px 26px;
+  grid-column:span 4; padding:24px 22px 26px; border-radius:var(--r-md);
   background:var(--white); border:1px solid var(--line); box-shadow:var(--sombra);
 }
-.results > div:nth-of-type(1){ --tom:var(--laranja-t); }
-.results > div:nth-of-type(2){ --tom:var(--rosa-t); }
-.results > div:nth-of-type(3){ --tom:var(--roxo-t); }
-.results strong{ display:block; font-size:clamp(34px, 4.2vw, 54px); font-weight:300; letter-spacing:-.024em; line-height:1; color:var(--tom); }
+.results strong{ display:block; font-size:clamp(34px, 4.2vw, 54px); font-weight:300; letter-spacing:-.024em; line-height:1; color:var(--ink); }
 .results p{ margin-top:16px; font-size:14px; line-height:1.7; color:var(--ink-70); max-width:28ch; }
 
 .next{ display:flex; flex-wrap:wrap; gap:20px; align-items:center; justify-content:space-between; margin-top:clamp(44px, 5vw, 72px); padding-top:24px; border-top:1px solid var(--line); }
@@ -732,7 +684,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
   .gantt__row{ grid-template-columns:1fr; gap:13px; padding-block:22px; }
   .gantt__row--mile{ display:none; }
   .gantt__when{ display:inline-block; margin-top:11px; font-size:12px; font-weight:600; color:var(--ink); }
-  .gantt__bar{ height:22px; padding:0; font-size:0; }
+  .gantt__bar{ height:22px; padding:0; font-size:0; border-radius:var(--r-pill); }
   .gantt__track{ min-height:26px; }
 }
 /* celular deitado: com min-height fixo o hero fica mais alto que a tela e
@@ -768,7 +720,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 @media print{
   .header,.drawer,.burger,.form,.video__btn,.guias{ display:none !important; }
   body{ background:#fff; color:#000; }
-  .s-white,.s-paper,.hero,.footer{ background:#fff !important; }
+  .s-white,.s-cinza,.hero,.footer{ background:#fff !important; }
   .hero::before,.hero::after{ display:none !important; }
   .card,.deliver > div,.video,.work__media{ box-shadow:none !important; }
 }

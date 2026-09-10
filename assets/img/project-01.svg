@@ -1,29 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1200" width="960" height="1200">
-  <defs>
-    <linearGradient id="base" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#ff8a00"/><stop offset=".42" stop-color="#ff1f4b"/>
-      <stop offset=".68" stop-color="#ff5ea8"/><stop offset="1" stop-color="#cbb6ff"/>
-    </linearGradient>
-    <radialGradient id="g1" cx=".08" cy=".04" r=".72">
-      <stop offset="0" stop-color="#ffb100"/><stop offset=".5" stop-color="#ff8a00" stop-opacity=".7"/>
-      <stop offset="1" stop-color="#ff8a00" stop-opacity="0"/></radialGradient>
-    <radialGradient id="g2" cx=".42" cy=".34" r=".66">
-      <stop offset="0" stop-color="#ff1f4b"/><stop offset="1" stop-color="#ff2d6f" stop-opacity="0"/></radialGradient>
-    <radialGradient id="g3" cx=".9" cy=".2" r=".55">
-      <stop offset="0" stop-color="#ff5ea8"/><stop offset="1" stop-color="#ff5ea8" stop-opacity="0"/></radialGradient>
-    <radialGradient id="g4" cx=".93" cy=".96" r=".62">
-      <stop offset="0" stop-color="#cbb6ff"/><stop offset=".5" stop-color="#efe2ff" stop-opacity=".6"/>
-      <stop offset="1" stop-color="#efe2ff" stop-opacity="0"/></radialGradient>
-    <radialGradient id="g5" cx=".06" cy=".97" r=".58">
-      <stop offset="0" stop-color="#ffe9a8"/><stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/></radialGradient>
-  </defs>
-  <rect width="960" height="1200" fill="url(#base)"/>
-  <rect width="960" height="1200" fill="url(#g1)"/>
-  <rect width="960" height="1200" fill="url(#g2)"/>
-  <rect width="960" height="1200" fill="url(#g3)"/>
-  <rect width="960" height="1200" fill="url(#g4)"/>
-  <rect width="960" height="1200" fill="url(#g5)"/>
-  <g opacity=".62" fill="#ffffff" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="13.0" letter-spacing="1.56">
+  <rect width="960" height="1200" fill="#fbfcfc"/>
+  <circle cx="480" cy="552" r="288.0" fill="none" stroke="#333333" stroke-opacity="0.13" stroke-width="2"/><circle cx="480" cy="552" r="224.6" fill="none" stroke="#333333" stroke-opacity="0.18" stroke-width="2"/><circle cx="480" cy="552" r="161.3" fill="none" stroke="#333333" stroke-opacity="0.23" stroke-width="2"/><circle cx="480" cy="552" r="97.9" fill="none" stroke="#333333" stroke-opacity="0.28" stroke-width="2"/><circle cx="480" cy="552" r="51.8" fill="#2de2aa"/>
+  <g opacity=".42" fill="#333333" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="13.0" letter-spacing="1.56">
     <text x="34" y="1146">PROJETO 01 · SUBSTITUIR IMAGEM</text>
   </g>
 </svg>
