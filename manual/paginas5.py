@@ -20,8 +20,8 @@ REGRAS = """<h1 class="tit">Regras</h1>
       <li><b>Sem dobra escura.</b> A página é clara de ponta a ponta; o preto é do texto e dos botões.</li>
       <li><b>Sem travessão no texto.</b> Use vírgula, dois-pontos, parênteses ou ponto final.
         O ponto médio (·) fica só como separador de rótulo. Meia-risca em intervalo (6–8 semanas) continua valendo.</li>
-      <li><b>Sem sombra inventada.</b> Só os dois degraus do sistema, e o mais forte é estado de
-        <code>:hover</code>, nunca valor de repouso.</li>
+      <li><b>Sem sombra inventada.</b> Uma só, com as duas camadas a 3%, e ela não muda em
+        estado nenhum. Quem separa cartão de fundo é a borda.</li>
       <li><b>Sem segunda família tipográfica.</b> Um arquivo variável cobre do 300 ao 700.</li>
       <li><b>Sem cor fora das sete.</b> Estado, gráfico e ilustração saem da mesma paleta, na mesma ordem.</li>
       <li><b>Sem prova social fabricada.</b> Nada de número de avaliação ou depoimento que não exista.</li>

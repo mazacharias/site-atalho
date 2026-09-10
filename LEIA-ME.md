@@ -334,8 +334,9 @@ Nada tem canto vivo. O raio faz parte do sistema:
 --r-pill: 999px;   /* botões, selos, etiquetas */
 ```
 
-E a elevação tem dois degraus, `--sombra` e `--sombra-alta`. O segundo é o
-estado de `:hover` do primeiro, nunca um valor de repouso.
+A elevação é uma sombra só, `--sombra`, com as duas camadas a 3%. Ela não
+muda em nenhum estado: quem separa o cartão do fundo é a borda em `--line`,
+e a sombra apenas sugere a altura.
 
 ### As guias tracejadas
 

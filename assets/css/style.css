@@ -65,11 +65,10 @@
   --r-sm:         10px;
   --r-pill:       999px;  /* botões, selos, etiquetas */
 
-  /* Sombra bem baixa: a camada larga fica em 5%, e a fina abaixo disso. É
-     a borda em --line que separa o cartão do fundo; a sombra só sugere a
-     altura.                                                              */
-  --sombra:       0 1px 2px rgba(14,14,13,.03), 0 10px 30px -12px rgba(14,14,13,.05);
-  --sombra-alta:  0 1px 3px rgba(14,14,13,.04), 0 20px 46px -16px rgba(14,14,13,.08);
+  /* Uma sombra só, as duas camadas a 3%. Quem separa o cartão do fundo é
+     a borda em --line; a sombra apenas sugere a altura, e não muda em
+     nenhum estado.                                                       */
+  --sombra:       0 1px 2px rgba(14,14,13,.03), 0 10px 30px -12px rgba(14,14,13,.03);
 
   --shell:        1280px;
   /* a margem lateral respeita o entalhe do aparelho em paisagem */
@@ -169,7 +168,7 @@ section[id]{ scroll-margin-top:90px; }
 .btn--solid,.btn--light,.btn--acento{ background:var(--ink); color:var(--white); }
 .btn--solid:hover,.btn--light:hover,.btn--acento:hover{ background:#2c2c2a; }
 .btn--ghost{ background:var(--white); border-color:var(--line); color:var(--ink); box-shadow:var(--sombra); }
-.btn--ghost:hover{ border-color:rgba(14,14,13,.22); box-shadow:var(--sombra-alta); }
+.btn--ghost:hover{ border-color:rgba(14,14,13,.22); }
 .btn--sm{ height:42px; padding:0 20px; font-size:13px; }
 
 .link-u{
@@ -192,7 +191,7 @@ section[id]{ scroll-margin-top:90px; }
 .header__bar{ display:flex; align-items:center; justify-content:space-between; gap:24px; }
 .header.is-stuck{
   padding-block:13px; background:rgba(247, 247, 245, .93);
-  box-shadow:0 1px 0 var(--line), 0 8px 28px rgba(14,14,13,.04);
+  box-shadow:0 1px 0 var(--line), 0 8px 28px rgba(14,14,13,.03);
 }
 
 .brand{
@@ -307,9 +306,9 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
   padding:5px 14px 5px 5px; border:1px solid var(--line); border-radius:var(--r-pill);
   background:var(--white); box-shadow:var(--sombra);
   font-size:12.5px; color:var(--ink-70); text-decoration:none;
-  transition:box-shadow .25s var(--ease), color .18s ease;
+  transition:color .18s ease;
 }
-.selo:hover{ box-shadow:var(--sombra-alta); color:var(--ink); }
+.selo:hover{ color:var(--ink); }
 .selo__tag{
   background:var(--rosa-t); color:var(--white); padding:4px 10px; border-radius:var(--r-pill);
   font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
@@ -366,13 +365,11 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
   grid-column:span 4; padding:clamp(26px, 2.6vw, 34px) clamp(24px, 2.4vw, 32px) clamp(28px, 2.8vw, 36px);
   position:relative; border-radius:var(--r-lg); background:var(--paper);
   border:1px solid var(--line); box-shadow:var(--sombra);
-  transition:box-shadow .35s var(--ease), transform .35s var(--ease);
+  /* os três textos têm comprimentos diferentes; com a coluna flex e a
+     margem automática da lista, as três listas começam na mesma linha */
+  display:flex; flex-direction:column;
 }
 .s-paper .card{ background:var(--white); }
-.card:hover{ box-shadow:var(--sombra-alta); transform:translateY(-3px); }
-/* os três textos têm comprimentos diferentes; empurrando a lista para o
-   fim do cartão, as três listas começam na mesma linha */
-.card{ display:flex; flex-direction:column; }
 /* um tom por card, na mesma ordem da paleta */
 .card:nth-of-type(1){ --tom:var(--laranja-t); }
 .card:nth-of-type(2){ --tom:var(--rosa-t); }
@@ -402,7 +399,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
   position:absolute; left:50%; top:50%; transform:translate(-50%, -50%);
   display:inline-flex; align-items:center; gap:14px;
   height:58px; padding:0 28px 0 24px; border-radius:var(--r-pill);
-  background:var(--ink); color:var(--white); box-shadow:var(--sombra-alta);
+  background:var(--ink); color:var(--white); box-shadow:var(--sombra);
   font-size:14px; font-weight:600; letter-spacing:.01em;
   transition:background .25s var(--ease), transform .3s var(--ease);
 }
