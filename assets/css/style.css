@@ -65,8 +65,11 @@
   --r-sm:         10px;
   --r-pill:       999px;  /* botões, selos, etiquetas */
 
-  --sombra:       0 1px 2px rgba(14,14,13,.05), 0 10px 30px -12px rgba(14,14,13,.14);
-  --sombra-alta:  0 2px 4px rgba(14,14,13,.05), 0 22px 54px -18px rgba(14,14,13,.22);
+  /* Sombra bem baixa: a camada larga fica em 5%, e a fina abaixo disso. É
+     a borda em --line que separa o cartão do fundo; a sombra só sugere a
+     altura.                                                              */
+  --sombra:       0 1px 2px rgba(14,14,13,.03), 0 10px 30px -12px rgba(14,14,13,.05);
+  --sombra-alta:  0 1px 3px rgba(14,14,13,.04), 0 20px 46px -16px rgba(14,14,13,.08);
 
   --shell:        1280px;
   /* a margem lateral respeita o entalhe do aparelho em paisagem */
@@ -189,7 +192,7 @@ section[id]{ scroll-margin-top:90px; }
 .header__bar{ display:flex; align-items:center; justify-content:space-between; gap:24px; }
 .header.is-stuck{
   padding-block:13px; background:rgba(247, 247, 245, .93);
-  box-shadow:0 1px 0 var(--line), 0 8px 28px rgba(14,14,13,.05);
+  box-shadow:0 1px 0 var(--line), 0 8px 28px rgba(14,14,13,.04);
 }
 
 .brand{
