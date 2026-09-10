@@ -136,7 +136,7 @@ COR = """<h1 class="tit">Cor</h1>
 CSS_COR = """
 .grade-am{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
 .grade-am--7{ grid-template-columns:repeat(7,1fr); }
-.am__chip{ height:50px; border:1px solid var(--line); border-radius:var(--r-md); overflow:hidden; }
+.am__chip{ height:50px; border:1px solid var(--line); overflow:hidden; }
 .am__chip--par{ display:flex; flex-direction:column; border-color:transparent; }
 .am__chip--par span{ display:block; flex:1; }
 .am__chip.branco{ border-color:var(--line); }

@@ -36,8 +36,7 @@ SUP = """<h1 class="tit">Superfícies</h1>
 
 CSS_SUP = """
 .sup{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-.sf{ display:flex; flex-direction:column; border:1px solid var(--line);
-     border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--sombra); }
+.sf{ display:flex; flex-direction:column; border:1px solid var(--line); overflow:hidden; box-shadow:var(--sombra); }
 .sf--papel{ background:var(--paper); }
 .sf--branca{ background:var(--white); }
 .sf--malha{ background-image:var(--malha); border-color:transparent; }
@@ -55,7 +54,7 @@ CSS_SUP = """
 .sf__p code{ font-size:11px; }
 .sf__btns{ display:flex; gap:9px; margin-top:22px; }
 .bt{ display:inline-flex; align-items:center; height:34px; padding:0 16px;
-     font-size:11px; font-weight:600; border-radius:var(--r-pill); }
+     font-size:11px; font-weight:600; }
 .bt--solid{ background:var(--ink); color:var(--white); }
 .bt--ghost{ background:var(--white); border:1px solid var(--line); color:var(--ink); }
 .bt--etiq{ height:26px; padding:0 13px; background:rgba(255,255,255,.92); color:var(--ink);
@@ -67,9 +66,8 @@ CSS_SUP = """
 
 # ------------------------------------------------------- 05 · COMPONENTES
 COMP = """<h1 class="tit">Componentes</h1>
-<p class="sub">Nada tem canto vivo: o raio faz parte do sistema, em quatro degraus
-  (<code>26</code>, <code>16</code>, <code>10</code> e <code>999 px</code>). Todo botão tem 50 px de
-  altura (42 na versão pequena), 26 px de respiro lateral e o raio de pílula.</p>
+<p class="sub">Nada é arredondado: não existe <code>border-radius</code> em lugar nenhum do CSS.
+  Todo botão tem 50 px de altura (42 na versão pequena) e 26 px de respiro lateral.</p>
 <div class="corpo cp">
   <div>
     <div class="rot">Botões</div>
@@ -107,14 +105,12 @@ COMP = """<h1 class="tit">Componentes</h1>
 
 CSS_COMP = """
 .cp{ display:grid; grid-template-columns:1fr 1fr; gap:52px; }
-.cx{ margin-top:8px; padding:17px 20px; border:1px solid var(--line);
-     border-radius:var(--r-md); background:var(--white); }
+.cx{ margin-top:8px; padding:17px 20px; border:1px solid var(--line); background:var(--white); }
 
 .cx__l{ display:flex; align-items:center; gap:20px; padding:8px 0; }
 .cx__l + .cx__l{ border-top:1px solid var(--line-soft); }
 
-.b{ display:inline-flex; align-items:center; gap:10px; height:44px; padding:0 23px;
-  border-radius:var(--r-pill); font-size:13px; font-weight:600; white-space:nowrap; }
+.b{ display:inline-flex; align-items:center; gap:10px; height:44px; padding:0 23px; font-size:13px; font-weight:600; white-space:nowrap; }
 .b i{ font-style:normal; font-size:12px; }
 .b--sm{ height:36px; padding:0 18px; font-size:12px; }
 .b--solid{ background:var(--ink); color:var(--white); }
@@ -123,12 +119,12 @@ CSS_COMP = """
 .rot2{ font-size:10px; color:var(--ink-50); }
 
 .selo{ display:inline-flex; align-items:center; gap:10px; padding:5px 12px 5px 5px;
-  border:1px solid var(--line); border-radius:var(--r-pill); background:var(--white);
+  border:1px solid var(--line); background:var(--white);
   box-shadow:var(--sombra); font-size:11.5px; color:var(--ink-70); }
-.selo b{ background:var(--rosa); color:var(--white); padding:4px 10px; border-radius:var(--r-pill);
+.selo b{ background:var(--rosa); color:var(--white); padding:4px 10px;
   font-size:9.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
 .selo i{ font-style:normal; }
 .li{ display:flex; align-items:baseline; gap:11px; font-size:12px; color:var(--ink-70); padding:10px 0; }
 .li + .li{ border-top:1px solid var(--line-soft); }
-.li s{ width:7px; height:7px; border-radius:2px; background:var(--rosa); flex:none; text-decoration:none; }
+.li s{ width:7px; height:7px; background:var(--rosa); flex:none; text-decoration:none; }
 """

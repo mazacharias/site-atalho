@@ -6,7 +6,7 @@ REGRAS = """<h1 class="tit">Regras</h1>
   <div class="rg__col">
     <div class="rg__t"><s>+</s>Faça</div>
     <ul class="rg__l">
-      <li><b>Nada de canto vivo.</b> Quatro raios cobrem tudo: 26 px em mídia, 16 px em cartão e campo, 10 px em marca miúda, pílula em botão e selo.</li>
+      <li><b>Tudo quadrado.</b> Botão, campo, cartão, selo, etiqueta, mídia e favicon: nenhum <code>border-radius</code> em lugar nenhum.</li>
       <li><b>A cor não é fundo nem botão.</b> A base é branca e o peso é do preto; as sete matizes ficam nas mídias, nos selos e nas marcas pequenas.</li>
       <li><b>Alterne as superfícies.</b> Papel e branco se revezam na ordem do documento, para nenhuma dobra encostar em outra igual.</li>
       <li><b>Régua no lugar de espaço.</b> Listas e blocos se separam por uma linha de 13%, não por respiro extra.</li>

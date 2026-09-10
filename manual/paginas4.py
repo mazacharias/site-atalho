@@ -39,7 +39,7 @@ TEXTURA = """<h1 class="tit">A textura do hero</h1>
 CSS_TEXTURA = """
 .tx{ display:grid; grid-template-columns:1.05fr 1fr; gap:46px; }
 .tx__demo{ position:relative; background:var(--paper-2); height:100%; min-height:400px;
-  overflow:hidden; border-radius:var(--r-lg); border:1px solid var(--line); }
+  overflow:hidden; border:1px solid var(--line); }
 .tx__grade{ position:absolute; inset:0;
   --celula:76px; --grade:rgba(14,14,13,.055);
   background-image:
@@ -89,7 +89,7 @@ MOV = """<h1 class="tit">Movimento</h1>
     <div class="mv__n">03</div>
     <h3>O filme da dobra Sistema</h3>
     <p class="nota">Vinte segundos em cinco atos: contato, conversa assíncrona, briefing, cronograma
-      e entregas. Feito em SVG e renderizado quadro a quadro; sai em H.264 (97 KB) e VP9 (233 KB).
+      e entregas. Feito em SVG e renderizado quadro a quadro; sai em H.264 (93 KB) e VP9 (209 KB).
       Nada é baixado antes do clique: até lá existe só a imagem de capa.</p>
     <div class="mv__atos"><i>01</i><i>02</i><i>03</i><i>04</i><i>05</i></div>
   </div>

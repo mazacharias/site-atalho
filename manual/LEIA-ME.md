@@ -46,5 +46,6 @@ ffmpeg -framerate 30 -i quadros/f%04d.png -vf scale=1280:720:flags=lanczos \
 ffmpeg -i quadros/f0455.png -q:v 5 assets/img/sistema-poster.jpg
 ```
 
-As cores do filme estão em uma linha só, no topo do `<script>`: `FUNDO`,
-`CLARO`, `ACENTO`, e as cores `LARANJA`, `CORAL`, `ROSA`, `ROXO` e `AZUL`.
+As cores do filme estão em duas linhas, no topo do `<script>`: `FUNDO`,
+`TINTA` e `CINZA`, e depois `LARANJA`, `CORAL`, `ROSA`, `ROXO` e `AZUL`. A
+malha dos blocos fica nos `<defs>` do SVG, igual à das capas.

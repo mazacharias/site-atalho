@@ -31,7 +31,6 @@ CABECA = """<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
     radial-gradient(110% 120% at 92% 96%, #cbb6ff 0%, #efe2ff 46%, transparent 78%),
     radial-gradient(100% 110% at 8% 98%,  #ffe9a8 0%, transparent 68%),
     linear-gradient(140deg, #ff9a00, #ff2255 42%, #ff5fa2 66%, #d9c2ff);
-  --r-lg:26px; --r-md:16px; --r-sm:10px; --r-pill:999px;
   --sombra:0 1px 2px rgba(14,14,13,.03), 0 10px 30px -12px rgba(14,14,13,.03);
   --slide-w:1123px; --slide-h:794px;
 }

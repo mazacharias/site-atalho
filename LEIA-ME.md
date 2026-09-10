@@ -124,8 +124,8 @@ Para mudar tamanho ou peso, edite `assets/css/style.css`:
 }
 ```
 
-O favicon é a letra "p" da DM Sans, em branco sobre um ladrilho com a malha
-de gradiente, em `assets/img/favicon.svg`. Não é texto: é o contorno da letra convertido em
+O favicon é a letra "p" da DM Sans, em branco sobre um ladrilho quadrado com
+a malha de gradiente, em `assets/img/favicon.svg`. Não é texto: é o contorno da letra convertido em
 vetor, para não depender de a fonte estar instalada em quem abre o arquivo.
 
 ### A fonte
@@ -325,14 +325,9 @@ sistema.
 
 ### Cantos e sombras
 
-Nada tem canto vivo. O raio faz parte do sistema:
-
-```css
---r-lg:   26px;    /* blocos de mídia e cartões grandes */
---r-md:   16px;    /* cartões, campos, quadros pequenos */
---r-sm:   10px;
---r-pill: 999px;   /* botões, selos, etiquetas */
-```
+**Nada é arredondado.** Não existe token de raio, e não há `border-radius`
+em lugar nenhum do CSS: botão, campo, cartão, selo, etiqueta, mídia e
+favicon são todos de canto vivo.
 
 A elevação é uma sombra só, `--sombra`, com as duas camadas a 3%. Ela não
 muda em nenhum estado: quem separa o cartão do fundo é a borda em `--line`,
