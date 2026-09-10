@@ -1,4 +1,4 @@
-# Atalho Studio — site
+# picê — site
 
 Site estático (HTML, CSS e JavaScript puros). Não precisa de build, Node, banco
 de dados nem plugin. Basta enviar os arquivos para a hospedagem.
@@ -45,8 +45,7 @@ assets/fonts/         DM Sans hospedada no próprio site
 assets/video/sistema.mp4   vídeo da seção Sistema (H.264, 103 KB)
 assets/video/sistema.webm  o mesmo vídeo em WebM, para quem suporta
 assets/img/sistema-poster.jpg  quadro que aparece antes do play
-assets/img/favicon.svg  ícone da aba do navegador
-assets/img/logo*.svg    a marca que você enviou, guardada mas fora de uso
+assets/img/favicon.svg  ícone da aba do navegador (o "p" da picê)
 assets/img/*.svg        imagens dos projetos (espaços reservados)
 ```
 
@@ -57,11 +56,11 @@ assets/img/*.svg        imagens dos projetos (espaços reservados)
 Tudo abaixo é texto simples dentro dos arquivos `.html` — pode editar em
 qualquer editor (VS Code, Bloco de Notas, ou o próprio editor da Hostinger).
 
-**Dados de contato** — em `index.html`, procure por `contato@atalhostudio.com.br`:
+**Dados de contato** — em `index.html`, procure por `contato@pice.com.br`:
 
 - e-mail (aparece 2 vezes: na lista de contato e no atributo `data-to` do formulário);
 - WhatsApp: troque `5511999999999` pelo seu número com DDI e DDD;
-- Instagram: troque `atalho.studio`.
+- Instagram: troque `pice.studio`.
 
 **Números do estúdio** — a seção "Estúdio" tem `15+` e `6–8`. Ajuste para a
 sua realidade.
@@ -74,7 +73,7 @@ O título quebra sozinho em até 15 caracteres por linha e a linha de apoio em
 até 42 (`max-width` em `.hero h1` e `.hero__lead`).
 
 **Domínio** — em `robots.txt` e `sitemap.xml`, troque
-`https://www.atalhostudio.com.br` pelo seu endereço real.
+`https://www.pice.com.br` pelo seu endereço real.
 
 ---
 
@@ -111,10 +110,9 @@ abaixo de 300 KB — o site fica rápido e o Google gosta.
 
 ### O logo
 
-A marca no cabeçalho e no rodapé é **a palavra "atalho" escrita em DM Sans**,
-como texto — não é imagem. Isso deixa tudo nítido em qualquer tela, sem
-download nenhum, e a cor acompanha automaticamente o fundo (clara sobre o hero,
-azul sobre fundo claro).
+A marca no cabeçalho e no rodapé é **a palavra "picê" escrita em DM Sans
+minúscula**, como texto, não como imagem. Fica nítida em qualquer tela, sem
+download nenhum, e a cor acompanha o fundo automaticamente.
 
 Para mudar tamanho ou peso, edite `assets/css/style.css`:
 
@@ -122,26 +120,11 @@ Para mudar tamanho ou peso, edite `assets/css/style.css`:
 .brand{
   font-size: 21px;          /* tamanho */
   font-weight: 600;         /* 300, 400, 600 ou 700 */
-  letter-spacing: -.035em;  /* mais negativo = letras mais juntas */
+  letter-spacing: -.026em;  /* mais negativo = letras mais juntas */
 }
 ```
 
-O arquivo de marca que você enviou continua guardado em
-`assets/img/logo.svg` e `assets/img/logo-branco.svg`. Se quiser voltar a usá-lo,
-troque no HTML das 4 páginas o texto por uma imagem:
-
-```html
-<!-- de -->
-<a class="brand" href="./">atalho</a>
-<!-- para -->
-<a class="brand" href="./" aria-label="Atalho Studio — início">
-  <img src="assets/img/logo.svg" alt="Atalho Studio" style="height:29px;width:auto">
-</a>
-```
-
-(No hero e no rodapé, use `logo-branco.svg`.)
-
-O favicon é a letra "a" da DM Sans em branco sobre o quadrado azul, em
+O favicon é a letra "p" da DM Sans, em papel sobre o ladrilho escuro, em
 `assets/img/favicon.svg`. Não é texto: é o contorno da letra convertido em
 vetor, para não depender de a fonte estar instalada em quem abre o arquivo.
 
@@ -261,11 +244,33 @@ Tudo o que define a aparência está no topo de `assets/css/style.css`, no bloco
 `:root`. Trocar uma variável ali muda o site inteiro:
 
 ```css
---brand:  #182889;  /* azul de destaque */
---ink:    #0d0e13;  /* preto dos blocos escuros */
---paper:  #f4f4f0;  /* off-white de fundo */
---shell:  1240px;   /* largura máxima do conteúdo */
+--ink:    #131211;  /* preto quente dos blocos escuros */
+--fumaca: #b6b2ac;  /* cinza quente das marcas sobre o escuro */
+--paper:  #e4e0d9;  /* papel quente de fundo */
+--shell:  1280px;   /* largura máxima do conteúdo */
 ```
+
+### A paleta
+
+Monocromática e quente: um preto, um cinza e um papel. **Não há cor de
+destaque** — o destaque é o contraste entre eles.
+
+```css
+--preto:  #0a0908;   --ink:    #131211;   /* fundo escuro */
+--ink-2:  #1c1a18;   --ink-3:  #272421;
+--fumaca: #b6b2ac;   /* marcas e traços sobre o escuro */
+--areia:  #dcd7cf;   /* preenchimento suave sobre papel */
+--paper:  #e4e0d9;   --paper-2: #f1eee9;  /* superfícies claras */
+--on-dark:#e9e5df;   /* texto sobre o escuro */
+```
+
+A regra de uso é a inversão: **sobre papel, o elemento de mais peso é o preto;
+sobre o escuro, é o papel**. É por isso que o botão principal do hero é claro e
+o da barra de navegação é escuro, sendo os dois o mesmo botão.
+
+Onde o destaque é fino ou é texto sobre fundo escuro (números das dobras,
+marcadores de lista, linhas da grade do hero), entra o `--fumaca`: o preto
+simplesmente desapareceria ali.
 
 ### A barra de navegação
 
@@ -275,8 +280,8 @@ elemento próprio mesmo quando o fundo abaixo tem a mesma cor. Ao rolar ela grud
 no topo, encolhe um pouco e ganha uma sombra rasa.
 
 Os links são escuros, sem esmaecer, e o retorno ao passar o mouse é um
-sublinhado. O botão "Iniciar projeto" fica azul dentro da barra, para ter
-contraste. O menu mobile usa a mesma superfície.
+sublinhado. O botão "Iniciar projeto" fica preto dentro da barra clara, para
+ter contraste. O menu mobile usa a mesma superfície.
 
 Para mudar a cor da barra, edite `.header` em `assets/css/style.css`:
 
@@ -287,17 +292,9 @@ Para mudar a cor da barra, edite `.header` em `assets/css/style.css`:
 ### O hero
 
 Uma dobra centrada, na ordem: o selo (`.selo`), o título, a linha de apoio e os
-dois botões. O fundo é **preto** (`--ink`) e o azul aparece como única cor de
-destaque: é ele que desenha a grade, a etiqueta do selo e o botão principal.
-
-Sobre o azul há duas variantes, e a diferença importa:
-
-- `--brand` (#182889) é o azul do CTA da barra de navegação, usado em tudo o
-  que é **bloco preenchido**: o botão principal e a etiqueta do selo, sempre com
-  texto branco
-- `--brand-claro` (#5a6ce2) é o mesmo azul clareado, para o que é **fino ou
-  texto sobre fundo escuro**: os números das dobras, os marcadores das listas e
-  as linhas da grade. Ali o `--brand` some no preto
+dois botões. O fundo é o preto quente (`--ink`), o botão principal é claro
+(`--paper`) e a etiqueta do selo é o cinza (`--fumaca`) com texto preto: sobre
+o escuro, quem tem mais peso é o claro.
 
 A grade não é imagem nem canvas: são dois gradientes de uma listra só — um na
 vertical, outro na horizontal — repetidos pelo `background-size`. Três números
@@ -306,10 +303,10 @@ controlam tudo:
 ```css
 .hero{
   --celula: clamp(74px, 7.6vw, 128px);   /* tamanho do quadrado */
-  --grade:  rgba(90, 108, 226, .16);     /* força da linha */
+  --grade:  rgba(233, 229, 223, .10);    /* força da linha */
 }
 .hero::before{
-  --aceso:  rgba(90, 108, 226, .055);    /* quadrados preenchidos */
+  --aceso:  rgba(233, 229, 223, .035);   /* quadrados preenchidos */
 }
 ```
 

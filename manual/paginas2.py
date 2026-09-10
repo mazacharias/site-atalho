@@ -32,7 +32,7 @@ TIPO = """<h1 class="tit">Tipografia</h1>
     <p class="nota" style="margin-top:18px">Os tamanhos com seta são fluidos: <code>clamp()</code> entre o
       valor de celular e o de desktop, sem ponto de quebra no meio.</p>
     <div class="alerta">
-      <div class="rot" style="color:var(--brand)">Ao trocar de fonte</div>
+      <div class="rot" style="color:var(--ink)">Ao trocar de fonte</div>
       <p class="nota" style="margin:7px 0 0;color:var(--ink-70)">O tracking negativo está calibrado para o desenho
         estreito da DM Sans. Numa grotesca mais larga, como a Open Sans, esses valores precisam ficar
         mais negativos; numa mais estreita, menos. Trocar só o <code>font-family</code> desalinha os títulos.</p>
@@ -56,7 +56,7 @@ CSS_TIPO = """
 .tab td{ font-size:11.5px; padding:9px 0; border-bottom:1px solid var(--line-soft); color:var(--ink-70); }
 .tab td:first-child{ color:var(--ink); }
 .tab td+td{ font-variant-numeric:tabular-nums; }
-.alerta{ margin-top:20px; padding:16px 18px; background:var(--brand-tint); }
+.alerta{ margin-top:20px; padding:16px 18px; background:var(--tinta-7); }
 """
 
 # ---------------------------------------------------------- 03 · GRADE
@@ -98,7 +98,7 @@ GRADE = """<h1 class="tit">Grade e espaçamento</h1>
 CSS_GRADE = """
 .gr{ display:grid; grid-template-columns:1.15fr 1fr; gap:52px; }
 .cols{ display:grid; grid-template-columns:repeat(12,1fr); gap:10px; height:150px; }
-.cols i{ background:var(--brand-tint); display:block; }
+.cols i{ background:var(--tinta-7); display:block; }
 .cols-nums{ display:grid; grid-template-columns:repeat(12,1fr); gap:10px; margin-top:7px; }
 .cols-nums span{ font-size:9px; color:var(--ink-35); text-align:center; }
 .usos{ margin-top:22px; display:flex; flex-direction:column; gap:9px; }

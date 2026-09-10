@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Troque o domínio pelo seu antes de enviar ao Google Search Console -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.atalhostudio.com.br/</loc><priority>1.0</priority></url>
-  <url><loc>https://www.atalhostudio.com.br/projeto-01.html</loc><priority>0.8</priority></url>
-  <url><loc>https://www.atalhostudio.com.br/projeto-02.html</loc><priority>0.8</priority></url>
-  <url><loc>https://www.atalhostudio.com.br/projeto-03.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.pice.com.br/</loc><priority>1.0</priority></url>
+  <url><loc>https://www.pice.com.br/projeto-01.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.pice.com.br/projeto-02.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.pice.com.br/projeto-03.html</loc><priority>0.8</priority></url>
 </urlset>

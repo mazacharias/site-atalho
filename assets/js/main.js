@@ -1,5 +1,5 @@
 /* =========================================================
-   ATALHO STUDIO — comportamentos da interface
+   PICÊ — comportamentos da interface
    Sem dependências. Funciona em qualquer hospedagem estática.
    ========================================================= */
 (function () {
@@ -113,15 +113,15 @@
         return;
       }
 
-      var destino = form.getAttribute('data-to') || 'contato@atalhostudio.com.br';
-      var assunto = 'Novo projeto — ' + dados.tipo + ' — ' + dados.nome;
+      var destino = form.getAttribute('data-to') || 'contato@pice.com.br';
+      var assunto = 'Novo projeto: ' + dados.tipo + ' (' + dados.nome + ')';
       var corpo =
         'Nome: ' + dados.nome + '\n' +
         'E-mail: ' + dados.email + '\n' +
         'Tipo de projeto: ' + dados.tipo + '\n' +
         'Prazo desejado: ' + dados.prazo + '\n\n' +
         'Sobre o projeto:\n' + dados.mensagem + '\n\n' +
-        '— enviado pelo site do Atalho Studio';
+        'Enviado pelo site do picê.';
 
       window.location.href = 'mailto:' + destino +
         '?subject=' + encodeURIComponent(assunto) +

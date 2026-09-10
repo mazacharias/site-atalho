@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
-  <rect width="1200" height="900" fill="#e7e9f4"/>
+  <rect width="1200" height="900" fill="#dcd7cf"/>
 
-  <g stroke="#182889" stroke-opacity=".25" stroke-width="1.5"><path d="M300 0V900M600 0V900M900 0V900"/></g>
-  <circle cx="600" cy="450" r="220" fill="#182889"/>
-  <path d="M600 230 V670" stroke="#e7e9f4" stroke-width="2"/>
-  <g opacity=".5" fill="#182889" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="16.2" letter-spacing="1.92">
+  <g stroke="#131211" stroke-opacity=".25" stroke-width="1.5"><path d="M300 0V900M600 0V900M900 0V900"/></g>
+  <circle cx="600" cy="450" r="220" fill="#131211"/>
+  <path d="M600 230 V670" stroke="#dcd7cf" stroke-width="2"/>
+  <g opacity=".5" fill="#131211" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="16.2" letter-spacing="1.92">
     <text x="42" y="868">IMAGEM · SUBSTITUIR</text>
   </g>
 </svg>

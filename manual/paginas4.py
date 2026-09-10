@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 TEXTURA = """<h1 class="tit">A textura do hero</h1>
-<p class="sub">Uma grade de quadrados sobre o preto, com alguns deles acesos.
+<p class="sub">Uma grade de quadrados sobre o preto quente, com alguns deles acesos.
   Não é imagem nem canvas: são dois gradientes de uma listra só, repetidos pelo
   <code>background-size</code> e centrados, para as linhas caírem simétricas em qualquer largura.</p>
 <div class="corpo tx">
@@ -15,8 +15,8 @@ TEXTURA = """<h1 class="tit">A textura do hero</h1>
     <table class="tab" style="margin-top:10px">
       <tr><th>Token</th><th>Valor</th><th>Controla</th></tr>
       <tr><td><code>--celula</code></td><td>74 → 128 px</td><td>Tamanho do quadrado</td></tr>
-      <tr><td><code>--grade</code></td><td>azul-claro 16%</td><td>Força da linha</td></tr>
-      <tr><td><code>--aceso</code></td><td>azul-claro 5,5%</td><td>Quadrados preenchidos</td></tr>
+      <tr><td><code>--grade</code></td><td>papel 10%</td><td>Força da linha</td></tr>
+      <tr><td><code>--aceso</code></td><td>papel 3,5%</td><td>Quadrados preenchidos</td></tr>
     </table>
     <p class="nota" style="margin-top:16px">As duas opacidades vivem no limite do "quase não se vê".
       Subir a da linha transforma a textura em wireframe; subir a dos quadrados faz eles virarem manchas.</p>
@@ -38,7 +38,7 @@ CSS_TEXTURA = """
 .tx{ display:grid; grid-template-columns:1.05fr 1fr; gap:46px; }
 .tx__demo{ position:relative; background:var(--ink); height:100%; min-height:400px; overflow:hidden; }
 .tx__grade{ position:absolute; inset:0;
-  --celula:76px; --grade:rgba(90,108,226,.16); --aceso:rgba(90,108,226,.055);
+  --celula:76px; --grade:rgba(233,229,223,.10); --aceso:rgba(233,229,223,.035);
   background-image:
     linear-gradient(to right,  var(--grade) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grade) 1px, transparent 1px),
@@ -53,7 +53,7 @@ CSS_TEXTURA = """
     calc(50% - 3 * var(--celula)) calc(50% + 1 * var(--celula));
 }
 .tx__veu{ position:absolute; inset:0;
-  background:radial-gradient(ellipse 62% 58% at 50% 50%, #0c0d12 30%, rgba(12,13,18,.60) 68%, rgba(12,13,18,0) 100%); }
+  background:radial-gradient(ellipse 62% 58% at 50% 50%, #131211 30%, rgba(19,18,17,.60) 68%, rgba(19,18,17,0) 100%); }
 .tx__txt{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
   text-align:center; color:var(--on-dark); font-size:31px; font-weight:600;
   letter-spacing:-.026em; line-height:1.05; }
@@ -83,13 +83,13 @@ MOV = """<h1 class="tit">Movimento</h1>
     <div class="mv__n">03</div>
     <h3>O filme da dobra Sistema</h3>
     <p class="nota">Vinte segundos em cinco atos: contato, conversa assíncrona, briefing, cronograma
-      e entregas. Feito em SVG e renderizado quadro a quadro; sai em H.264 (103 KB) e VP9 (212 KB).
+      e entregas. Feito em SVG e renderizado quadro a quadro; sai em H.264 (97 KB) e VP9 (233 KB).
       Nada é baixado antes do clique: até lá existe só a imagem de capa.</p>
     <div class="mv__atos"><i>01</i><i>02</i><i>03</i><i>04</i><i>05</i></div>
   </div>
 </div>
 <div class="mv__rod">
-  <div class="rot" style="color:var(--brand)">Curva e acessibilidade</div>
+  <div class="rot" style="color:var(--ink)">Curva e acessibilidade</div>
   <p class="nota" style="margin:8px 0 0;max-width:none">Toda transição usa a mesma curva,
     <code>cubic-bezier(.22, .61, .36, 1)</code>, guardada no token <code>--ease</code>.
     Com <code>prefers-reduced-motion</code> ligado, a revelação é desligada e os blocos aparecem prontos.
@@ -100,13 +100,13 @@ MOV = """<h1 class="tit">Movimento</h1>
 CSS_MOV = """
 .mv{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
 .mv__c{ border-top:2px solid var(--ink); padding-top:16px; display:flex; flex-direction:column; }
-.mv__n{ font-size:9.5px; font-weight:600; letter-spacing:.16em; color:var(--brand); }
+.mv__n{ font-size:9.5px; font-weight:600; letter-spacing:.16em; color:var(--ink); }
 .mv__c h3{ margin:10px 0 8px; font-size:17px; font-weight:600; letter-spacing:-.015em; }
 .mv__d{ margin-top:auto; padding-top:20px; display:flex; gap:8px; align-items:center; }
-.mv__d > span{ font-size:10px; padding:7px 11px; background:var(--brand-tint); color:var(--ink-70); }
-.mv__bt{ background:var(--brand) !important; color:#fff !important; font-weight:600; padding:10px 15px !important; }
+.mv__d > span{ font-size:10px; padding:7px 11px; background:var(--tinta-7); color:var(--ink-70); }
+.mv__bt{ background:var(--ink) !important; color:var(--paper) !important; font-weight:600; padding:10px 15px !important; }
 .mv__atos{ margin-top:auto; padding-top:20px; display:flex; gap:6px; }
-.mv__atos i{ flex:1; height:30px; background:var(--brand); color:#fff; font-style:normal;
+.mv__atos i{ flex:1; height:30px; background:var(--ink); color:var(--paper); font-style:normal;
   font-size:9.5px; font-weight:600; display:flex; align-items:center; justify-content:center; }
 .mv__atos i:nth-child(1){ opacity:1 }
 .mv__atos i:nth-child(2){ opacity:.85 }

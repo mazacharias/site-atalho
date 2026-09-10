@@ -1,6 +1,6 @@
 # Manual do sistema visual
 
-`atalho-sistema-visual.pdf` — 11 páginas A4 paisagem com cor, tipografia, grade,
+`pice-sistema-visual.pdf` — 11 páginas A4 paisagem com cor, tipografia, grade,
 superfícies, componentes, a textura do hero, movimento, regras e aplicação.
 
 **Este diretório não vai para a hospedagem.** O pacote que sobe para o servidor
@@ -16,7 +16,7 @@ O documento é HTML: uma `<section class="slide pg">` por página, com 1123 × 7
 ```
 python3 montar.py            # gera sistema-visual.html
 node medir.js                # avisa se alguma página estourou a altura
-python3 <caminho>/html_to_pdf.py sistema-visual.html atalho-sistema-visual.pdf
+python3 <caminho>/html_to_pdf.py sistema-visual.html pice-sistema-visual.pdf
 ```
 
 `medir.js` existe porque a página tem `overflow:hidden`: conteúdo a mais é

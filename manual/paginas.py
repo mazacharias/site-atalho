@@ -4,7 +4,7 @@ CAPA = """<section class="slide pg pg--escura capa">
   <div class="capa__grade"></div>
   <div class="capa__véu"></div>
   <div class="capa__conteudo">
-    <div class="capa__marca">atalho</div>
+    <div class="capa__marca">picê</div>
     <h1 class="capa__tit">Sistema visual</h1>
     <p class="capa__sub">O que sustenta o site: cor, tipografia, grade, superfícies,
       componentes e as regras que mantêm tudo consistente.</p>
@@ -20,7 +20,7 @@ CAPA = """<section class="slide pg pg--escura capa">
     <li><span>08</span>Regras</li>
     <li><span>09</span>Aplicação</li>
   </ol>
-  <div class="capa__pe"><span class="micro">Atalho Studio · São Paulo</span><span class="micro">Versão 1 · 2026</span></div>
+  <div class="capa__pe"><span class="micro">picê · São Paulo</span><span class="micro">Versão 1 · 2026</span></div>
 </section>
 """
 
@@ -28,7 +28,7 @@ CSS_CAPA = """
 .capa{ padding:0; }
 .capa__grade{
   position:absolute; inset:0;
-  --celula:96px; --grade:rgba(90,108,226,.16); --aceso:rgba(90,108,226,.055);
+  --celula:96px; --grade:rgba(233,229,223,.10); --aceso:rgba(233,229,223,.035);
   background-image:
     linear-gradient(to right,  var(--grade) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grade) 1px, transparent 1px),
@@ -49,7 +49,7 @@ CSS_CAPA = """
    o PDF do Chromium desenha gradiente, mas não desenha mask-image */
 .capa__véu{
   position:absolute; inset:0;
-  background:radial-gradient(ellipse 58% 62% at 34% 50%, #0c0d12 30%, rgba(12,13,18,.55) 62%, rgba(12,13,18,0) 100%);
+  background:radial-gradient(ellipse 58% 62% at 34% 50%, #131211 30%, rgba(19,18,17,.55) 62%, rgba(19,18,17,0) 100%);
 }
 .capa__conteudo{ position:absolute; left:64px; top:214px; }
 .capa__marca{ font-size:30px; font-weight:600; letter-spacing:-.03em; line-height:1; color:var(--on-dark); }
@@ -61,7 +61,7 @@ CSS_CAPA = """
   border-top:1px solid var(--on-dark-line); font-size:13px; color:var(--on-dark-70);
 }
 .capa__indice li:last-child{ border-bottom:1px solid var(--on-dark-line); }
-.capa__indice span{ font-size:9.5px; font-weight:600; letter-spacing:.14em; color:var(--brand-claro); }
+.capa__indice span{ font-size:9.5px; font-weight:600; letter-spacing:.14em; color:var(--fumaca); }
 .capa__pe{ position:absolute; left:64px; right:64px; bottom:54px; display:flex; justify-content:space-between; }
 """
 
@@ -76,56 +76,54 @@ def amostra(nome, valor, uso, escura=False):
 </div>"""
 
 COR = """<h1 class="tit">Cor</h1>
-<p class="sub">Um azul, um preto e um papel. Todo o resto é opacidade sobre esses três.
-  A regra que mais importa: o azul cheio (<code>--brand</code>) só entra em bloco preenchido;
-  para texto fino ou traço sobre fundo escuro, use a versão clara.</p>
+<p class="sub">Um preto, um cinza e um papel, todos quentes. <b>Não existe cor de destaque</b>:
+  o destaque é o contraste entre eles. A regra que mais importa é a inversão: sobre papel,
+  o elemento de mais peso é o preto; sobre o escuro, é o papel.</p>
 <div class="corpo">
-  <div class="rot" style="margin-bottom:12px">Azul da marca</div>
+  <div class="rot" style="margin-bottom:12px">Escuros</div>
   <div class="grade-am">
 """ + "".join([
-  amostra('--brand',      '#182889', 'Botão principal, etiqueta do selo, números sobre fundo claro'),
-  amostra('--brand-deep', '#0f1a5e', 'Estado :hover do botão principal'),
-  amostra('--brand-claro','#5a6ce2', 'Texto e traço finos sobre fundo escuro'),
-  amostra('--brand-lift', '#23359f', 'Realce em superfícies azuis'),
-  amostra('--brand-soft', '#e7e9f4', 'Preenchimento suave sobre papel'),
-  amostra('--brand-tint', 'rgba(24,40,137,.08)', 'Fundo de marcador e de barra'),
+  amostra('--preto',  '#0a0908', 'Estado :hover do que já é preto'),
+  amostra('--ink',    '#131211', 'Fundo do hero e das dobras escuras; texto e blocos cheios sobre papel'),
+  amostra('--ink-2',  '#1c1a18', 'Superfície elevada dentro do escuro; fundo do vídeo'),
+  amostra('--ink-3',  '#272421', 'Terceiro plano, uso pontual'),
 ]) + """
   </div>
-  <div class="rot" style="margin:20px 0 12px">Neutros</div>
+  <div class="rot" style="margin:20px 0 12px">Claros</div>
   <div class="grade-am">
 """ + "".join([
-  amostra('--ink',     '#0c0d12', 'Fundo do hero e das dobras escuras; texto sobre papel'),
-  amostra('--ink-2',   '#16181f', 'Segundo plano dentro do escuro'),
-  amostra('--paper',   '#f4f4f1', 'Fundo das dobras claras'),
-  amostra('--paper-2', '#fafaf8', 'Cartões e campos sobre papel'),
-  amostra('--on-dark', '#f2f2ee', 'Texto sobre fundo escuro'),
+  amostra('--fumaca',  '#b6b2ac', 'Marcas e traços sobre o escuro: números, marcadores, grade, etiqueta do selo'),
+  amostra('--areia',   '#dcd7cf', 'Preenchimento suave sobre papel'),
+  amostra('--paper',   '#e4e0d9', 'Fundo das dobras claras; botão principal sobre o escuro'),
+  amostra('--paper-2', '#f1eee9', 'Cartões e campos sobre papel'),
+  amostra('--on-dark', '#e9e5df', 'Texto sobre fundo escuro'),
 ]) + """
   </div>
   <div class="op">
     <div><div class="rot">Sobre papel</div>
       <ul><li><code>--ink-70</code> · texto corrido</li><li><code>--ink-50</code> · apoio</li>
-      <li><code>--ink-35</code> · rótulo micro</li><li><code>--line</code> · 13% · régua</li>
-      <li><code>--line-soft</code> · 7% · divisória interna</li></ul></div>
+      <li><code>--ink-35</code> · rótulo micro</li><li><code>--line</code> · 15% · régua</li>
+      <li><code>--line-soft</code> · 8% · divisória interna</li></ul></div>
     <div><div class="rot">Sobre escuro</div>
       <ul><li><code>--on-dark-70</code> · texto corrido</li><li><code>--on-dark-45</code> · rótulo micro</li>
-      <li><code>--on-dark-line</code> · 15% · régua</li>
-      <li><code>--line-dark</code> · azul-claro a 42% · borda do selo</li></ul></div>
-    <div><div class="rot">Contraste</div>
-      <p class="nota" style="margin:8px 0 0">#182889 sobre #0c0d12 fica em 1,3:1 e some.
-      É por isso que existe o <code>--brand-claro</code>: mesma matiz e saturação,
-      clareado até passar de 5:1.</p></div>
+      <li><code>--on-dark-line</code> · 14% · régua</li>
+      <li><code>--line-dark</code> · fumaça a 38% · borda do selo</li></ul></div>
+    <div><div class="rot">Por que o cinza existe</div>
+      <p class="nota" style="margin:8px 0 0">O preto sobre o escuro fica em 1,1:1 e desaparece.
+      Onde o destaque é fino ou é texto sobre fundo escuro, quem entra é o
+      <code>--fumaca</code>, que passa de 8:1 sobre o <code>--ink</code>.</p></div>
   </div>
 </div>"""
 
 CSS_COR = """
 .grade-am{ display:grid; grid-template-columns:repeat(6,1fr); gap:14px; }
-.am__chip{ height:58px; border:1px solid var(--line); }
+.am__chip{ height:50px; border:1px solid var(--line); }
 .am__chip.branco{ border-color:var(--line); }
 .am__nome{ margin-top:9px; font-size:11.5px; font-weight:600; letter-spacing:-.01em; }
 .am__hex{ font-size:11px; color:var(--ink-50); margin-top:2px; }
-.am__uso{ margin-top:6px; font-size:10.5px; line-height:1.5; color:var(--ink-50); }
-.op{ display:grid; grid-template-columns:repeat(3,1fr); gap:34px; margin-top:22px;
-     padding-top:16px; border-top:1px solid var(--line); }
+.am__uso{ margin-top:6px; font-size:10.5px; line-height:1.42; color:var(--ink-50); }
+.op{ display:grid; grid-template-columns:repeat(3,1fr); gap:30px; margin-top:18px;
+     padding-top:14px; border-top:1px solid var(--line); }
 .op ul{ margin:8px 0 0; padding:0; list-style:none; }
 .op li{ font-size:11.5px; line-height:1.7; color:var(--ink-70); }
 """
