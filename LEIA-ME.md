@@ -115,14 +115,17 @@ três peças, em `assets/img/`:
 
 | arquivo | o que é | onde entra |
 | --- | --- | --- |
-| `logo.svg` | lockup completo, símbolo e logotipo | cabeçalho e rodapé |
-| `simbolo.svg` | só o símbolo, numa caixa quadrada | motivo do hero |
-| `favicon.svg` | o símbolo em branco sobre ladrilho preto | aba do navegador |
+| `logo.svg` | lockup completo, monograma e logotipo | cabeçalho e rodapé |
+| `simbolo.svg` | só o monograma, numa caixa quadrada | avulso, onde o lockup não cabe |
+| `favicon.svg` | o monograma sobre ladrilho preto | aba do navegador |
 
 Os três são contorno vetorial, não texto, então não dependem de fonte nenhuma
-instalada. A cor está fixa em `#333333` porque o site inteiro é claro; se
-algum dia aparecer uma dobra escura, troque por `currentColor` e deixe o CSS
-mandar.
+instalada.
+
+**O monograma é verde e o logotipo é preto.** É o uso mais visível da única
+cor da marca. Sobre claro o verde fica em 1,63:1, o que seria ilegível para
+texto, mas aqui ele é forma cheia e não letra; no ladrilho do favicon, onde
+ele é a informação, o fundo preto leva o contraste para 7,56:1.
 
 O tamanho é controlado pela **altura**, e a largura acompanha sozinha, para a
 proporção do arquivo nunca ser forçada:
@@ -288,7 +291,8 @@ E ele aparece em pouquíssimos lugares, de propósito:
 - a etiqueta "Novo" do selo do hero;
 - os marcadores das listas de serviço;
 - o marco final do cronograma;
-- a lavagem por trás do título do hero e alguns pontos dos anéis;
+- a lavagem por trás do título do hero;
+- o monograma do logo;
 - a borda do campo em foco.
 
 Fora dessa lista a página é preta e branca. O botão principal é preto em toda
@@ -334,10 +338,11 @@ Uma dobra centrada, na ordem: o selo (`.selo`), o título, a linha de apoio e os
 dois botões. O fundo é branco, o botão principal é preto e a etiqueta do selo
 é verde com texto preto.
 
-O motivo do fundo são **anéis concêntricos**. Havia aqui uma grade de
-quadrados, e ela deixou de funcionar quando o logo passou a ser arredondado:
-quadrado nenhum conversava com ele. Os anéis são o equivalente redondo, e
-partem do centro, o que os deixa concêntricos ao título em qualquer largura.
+O motivo do fundo são **anéis concêntricos**, e mais nada. Havia aqui uma
+grade de quadrados, e ela deixou de funcionar quando o logo passou a ser
+arredondado: quadrado nenhum conversava com ele. Os anéis são o equivalente
+redondo, e partem do centro, o que os deixa concêntricos ao título em
+qualquer largura.
 
 O fundo tem duas camadas. A de baixo (`.hero::after`) é a **lavagem**: o verde
 saindo de trás do título, largo e fraco. É o único lugar em que a cor aparece
@@ -357,25 +362,12 @@ A de cima (`.hero::before`) são os **anéis**. Não é imagem nem canvas: é um
 A opacidade do anel precisa ficar no limite de "quase não se vê": subir
 transforma o fundo em alvo de tiro.
 
-**Os pontos** são quatro círculos cheios, dois verdes e dois pretos, camadas
-`no-repeat` posicionadas a partir do centro em múltiplos de `--passo`, para
-pousarem sobre os anéis:
-
-```css
-background-position: … , calc(50% - 3 * var(--passo)) calc(50% - 2 * var(--passo)), … ;
-```
-
-Para mudar onde eles ficam, troque os pares de números; para ter mais ou menos,
-acrescente ou remova uma camada em `background-image`, `background-repeat`,
-`background-size` e `background-position` ao mesmo tempo: as quatro listas
-precisam ter o mesmo número de itens.
-
-**A máscara** apaga a grade no meio, onde fica o texto, e a devolve em direção
+**A máscara** apaga os anéis no meio, onde fica o texto, e a devolve em direção
 às bordas:
 
 ```css
-mask-image: radial-gradient(ellipse 62% 58% at 50% 50%,
-            transparent 30%, rgba(0,0,0,.40) 68%, #000 100%);
+mask-image: radial-gradient(ellipse 60% 56% at 50% 50%,
+            transparent 34%, rgba(0,0,0,.45) 70%, #000 100%);
 ```
 
 Sem ela a textura corre de ponta a ponta e briga com o título. Ela precisa

@@ -217,39 +217,14 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
    só, com o anel ocupando 1 px de cada `--passo`. Como ele parte do
    centro, os anéis ficam concêntricos ao título em qualquer largura.
 
-   Sobre eles vêm quatro círculos cheios, camadas `no-repeat` posicionadas
-   a partir do centro, que pousam sobre os anéis como marcas.
-
    A máscara apaga tudo no meio, onde fica o texto, e devolve em direção
    às bordas. Fica num pseudo-elemento porque, no `.hero`, ela apagaria
    também o texto.                                                       */
 .hero::before{
   content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
-  /* os quatro marcos sobre os anéis são o próprio símbolo da marca, em
-     miniatura: dois no verde e dois no preto, em duas orientações. Cada um
-     vem centrado numa tela de 100x100, para o `background-position` em
-     porcentagem pousar o centro dele exatamente sobre o anel.            */
-  --m1:url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22 fill=%22%25232de2aa%22><g transform=%22rotate%280 50 50%29%22><g transform=%22translate%2840.500 40.500%29 scale%280.10445%29%22><path d=%22M64.98%2C129.94h64.96v33.6c0%2C10.13-8.21%2C18.37-18.37%2C18.37-4.88%2C0-9.55-1.95-12.99-5.38L5.38%2C83.35c-3.44-3.46-5.38-8.14-5.38-13.01s2.07-9.65%2C5.38-12.99c3.33-3.33%2C7.93-5.38%2C13.01-5.38h33.58v64.98c0%2C7.18%2C5.84%2C12.99%2C13.01%2C12.99Z%22/><path d=%22M181.91%2C111.57c0%2C10.13-8.21%2C18.37-18.37%2C18.37h-33.6v-64.98c0-7.18-5.81-12.99-12.99-12.99H51.97V18.37c0-10.13%2C8.24-18.37%2C18.39-18.37%2C4.88%2C0%2C9.55%2C1.95%2C12.99%2C5.38l93.18%2C93.18c3.46%2C3.46%2C5.38%2C8.14%2C5.38%2C13.01Z%22/></g></g></svg>");
-  --m2:url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22 fill=%22%2523333333%22><g transform=%22rotate%2890 50 50%29%22><g transform=%22translate%2840.500 40.500%29 scale%280.10445%29%22><path d=%22M64.98%2C129.94h64.96v33.6c0%2C10.13-8.21%2C18.37-18.37%2C18.37-4.88%2C0-9.55-1.95-12.99-5.38L5.38%2C83.35c-3.44-3.46-5.38-8.14-5.38-13.01s2.07-9.65%2C5.38-12.99c3.33-3.33%2C7.93-5.38%2C13.01-5.38h33.58v64.98c0%2C7.18%2C5.84%2C12.99%2C13.01%2C12.99Z%22/><path d=%22M181.91%2C111.57c0%2C10.13-8.21%2C18.37-18.37%2C18.37h-33.6v-64.98c0-7.18-5.81-12.99-12.99-12.99H51.97V18.37c0-10.13%2C8.24-18.37%2C18.39-18.37%2C4.88%2C0%2C9.55%2C1.95%2C12.99%2C5.38l93.18%2C93.18c3.46%2C3.46%2C5.38%2C8.14%2C5.38%2C13.01Z%22/></g></g></svg>");
-  --m3:url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22 fill=%22%25232de2aa%22><g transform=%22rotate%2890 50 50%29%22><g transform=%22translate%2840.500 40.500%29 scale%280.10445%29%22><path d=%22M64.98%2C129.94h64.96v33.6c0%2C10.13-8.21%2C18.37-18.37%2C18.37-4.88%2C0-9.55-1.95-12.99-5.38L5.38%2C83.35c-3.44-3.46-5.38-8.14-5.38-13.01s2.07-9.65%2C5.38-12.99c3.33-3.33%2C7.93-5.38%2C13.01-5.38h33.58v64.98c0%2C7.18%2C5.84%2C12.99%2C13.01%2C12.99Z%22/><path d=%22M181.91%2C111.57c0%2C10.13-8.21%2C18.37-18.37%2C18.37h-33.6v-64.98c0-7.18-5.81-12.99-12.99-12.99H51.97V18.37c0-10.13%2C8.24-18.37%2C18.39-18.37%2C4.88%2C0%2C9.55%2C1.95%2C12.99%2C5.38l93.18%2C93.18c3.46%2C3.46%2C5.38%2C8.14%2C5.38%2C13.01Z%22/></g></g></svg>");
-  --m4:url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22 fill=%22%2523333333%22><g transform=%22rotate%280 50 50%29%22><g transform=%22translate%2840.500 40.500%29 scale%280.10445%29%22><path d=%22M64.98%2C129.94h64.96v33.6c0%2C10.13-8.21%2C18.37-18.37%2C18.37-4.88%2C0-9.55-1.95-12.99-5.38L5.38%2C83.35c-3.44-3.46-5.38-8.14-5.38-13.01s2.07-9.65%2C5.38-12.99c3.33-3.33%2C7.93-5.38%2C13.01-5.38h33.58v64.98c0%2C7.18%2C5.84%2C12.99%2C13.01%2C12.99Z%22/><path d=%22M181.91%2C111.57c0%2C10.13-8.21%2C18.37-18.37%2C18.37h-33.6v-64.98c0-7.18-5.81-12.99-12.99-12.99H51.97V18.37c0-10.13%2C8.24-18.37%2C18.39-18.37%2C4.88%2C0%2C9.55%2C1.95%2C12.99%2C5.38l93.18%2C93.18c3.46%2C3.46%2C5.38%2C8.14%2C5.38%2C13.01Z%22/></g></g></svg>");
   background-image:
     repeating-radial-gradient(circle at 50% 50%,
-      transparent 0 calc(var(--passo) - 1px), var(--anel) calc(var(--passo) - 1px) var(--passo)),
-    var(--m1), var(--m2), var(--m3), var(--m4);
-  background-repeat:no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
-  background-size:
-    100% 100%,
-    calc(2 * var(--passo)) calc(2 * var(--passo)),
-    calc(2 * var(--passo)) calc(2 * var(--passo)),
-    calc(2 * var(--passo)) calc(2 * var(--passo)),
-    calc(2 * var(--passo)) calc(2 * var(--passo));
-  background-position:
-    center center,
-    calc(50% - 3 * var(--passo)) calc(50% - 2 * var(--passo)),
-    calc(50% + 4 * var(--passo)) calc(50% + 1 * var(--passo)),
-    calc(50% + 2 * var(--passo)) calc(50% - 3 * var(--passo)),
-    calc(50% - 5 * var(--passo)) calc(50% + 2 * var(--passo));
+      transparent 0 calc(var(--passo) - 1px), var(--anel) calc(var(--passo) - 1px) var(--passo));
   -webkit-mask-image:radial-gradient(ellipse 60% 56% at 50% 50%, transparent 34%, rgba(0,0,0,.45) 70%, #000 100%);
           mask-image:radial-gradient(ellipse 60% 56% at 50% 50%, transparent 34%, rgba(0,0,0,.45) 70%, #000 100%);
 }
