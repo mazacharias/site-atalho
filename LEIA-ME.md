@@ -306,14 +306,6 @@ A elevação é uma sombra só, `--sombra`, com as duas camadas a 3%. Ela não
 muda em nenhum estado: quem separa o cartão do fundo é a borda em `--line`,
 e a sombra apenas sugere a altura.
 
-### As guias tracejadas
-
-Duas linhas tracejadas correm pela página inteira, nas margens. São um elemento
-fixo (`.guias`), não uma borda de cada dobra: assim a linha não quebra na emenda
-entre uma dobra e outra. Precisa de `z-index` acima das dobras, senão o fundo
-opaco de cada uma a cobre. Abaixo de 860 px elas somem, porque o conteúdo passa
-a encostar nas margens.
-
 ### A barra de navegação
 
 A barra fica colada no topo e é translúcida: o fundo é o `--cinza` a 82% com

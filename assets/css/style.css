@@ -72,24 +72,11 @@ ul,ol{ margin:0; padding:0; list-style:none; }
 
 /* ---------- 3. Estrutura ---------- */
 .shell{ width:100%; max-width:var(--shell); margin-inline:auto; padding-inline:var(--gut); }
-/* As duas guias tracejadas que correm pela página inteira. Ficam na
-   margem, fora da coluna de conteúdo, e são um elemento fixo em vez de
-   uma borda por dobra: assim a linha não quebra na emenda entre uma
-   dobra e outra nem encosta na borda dos cartões. Precisa de z-index
-   acima das dobras, senão o fundo opaco de cada uma a cobre.           */
-.guias{ position:fixed; inset:0; z-index:2; pointer-events:none; }
-.guias::before,.guias::after{
-  content:''; position:absolute; top:0; bottom:0; width:0;
-  border-left:1px dashed rgba(51, 51, 51, .13);
-}
-.guias::before{ left:clamp(16px, 2.4vw, 38px); }
-.guias::after { right:clamp(16px, 2.4vw, 38px); }
 .header,.hero,.section,.footer,.p-hero{ position:relative; }
 .section{ padding-block:var(--section); }
 section[id]{ scroll-margin-top:90px; }
 /* Nenhuma dobra é escura. A alternância é só de valor, entre o chão da
-   página e o branco puro; quem dá o ritmo de verdade são os cartões e
-   os blocos de cor.                                                    */
+   página e o branco puro; quem dá o ritmo de verdade são os cartões.  */
 .s-white{ background:var(--white); }
 .s-cinza{ background:var(--cinza); }
 
@@ -635,7 +622,6 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
   .gallery img:first-child,.gallery img:last-child{ grid-column:1 / 13; }
 }
 @media (max-width: 860px){
-  .guias{ display:none; }
   .nav{ display:none; }
   .burger{ display:flex; width:46px; height:46px; margin-right:-9px; }
   .header__cta .btn{ display:none; }
@@ -718,7 +704,7 @@ body.nav-open .drawer{ opacity:1; visibility:visible; transform:none; }
 
 /* ---------- 19. Impressão ---------- */
 @media print{
-  .header,.drawer,.burger,.form,.video__btn,.guias{ display:none !important; }
+  .header,.drawer,.burger,.form,.video__btn{ display:none !important; }
   body{ background:#fff; color:#000; }
   .s-white,.s-cinza,.hero,.footer{ background:#fff !important; }
   .hero::before,.hero::after{ display:none !important; }
