@@ -1,4 +1,4 @@
-# picê — site
+# Liveno — site
 
 Site estático (HTML, CSS e JavaScript puros). Não precisa de build, Node, banco
 de dados nem plugin. Basta enviar os arquivos para a hospedagem.
@@ -45,7 +45,7 @@ assets/fonts/         DM Sans hospedada no próprio site
 assets/video/sistema.mp4   vídeo da seção Sistema (H.264, 103 KB)
 assets/video/sistema.webm  o mesmo vídeo em WebM, para quem suporta
 assets/img/sistema-poster.jpg  quadro que aparece antes do play
-assets/img/favicon.svg  ícone da aba do navegador (o "p" da picê)
+assets/img/favicon.svg  ícone da aba do navegador (o símbolo da Liveno)
 assets/img/*.svg        imagens dos projetos (espaços reservados)
 ```
 
@@ -56,11 +56,11 @@ assets/img/*.svg        imagens dos projetos (espaços reservados)
 Tudo abaixo é texto simples dentro dos arquivos `.html` — pode editar em
 qualquer editor (VS Code, Bloco de Notas, ou o próprio editor da Hostinger).
 
-**Dados de contato** — em `index.html`, procure por `contato@pice.com.br`:
+**Dados de contato** — em `index.html`, procure por `contato@liveno.com.br`:
 
 - e-mail (aparece 2 vezes: na lista de contato e no atributo `data-to` do formulário);
 - WhatsApp: troque `5511999999999` pelo seu número com DDI e DDD;
-- Instagram: troque `pice.studio`.
+- Instagram: troque `liveno.studio`.
 
 **Números do estúdio** — a seção "Estúdio" tem `15+` e `6–8`. Ajuste para a
 sua realidade.
@@ -73,7 +73,7 @@ O título quebra sozinho em até 15 caracteres por linha e a linha de apoio em
 até 42 (`max-width` em `.hero h1` e `.hero__lead`).
 
 **Domínio** — em `robots.txt` e `sitemap.xml`, troque
-`https://www.pice.com.br` pelo seu endereço real.
+`https://www.liveno.com.br` pelo seu endereço real.
 
 ---
 
@@ -110,24 +110,30 @@ abaixo de 300 KB — o site fica rápido e o Google gosta.
 
 ### O logo
 
-A marca no cabeçalho e no rodapé é **a palavra "picê" escrita em DM Sans
-minúscula**, como texto, não como imagem. Fica nítida em qualquer tela, sem
-download nenhum, e a cor acompanha o fundo automaticamente.
+O arquivo original está em `manual/liveno-original.svg`, intocado. Dele saem
+três peças, em `assets/img/`:
 
-Para mudar tamanho ou peso, edite `assets/css/style.css`:
+| arquivo | o que é | onde entra |
+| --- | --- | --- |
+| `logo.svg` | lockup completo, símbolo e logotipo | cabeçalho e rodapé |
+| `simbolo.svg` | só o símbolo, numa caixa quadrada | motivo do hero |
+| `favicon.svg` | o símbolo em branco sobre ladrilho preto | aba do navegador |
+
+Os três são contorno vetorial, não texto, então não dependem de fonte nenhuma
+instalada. A cor está fixa em `#333333` porque o site inteiro é claro; se
+algum dia aparecer uma dobra escura, troque por `currentColor` e deixe o CSS
+mandar.
+
+O tamanho é controlado pela **altura**, e a largura acompanha sozinha, para a
+proporção do arquivo nunca ser forçada:
 
 ```css
-.brand{
-  font-size: 21px;          /* tamanho */
-  font-weight: 600;         /* 300, 400, 600 ou 700 */
-  letter-spacing: -.026em;  /* mais negativo = letras mais juntas */
-}
+.brand img{ height:22px; width:auto; }        /* cabeçalho */
+.footer__brand .brand img{ height:26px; }     /* rodapé */
 ```
 
-O favicon é **provisório**: a letra "p" da DM Sans em branco sobre um ladrilho
-preto arredondado, em `assets/img/favicon.svg`. Ele deve ser trocado pelo
-símbolo do logo assim que o arquivo entrar. Não é texto: é o contorno da letra convertido em
-vetor, para não depender de a fonte estar instalada em quem abre o arquivo.
+O logotipo "liveno" **não é DM Sans**: é a fonte do próprio logo, já em
+contorno. A DM Sans continua valendo para todo o resto da página.
 
 ### A fonte
 

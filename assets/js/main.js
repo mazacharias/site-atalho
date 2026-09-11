@@ -1,5 +1,5 @@
 /* =========================================================
-   PICÊ — comportamentos da interface
+   LIVENO — comportamentos da interface
    Sem dependências. Funciona em qualquer hospedagem estática.
    ========================================================= */
 (function () {
@@ -113,7 +113,7 @@
         return;
       }
 
-      var destino = form.getAttribute('data-to') || 'contato@pice.com.br';
+      var destino = form.getAttribute('data-to') || 'contato@liveno.com.br';
       var assunto = 'Novo projeto: ' + dados.tipo + ' (' + dados.nome + ')';
       var corpo =
         'Nome: ' + dados.nome + '\n' +
@@ -121,7 +121,7 @@
         'Tipo de projeto: ' + dados.tipo + '\n' +
         'Prazo desejado: ' + dados.prazo + '\n\n' +
         'Sobre o projeto:\n' + dados.mensagem + '\n\n' +
-        'Enviado pelo site do picê.';
+        'Enviado pelo site do Liveno.';
 
       window.location.href = 'mailto:' + destino +
         '?subject=' + encodeURIComponent(assunto) +

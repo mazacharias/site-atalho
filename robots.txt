@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Troque pelo seu domínio depois de publicar
-Sitemap: https://www.pice.com.br/sitemap.xml
+Sitemap: https://www.liveno.com.br/sitemap.xml
